@@ -6,9 +6,13 @@ date: 2024-06-06 00:00:00+0000
 image: es3.png
 categories:
     - Web Development
+    - Machine Learning
+    - RPA
 tags:
     - Python
     - Django
+    - Html, Css, Js
+    - Git, Github
     - Docker
     - Scrum
     - Kanban
@@ -20,5 +24,8 @@ weight: 1       # You can add weight to some posts to override the default sorti
 	- Aplicación y desarrollo de nuevas técnicas de minería de decisiones basadas en Machine Learning (especialidad de la minería de procesos) que lograsen encontrar conocimiento a través de reglas no deterministas en las decisiones de los usuarios.
 	- Generación automática de reportes empresariales entendibles por los analístas donde se desglosaban todo el conocimiento extraído por la plataforma tras su ejecución.
 
+Memoria del trabajo fin de grado relacpionado con este proyexto:
+[Visualizar pdf](memoria-tfg.pdf)
 
+Vídeo ejemplo:
 {{< video src="/video-screenrpa.mp4" >}}
