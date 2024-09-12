@@ -1,5 +1,5 @@
 # Change baseurl before deploy
-baseurl = "https://demo.stack.jimmycai.com"
+baseurl = "https://aleingmar-pi-portfolio.duckdns.org"
 languageCode = "en-us"
 title = "Alejandro Inglés Martínez Proyects"
 
