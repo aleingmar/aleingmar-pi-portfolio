@@ -1,6 +1,6 @@
 ---
-title: Example Category
-description: A description of this category
+title: Web Development
+description: Web development projects
 image:
 
 # Badge style
