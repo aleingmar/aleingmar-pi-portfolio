@@ -3,7 +3,7 @@ title: Base de datos para la gestión del equipamiento de quirófanos.
 description: Base de datos relacional para la gestión de instalaciones y equipamientos electromédicos de quirófanos.
 slug: bd-quirofano
 date: 2021-04-01 00:00:00+0000
-image: bd-quirofano.png
+image: bd.png
 categories:
     - Bases de Datos
 tags:
