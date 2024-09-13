@@ -2,7 +2,7 @@
 title: Computación paralela en sistemas distribuidos con MPI.
 description: Programas escrito de forma paralela en C con MPI para cálcular el producto vectorial de vectores y para calcular integrales con el método de los trapecios aprovechando las múltiples máquinas del clúster donde se ejecuta. 
 slug: mpi-assb
-date: 2024-04-01 00:00:00+0000
+date: 2023-11-01 00:00:00+0000
 image: mpi-logo.png
 categories:
     - Programación paralela

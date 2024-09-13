@@ -2,7 +2,7 @@
 title: Computación paralela en procesadores multinúcleos con OpenMP.
 description: Programa escrito de forma paralela en C con OpenMP que cálcula el valor del número Pi mediante el método Montecarlo aprovechando los múltiples núcleos del procesador multinúcleo de la máquina donde se ejecuta.  
 slug: openmp-assb
-date: 2024-02-01 00:00:00+0000
+date: 2023-10-01 00:00:00+0000
 image: openmp-logo.png
 categories:
     - Programación paralela
