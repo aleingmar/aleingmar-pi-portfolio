@@ -1,8 +1,8 @@
 ---
-title: Gestión de jornadas laborales
-description: Gestión de accesos y jornadas laborales de profesionales sanitarios
+title: Desarrollo de aplicación web
+description: Desarrollo de plataforma web para la gestión de accesos y jornadas laborales de profesionales sanitarios
 slug: cgis-laravel-jornadas
-date: 2021-01-06 00:00:00+0000
+date: 2022-01-01 00:00:00+0000
 image: logo-laravel.png
 categories:
     - Web Development
