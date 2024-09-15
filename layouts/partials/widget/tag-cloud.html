@@ -1,0 +1,94 @@
+{{- $context := .Context -}}
+{{- $limit := default 100 .Params.limit -}} <!-- Establecemos un límite alto para cargar suficientes tags -->
+
+<section class="widget tagCloud">
+    <div class="widget-icon">
+        {{ partial "helper/icon" "tag" }}
+    </div>
+    <h2 class="widget-title section-title">{{ T "widget.tagCloud.title" }}</h2>
+
+    <div id="tagCloud-tags" class="tagCloud-tags">
+        {{ range first $limit $context.Site.Taxonomies.tags.ByCount }}
+            <a href="{{ .Page.RelPermalink }}" class="font_size_{{ .Count }}">
+                {{ .Page.Title }}
+            </a>
+        {{ end }}
+    </div>
+
+    <!-- Indicadores de paginación (puntos) -->
+    <div id="pagination-dots" class="pagination-dots">
+        <!-- Aquí se insertarán los puntos con JavaScript -->
+    </div>
+
+    <!-- JavaScript para manejar la paginación de los tags con puntos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tagsPerPage = 15;  // Cantidad de tags por página
+            const tags = document.querySelectorAll("#tagCloud-tags a");
+            const totalPages = Math.ceil(tags.length / tagsPerPage);
+            let currentPage = 1;
+
+            // Función para mostrar la página actual
+            function showPage(page) {
+                // Ocultar todos los tags
+                tags.forEach(tag => tag.style.display = "none");
+
+                // Mostrar solo los tags de la página actual
+                const start = (page - 1) * tagsPerPage;
+                const end = start + tagsPerPage;
+                for (let i = start; i < end && i < tags.length; i++) {
+                    tags[i].style.display = "inline-block";
+                }
+
+                // Actualizar los puntos de paginación
+                const dots = document.querySelectorAll(".pagination-dot");
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle("active", index + 1 === page);
+                });
+            }
+
+            // Crear los puntos de paginación
+            const paginationDots = document.getElementById("pagination-dots");
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement("span");
+                dot.classList.add("pagination-dot");
+                if (i === currentPage) dot.classList.add("active");
+                dot.addEventListener("click", function() {
+                    currentPage = i;
+                    showPage(currentPage);
+                });
+                paginationDots.appendChild(dot);
+            }
+
+            // Mostrar la primera página al cargar
+            showPage(currentPage);
+        });
+    </script>
+</section>
+
+<style>
+/* Estilos para los puntos de paginación */
+.pagination-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.pagination-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-dot.active {
+    background-color: #333;
+}
+
+.pagination-dot:hover {
+    background-color: #666;
+}
+</style>

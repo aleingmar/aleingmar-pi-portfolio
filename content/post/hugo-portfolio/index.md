@@ -16,6 +16,7 @@ tags:
     - Git, Github
     - Html, Css, Js
     - Vs Code
+    - RPI5
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Este proyecto personal tiene como objetivo no solo crear una página web que reúna todos los proyectos que he desarrollado durante mi carrera académica y personal, sino también desplegarla en mi propio servidor, haciéndola accesible de manera segura desde Internet.
