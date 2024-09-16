@@ -1,4 +1,5 @@
 # Configure main menu and social menu
+# ICONS --> https://tabler.io/icons
 #[[main]]
 #identifier = "home"
 #name = "Home"
@@ -24,9 +25,9 @@ url = "https://www.linkedin.com/in/alejandro-ingl%C3%A9s-mart%C3%ADnez-4ba726298
 icon = "brand-linkedin"
 
 [[social]]
-identifier = "twitter"
-name = "twitter"
-url = "https://www.linkedin.com/in/alejandro-ingl%C3%A9s-mart%C3%ADnez-4ba726298/"
+identifier = "cv"
+name = "cv"
+url = "/CV-AlejandroIngles-10-09-24.pdf"
 
 [social.params]
-icon = "brand-twitter"
+icon = "file-cv"
