@@ -22,3 +22,11 @@ url = "https://www.linkedin.com/in/alejandro-ingl%C3%A9s-mart%C3%ADnez-4ba726298
 
 [social.params]
 icon = "brand-linkedin"
+
+[[social]]
+identifier = "twitter"
+name = "twitter"
+url = "https://www.linkedin.com/in/alejandro-ingl%C3%A9s-mart%C3%ADnez-4ba726298/"
+
+[social.params]
+icon = "brand-twitter"
