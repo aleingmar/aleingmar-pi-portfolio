@@ -3,7 +3,7 @@ title: AVI Health
 description: Aplicación movil para la teleasistencia personalizada de pacientes dermatológicos.
 slug: android-gsti
 date: 2024-02-15 00:00:00+0000
-image: android.png
+image: avi-health.png
 categories:
     - Mobile Development
 tags:
