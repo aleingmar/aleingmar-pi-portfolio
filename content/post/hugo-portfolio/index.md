@@ -1,6 +1,6 @@
 ---
-title: Despliegue y creación de portfolio web con Hugo.
-description: Proyecto personal - Creación y despliegue de portfolio web para presentar y redactar los proyectos realizados durante mi carrera académica y profesional. Efectivamente, el portfolio web donde está leyendo esto ahora mismo.
+title: Deployment and creation of a web portfolio with Hugo.
+description: Personal project | Creation and deployment of web portfolio on my RPI5 server for the presentation of the projects I have done during my academic and professional career. Indeed, the web portfolio where you are reading this right now :)
 slug: hugo-portfolio
 date: 2024-09-01 00:00:00+0000
 image: hugo-portfolio.png
@@ -15,24 +15,24 @@ tags:
     - Caddy
     - Git, Github
     - Html, Css, Js
-    - Vs Code
+    - VSCode
     - RPI5
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
-Este proyecto personal tiene como objetivo no solo crear una página web que reúna todos los proyectos que he desarrollado durante mi carrera académica y personal, sino también desplegarla en mi propio servidor, haciéndola accesible de manera segura desde Internet.
+This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.
 
-**Desarrollo Web**
-
-
-Para la construcción de mi portfolio elegí **Hugo**, una plataforma de generación de sitios web estáticos que permite crear páginas modernas de frontend utilizando archivos **Markdown**. La decisión de usar Hugo se basó en que ya había redactado una parte de mi portfolio en Obsidian, una herramienta (donde también se escribe en Markdown) que utilizo habitualmente para tomar notas y organizar mis apuntes. La capacidad de Hugo para aprovechar archivos en formato Markdown me permitió migrar este contenido fácilmente y enfocarme más en la calidad del contenido que en el desarrollo técnico.
-
-El tema que seleccioné para mi portfolio es [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack), debido a su formato limpio y moderno, que se ajusta perfectamente a la estructura y diseño que buscaba. Esta plantilla, con su enfoque en el rendimiento y la simplicidad, me permitió optimizar el desarrollo de mi portfolio sin necesidad de invertir demasiado tiempo en el diseño de la interfaz .
-
-**DevOps y Despliegue**
+**Web Development**
 
 
-En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en un servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno seguro y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.
+For the construction of my portfolio I chose **Hugo**, a static website generation platform that allows you to create modern frontend pages using **Markdown** files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo's ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.
 
-El servidor web que gestiona las peticiones es **Caddy**, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, también alojo el portfolio de un compañero de carrera, aprovechando la capacidad del servidor para manejar múltiples sitios web.
+The theme I selected for my portfolio is [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack), because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.
 
-Para el desarrollo, suelo trabajar en local utilizando **Visual Studio Code**, aunque en ocasiones utilizo **GitHub Codespaces** cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está automatizado mediante un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización .
+**DevOps and Deployment**.
+
+
+In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.
+
+The web server that handles the requests is **Caddy**, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container.
+
+For development, I usually work locally using **Visual Studio Code**, although sometimes I use **GitHub Codespaces** when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is automated via a Docker Compose file, which simplifies the process of pulling up the web application with each update.

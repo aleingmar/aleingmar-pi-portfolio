@@ -1,6 +1,6 @@
 ---
 title: ScreenRPA
-description: Mejora de la plataforma screenRPA en colaboración con el grupo ES3 de la Universidad de Sevilla
+description: Professional project - ES3 | Development of the screenRPA platform in collaboration with the ES3 group of the University of Seville.
 slug: screenrpa-rpa-us
 date: 2024-06-06 00:00:00+0000
 image: es3.png
@@ -8,6 +8,7 @@ categories:
     - Web Development
     - Machine Learning
     - RPA
+    - Process Mining
 tags:
     - Python
     - Django
@@ -17,21 +18,22 @@ tags:
     - Scrum
     - Kanban
     - MVC
+    - VSCode
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
-Durante la realización de mi Trabajo de Fin de Grado y las prácticas en empresa de la carrera, tuve la oportunidad de formar parte del grupo de investigación ES3 (Engineering and Science for Software Systems) de la Universidad de Sevilla. Grupo especializado en la investigación y desarrollo de sistemas software avanzados https://www.linkedin.com/company/grupoes3/.
+While I was doing my Final Degree Project and my internship, I had the opportunity to be part of the ES3 (Engineering and Science for Software Systems) research group at the University of Seville. This group specialises in the research and development of advanced software systems https://www.linkedin.com/company/grupoes3/.
 
-Mi trabajo se centró en desarrollar parte de la plataforma screenRPA, un sistema para la Automatización Robótica de Procesos (RPA). Mi objetivo principal fue mejorar la capacidad de extracción de valor y conocimiento a partir de los procesos RPA todo. Para ello, trabajé en tres áreas diferentes:
+My work focused on developing part of the screenRPA platform, a Robotic Process Automation (RPA) platform. My main objective was to improve the ability to extract value and knowledge from RPA processes. To do this, I worked in three different areas:
 
-- **Mejora de la plataforma web y visualización de resultados**: Trabajé en el desarrollo de la plataforma web para visualizar y extraer resultados a lo largo de todo el pipeline del proceso RPA, facilitando así la interacción y el análisis por parte de los analistas. Todo ello siguiendo el patrón de diseño software **MVC**.
-- **Aplicación de técnicas avanzadas de minería de decisiones**: Desarrollé y apliqué una nueva técnica basadas en Machine Learning, específicamente en la fase de la minería de decisiones una especialidad dentro del campo de la minería de procesos. En esta fase se busca entender el porqué un usuario realiza una acción en vez de otra. La aplicación de esta técnica permitió descubrir patrones y reglas no deterministas en las decisiones de los usuarios, proporcionando un mayor entendimiento de los procesos automatizados.
-- **Generación automática de informes empresariales**: Implementé un sistema en la plataforma para la creación automática de reportes empresariales comprensibles para los analistas. Estos informes desglosaban todo el conocimiento extraído por la plataforma tras su ejecución, facilitando la toma de decisiones estratégicas.
+- **Web platform improvement and results visualisation**: I worked on the development of the web platform to visualise and extract results along the entire RPA process pipeline, thus facilitating the interaction and analysis of each of the phases by the analysts. All this following the software design pattern **Controller View Model**.
+- Application of advanced decision mining techniques**: I developed and applied a new technique based on Machine Learning, specifically in the decision discovery phase. During this phase we seek to understand why a user performs one action instead of another. Decision mining is a speciality within the field of process mining. The application of this technique allowed the discovery of non-deterministic patterns and rules in user decisions, providing a greater understanding of automated processes.
+- Automatic generation of business reports**: I implemented a system on the platform for the automatic creation of business reports understandable by analysts and clients. These reports broke down all the knowledge extracted by the platform after execution, facilitating strategic decision making.
 
-Este proyecto me permitió aplicar conocimientos avanzados en automatización, Machine Learning y minería de procesos, contribuyendo a la evolución de una plataforma innovadora dentro del ámbito de la automatización empresarial.
+This project allowed me to apply advanced knowledge in automation, Machine Learning and process mining, contributing to the evolution of an innovative platform within the field of business automation.
 
 
-Memoria del trabajo fin de grado relacpionado con este proyexto:
-[**Visualizar pdf**](memoria-tfg.pdf)
+Final thesis report related to this project:
+[**View pdf**](memoria-tfg.pdf)
 
-Parte de la plataforma screenRPA desarrollada en mi trabajo:
-{{< video src="/video-screenrpa.mp4" >}}
+Part of the screenRPA platform developed in my work:
+{{< video src=/video-screenrpa.mp4 >}}

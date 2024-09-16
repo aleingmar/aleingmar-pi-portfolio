@@ -1,6 +1,6 @@
 ---
-title: Mi propio servidor con RPI5
-description: Configuración, administración y despliegue de servicios en mi propio servidor Rasberrypi 5
+title: My own RPI5 server
+description: Personal project | Configuration, administration and deployment of services on my own Rasberrypi 5 server. A VPN, a password manager, a container manager and a DNS ad and tracker blocker.
 slug: my-server
 date: 2024-08-01 00:00:00+0000
 image: rasberry.png
@@ -14,29 +14,26 @@ tags:
     - RPI5
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
+This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram. 
 
-**Proyecto Personal: Despliegue de Servicios en un Servidor Propio**
+For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.
 
-Este proyecto consiste en conseguir alojar y gestionar de forma autónoma determinados servicios en mi propio servidor, una RasberryPi 5 de 8gb de Ram. 
+The server is associated to a main domain managed by **DuckDNS**, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.
 
-Para la administración y configuración tanto del servidor como de sus servicios alojados, accedo de forma remota a través del protocolo SSH.
+To organise access via subdomains and ensure connection to my services via **HTTPS**, I use **Caddy** as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.
 
-El servidor está asociado a un dominio principal gestionado por **DuckDNS**, lo que me permite acceder a los servicios de manera remota a través del navegador. Para evitar que la IP dinámica de mi red doméstica cambie y pierda el acceso al servidor cuento con un servicio que de forma autónoma actualiza automáticamente cada 5 minutos esta ip, asegurando que siempre esté correctamente sincronizada.
+In addition, I have implemented an advanced control panel called **Homarr**, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server. 
 
-Para organizar los accesos mediante subdominios y asegurar la conexión a mis servicios mediante **HTTPS**, utilizo **Caddy** como servidor web, que actúa como intermediario y maneja los certificados TLS/SSL, garantizando un acceso seguro y sin complicaciones.
+All the services hosted on the server including the ones mentioned above are hosted using **Docker containers** and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:
 
-Además, he implementado un panel de control avanzado llamado **Homarr**, que me proporciona una interfaz centralizada desde la cual puedo iniciar sesión y acceder fácilmente a los diferentes servicios desplegados en el servidor. 
+- **Vaultwarden**: A password manager.
+- **Portainer**: A container manager with a web interface.
+- **Pi-hole**: An ad-blocking DNS service.
+- **WireGuard**: A VPN service.
 
-Todos los servicios alojados en el servidor incluyendo los mencionados anteriormente se alojan mediante **contenedores Docker** y se organizan en subdominios específicos.
-En el momento que escribo esto, los servicios no mencionados que aloja el servidor son:
+WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.
 
-- **Vaultwarden**: Un gestor de contraseñas.
-- **Portainer**: Un gestor de contenedores con interfaz web.
-- **Pi-hole**: Un servicio de DNS bloqueador de anuncios.
-- **WireGuard**: Un servicio VPN.
+![Dashboard Homarr](homarr.png)![Vaultwarden Password Manager](vaultwarden.png) 
 
-WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.
-
-![Dashboard Homarr](homarr.png)![Gestor de contraseñas Vaultwarden](vaultwarden.png) 
-
-![Gestor de contenedores Portainer](portainer.png)![Interfaz web de administración de Pihole](pihole.png) 
+![Portainer Container Manager](portainer.png)![Pihole administration web interface](pihole.png) 
