@@ -31,3 +31,11 @@ url = "/CV-AlejandroIngles-10-09-24.pdf"
 
 [social.params]
 icon = "file-cv"
+
+[[social]]
+identifier = "email"
+name = "Email"
+url = "mailto:inglesmartineza@gmail.com"
+
+[social.params]
+icon = "mail"
