@@ -1,6 +1,6 @@
 ---
-title: Aplicación web para la gestión de jornadas laborales
-description: Desarrollo de plataforma web para la gestión de accesos y jornadas laborales de profesionales sanitarios
+title: Web application for the management of working days
+description: Academic project | Development of a web platform for the management of access and working days of health professionals.
 slug: cgis-laravel-jornadas
 date: 2022-01-01 00:00:00+0000
 image: logo-laravel.png
@@ -15,197 +15,203 @@ tags:
     - MVC
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
-Este proyecto fue desarrollado para la asignatura de Codificación y gestión de información sanitaria (CGIS) durante mi tercer año de carrera. El objetivo principal es diseñar, modelar y desarrollar una aplicación web para gestión las jornadas laborales del personal sanitario de una entidad hospitalaria. 
+This project was developed for the Coding and Health Information Management (CGIS) course during my third year of studies. The main objective of the project is to design, model and develop a web application for managing the working hours of healthcare staff in a hospital. 
 
-{{< video src="/laravel-cgis-jornadas.mp4" >}}
+In general terms, for the normal roles of healthcare professionals, the application allows them to consult their access to the hospital and create incidents if they see any anomaly with the register. For the administration and responsibility roles, the application allows them to monitor and keep track of workers' compliance with their working hours and enables them to process any incidents that professionals raise when they see a problem with their access records.
 
-# Contenido
-# Índice
+In addition to this, the application allows functionalities common to all roles such as the creation of user accounts, the management of user profiles...
 
-1. [Dominio_del_problema](#1.Dominio_del_problema)
-2. [Objetivos](#2.Objetivos)
-3. [Usuarios_del_sistema:](#3.Usuarios_del_sistema:)
-4. [Requisitos_de_información:](#4.Requisitos_de_información:)
-5. [Requisitos_funcionales:](#5.Requisitos_funcionales:)
-6. [Reglas_de_negocio:](#6.Reglas_de_negocio:)
-7. [Requisitos_no_funcionales:](#7.Requisitos_no_funcionales:)
-8. [Modelo_conceptual_UML](#8.Modelo_conceptual_UML:) 
+{{< video src=‘/laravel-cgis-jornadas.mp4’ >}}
+
+# Documentation
+# Table of contents
+
+1. [Problem_domain](#Problem_domain)
+2. [Objectives](#Objectives)
+3.[System_Users](#System_Users:) 4.
+4. [Information_requirements:](#Information_requirements:)
+5. [Functional_requirements:](#Functional_requirements:)
+6. [Business_rules:](#Business_rules:)
+7. [Non_functional_requirements:](#Non_functional_requirements:)
+8. [Conceptual_UML_model](#Conceptual_UML_Model:) 
 
 
-## 1.Dominio del problema:
+## Problem domain:
 
-En la actualidad el sistema por el que se rigen las jornadas laborales de los profesionales sanitarios es muy complejo. Eventos como las guardias, los cambios de turnos o las rotaciones entre centros son el pan de cada día en el sector. Esto hace que la organización de este sistema sea muy difícil de gestionar y que en muchas ocasiones no se lleguen a registrar muchos de estos sucesos.
+Currently the system governing the working hours of healthcare professionals is very complex. Events such as on-call duty, shift changes or rotations between centres are a daily occurrence in the sector. This makes the organisation of this system very difficult to manage and many of these events often go unrecorded.
 
-## 2.Objetivos:
+## Objectives:
 
-El objetivo de nuestro sistema será capacitar a los profesionales del sector de una herramienta que les permita tanto a la dirección como a los profesionales sanitarios una forma de gestión que solvente eficaz y eficientemente la problemática anterior . Facilitando en gran medida los procesos y permitiendo que los propios profesionales tengan un papel protagonista en estos. Los principales objetivos de nuestro sistema serán:
+The objective of our system will be to provide professionals in the sector with a tool that will allow both management and healthcare professionals a form of management that effectively and efficiently solves the aforementioned problems. Facilitating the processes to a great extent and allowing the professionals themselves to play a leading role in these processes. The main objectives of our system will be:
 
-**OBJ-1. Gestión de los accesos al centro hospitalario:**
+**OBJ-1. Management of access to the hospital centre:**
 
-Nuestro sistema tendrá como uno de sus objetivos llevar a cabo un control/seguimiento de los accesos al centro hospitalario por parte del personal sanitario. Permitiendo registrar con exactitud el número de horas ejercidas por los profesionales, evitar la saturación del personal, notificar incidencias en los accesos, detectar posibles fraudes…
+One of the objectives of our system will be to carry out a control/monitoring of the accesses to the hospital centre by the healthcare staff. This will allow us to accurately record the number of hours worked by the professionals, avoid staff saturation, notify incidents in accesses, detect possible fraud...
 
-**OBJ-2.Registro y gestión de incidencias sobre los accesos del personal sanitario:**
+**OBJ-2.Registration and management of incidences on the accesses of health personnel:** 
 
-Nuestro sistema tendrá como uno de sus objetivos llevar a cabo un control de los accesos al centro hospitalario por parte del personal sanitario mediante el uso de incidencias. Permitiendo registrar la fecha de presentación de la incidencia, la fecha de la respuesta, el estado, el motivo de presentación y respuesta...
+One of the objectives of our system will be to carry out a control of the accesses to the hospital centre by the health personnel by means of the use of incidences. Allowing to register the date of presentation of the incident, the date of the response, the status, the reason for presentation and response...
 
-**OBJ-3. Registro y gestión de información del personal sanitario:**
+**OBJ-3. Registration and management of health personnel information:**
 
-Nuestro sistema tendrá como uno de sus objetivos llevar a cabo el registro y la gestión de la información del personal sanitario. Permitiendo registrar información personal sobre los profesionales, sobre su especialidad, cargo…
+One of the objectives of our system will be to record and manage the information of healthcare personnel. Allowing the registration of personal information about professionals, about their speciality, position....
 
-## 3.Usuarios del sistema:
+## Users of the system:
 
-Los tipos de usuarios que podrán acceder al sistema y hacer un uso específico de este serán:
+The types of users who will be able to access the system and make specific use of it will be:
 
-Profesionales Sanitarios (médicos y enfermeros) .
+Health professionals (doctors and nurses).
 
-Dirección
+Management
 
-Jefes de guardia.
+Heads of duty.
 
-Administrador
+Administrator
 
-## 4.Requisitos de información:
+## Information requirements:
 
-**RI-001. Información sobre los usuarios:** El sistema deberá almacenar datos personales sobre todos los usuarios. Dirección de correo electrónico principal y segundario, contraseña y nombre.
+**RI-001. User information:** The system shall store personal data on all users. Primary and secondary email address, password and name.
 
-**RI-002. Información sobre el personal sanitario:** El sistema deberá almacenar datos del personal sanitario. Tipo de profesión (médico y enfermero), especialidad médica y cargo dentro del sistema hospitalario (Dirección, jefe de guardias, sanitario normal).
+**IR-002. Information on healthcare personnel:** The system shall store data on healthcare personnel. Type of profession (doctor and nurse), medical speciality and position within the hospital system (management, duty manager, regular healthcare).
 
 **RI-003. Información sobre las especialidades médicas:** El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).
 
-**RI-004. Información sobre los accesos al centro sanitario:** El sistema deberá registrar datos sobre los accesos al centro sanitario por parte del personal sanitario .Fecha/hora de entrada, fecha/hora de salida y número de horas trabajadas en cada joornada.
+**RI-003. Information on medical specialties:** The system shall store data on the medical specialties of health personnel. Name of speciality (cardiology, radiology and paediatrics).
 
-**RI-006. Información sobre incidencias :** El sistema deberá registrar datos sobre las incidencias (con respecto a problemas con los accesos) que notifiquen el personal sanitario. Fecha/hora en la que se realiza la incidencia, motivo de la incidencia, acceso a la que hace referencia , estado de la incidencia (aceptada, rechazada, pendienteRespuesta), motivo de la respuesta y sanitario que la realiza.
+**IR-004. Information on access to the health care centre:** The system shall record data on access to the health care centre by health care personnel. Date/time of entry, date/time of exit and number of hours worked in each day.
 
-## 5.Requisitos funcionales:
+**IR-006. Information on incidents:** The system shall record data on incidents (regarding problems with access) reported by health personnel. Date/time of the incident, reason for the incident, access to which it refers, status of the incident (accepted, rejected, pending-response), reason for the response and the healthcare staff member making the response.
 
-**RF-001. Registro de usuarios: (todos los roles)**
+## Functional requirements:
 
-Queremos que el sistema nos permita a los profesionales sanitarios registrarnos como usuarios con una contraseña y acceder al sistema.
+**FR-001. User registration: (all roles)**.
 
+We want the system to allow health professionals to register as users with a password and access the system.
 
-**ACCESOS** 
 
-**RF-002. Crear acceso: (direccion, administrador)**
+**ACCESSES** 
 
-Quiero poder crear accesos a los sanitarios que sean compatibles con mi responsabilidad.
+**FR-002. Create access: (address, administrator)**
 
-**RF-003. Cosultar mis accesos: (todos los roles)**
+I want to be able to create access to health professionals that are compatible with my responsibility.
 
-Quiero poder consultar mi historial de accesos al centro médico.
+**FR-003. View my accesses: (all roles)**
 
-**RF-004. Consultar accesos: (jefe de guardia, direccion, administrador)**
+I want to be able to consult my access history to the medical centre.
 
-Quiero poder consultar los acceso de los sanitarios que sean compatibles con mi responsabilidad.
+**FR-004. Consult my accesses: (on-call manager, management, administrator)**
 
-**RF-005. Consultar en detalle un acceso: (todos los roles)**
+I want to be able to consult the accesses of the medical staff that are compatible with my responsibility.
 
-Quiero poder consultar en detalle un acceso de mis listado de accesos.
+**FR-005. Consult in detail an access: (all roles)** ** I want to be able to consult in detail an access of the restrooms that are compatible with my responsibility.
 
-**RF-006. Modificar acceso: (direccion, administrador)**
+I want to be able to consult in detail an access of my list of accesses.
 
-Quiero poder modificar los accesos de los sanitarios que sean compatibles con mi responsabilidad.
+**FR-006. Modify access: (address, administrator)**
 
-**RF-007. Borrar acceso: (direccion, administrador)**
+I want to be able to modify the accesses of the health professional that are compatible with my responsibility.
 
-Quiero poder borrar accesos a los sanitarios que sean compatibles con mi responsabilidad.
+**FR-007. Delete access: (address, administrator)**
 
-**RF-008. Filtrar accesos por fechas: (todos los roles)**
+I want to be able to delete access to the health professional that are compatible with my responsibility.
 
-Quiero poder filtrar por fechas mi historial de accesos al centro médico.
+**FR-008. Filter access by dates: (all roles)**
 
-**INCIDENCIAS**
+I want to be able to filter my access history to the medical centre by date.
 
-**RF-009. Crear registro de incidencias: (profesional sanitario, jefe de guardias)**
+**INCIDENTS**
 
-Quiero poder notificar de cualquier incidencia sobre los registros de mis accesos.
+**FR-009. Create incident log: (healthcare professional, duty manager)**.
 
-**RF-0010. Consultar incidencias: (direccion, administrador)**
+I want to be able to notify of any incident on the records of my accesses.
 
-Quiero poder consultar un listado de las incidencias de los sanitarios.
+**FR-0010. Consult incidents: (management, administrator)**.
 
-**RF-0011. Consultar mis incidencias: (profesional sanitario, jefe de guardias, direccion, administrador)**
+I want to be able to consult a list of the incidents of the medical staff.
 
-Quiero poder consultar un listado de mis incidencias. 
+**FR-0011. Query my incidents: (healthcare professional, head of duty, management, administrator)**
 
-**RF-0012. Consultar en detalle incidencias: (todos los roles)**
+I want to be able to consult a list of my incidents. 
 
-Quiero poder consultar en detalle las incidencia. 
+**FR-0012. Consult in detail incidents: (all roles)**.
 
-**RF-0013. Modificar incidencias: (profesional sanitario, jefe de guardias)**
+I want to be able to consult in detail the incidents. 
 
-Quiero poder modificar mis incidencias. 
+**FR-0013. Modify incidents: (healthcare professional, duty manager)**
 
-**RF-0014. Borrar incidencias: (profesional sanitario)**
+I want to be able to modify my incidents. 
 
-Quiero poder borrar mis incidencia sobre los registros de mis accesos.
+**FR-0014. Delete incidents: (health professional)**.
 
-**RF-015. Solucionar incidencias: (direccion, administrador)**
+I want to be able to delete my incidences on the records of my accesses.
 
-Quiero poder aprobar o denegar a las incidencias haciendoles saber el motivo de la resolución.
+**FR-015. Solve incidents: (management, administrator)**
 
+I want to be able to approve or deny incidents by letting you know the reason for the resolution.
 
-**SANITARIOS**
 
-**RF-0016. Crear sanitarios : (direccion, administrador )**
+**HEALTH PROFESSIONALs**
 
-Quiero poder crear un nuevo sanitario.
+**FR-0016. Create health professional: (address, administrator)**
 
-**RF-0017. Cosultar sanitarios: (jefe de guardia, direccion, administrador )**
+I want to be able to create a new health professional.
 
-Quiero poder consultar un listado de los sanitarios que sean compatibles con mi responsabilidad.
+**FR-0017. Consult health professional: (head of duty, management, administrator )**
 
-**RF-0018. Consultar en detalle sanitarios : (direccion, administrador )**
+I want to be able to consult a list of health professional that are compatible with my responsibility.
 
-Quiero poder ver en detalle los datos de un sanitario.
+**FR-0018. Consult in detail health professional: (management, administrator )** ** I want to be able to see in detail the details of the health professional.
 
-**RF-0019. Cosultar en detalle sanitarios: (jefe de guardia, direccion, administrador )**
+I want to be able to see in detail the details of a health professional.
 
-Quiero poder consultar en detalle un sanitario del listado de los sanitarios que sean compatibles con mi responsabilidad.
+**FR-0019. Consult in detail health professional: (head of duty, management, administrator)**
 
-**RF-0020. Modificar sanitarios : (direccion, administrador )**
+I want to be able to consult in detail a health professional in the list of health professional that are compatible with my responsibility.
 
-Quiero poder modificar los datos de un sanitario.
+**FR-0020. Modify health professional: (management, administrator )**
 
-**RF-0021. Borrar sanitarios : (direccion, administrador )**
+I want to be able to modify the details of a health professional.
 
-Quiero poder borrar los datos de un sanitario.
+**FR-0021. Delete health professional: (address, administrator )**
 
-**RF-0022. Filtrar sanitarios por nombre: (jefe de guardia, direccion, administrador )**
+I want to be able to delete the data of a health professional.
 
-Quiero poder filtrar por nombre el listado de los sanitarios que sean compatibles con mi responsabilidad.
+**FR-0022**. Filter health professional by name: (head of duty, address, administrator)
 
-**RF-0023. Filtrar sanitarios por nombre: (direccion, administrador )**
+I want to be able to filter by name the list of health professional that are compatible with my responsibility.
 
-Quiero poder filtrar por profesión el listado de los sanitarios .
+**FR-0023. Filter health professional by name: (address, administrator )**
 
-## 6.Reglas de negocio:
+I want to be able to filter the list of health professional by profession.
 
-**RN-001.  :** No especificadas
+## Business rules:
 
-## 7.Requisitos no funcionales:
+**BR-001**.  Not specified
 
-**RNF-001. Seguridad**: El sistema debe estar protegido contra el acceso no autorizado.
+## Non-functional requirements:
 
-**RNF-002. Actuación**: El sistema debe poder manejar el número requerido de usuarios sin ninguna degradación en el rendimiento.
+**NFR-001. Security**: The system must be protected against unauthorised access.
 
-**RNF-003. Escalabilidad**: El sistema debe ser capaz de escalar hacia arriba o hacia abajo según sea necesario.
+**NFR-002. Performance**: The system must be able to handle the required number of users without any degradation in performance.
 
-**RNF-004. Disponibilidad**: El sistema debe estar disponible cuando sea necesario.
+**NFR-003. Scalability**: The system must be able to scale up or down as required.
 
-**RNF-005. Mantenimiento**: El sistema debe ser fácil de mantener y actualizar.
+**NFR-004. Availability**: The system must be available when needed.
 
-**RNF-006. Portabilidad**: El sistema debe poder ejecutarse en diferentes plataformas con cambios mínimos.
+**NFR-005. Maintenance**: The system must be easy to maintain and upgrade.
 
-**RNF-007. Fiabilidad**: El sistema debe ser confiable y cumplir con los requisitos del usuario.
+**NFR-006. Portability**: The system must be able to run on different platforms with minimal changes.
 
-**RNF-008. Usabilidad**: El sistema debe ser fácil de usar y comprender.
+**NFR-007. Reliability**: The system must be reliable and meet user requirements.
 
-**RNF-009. Compatibilidad**: El sistema debe ser compatible con otros sistemas.
+**NFR-008. Usability**: The system must be easy to use and understand.
 
-**RNF-010. Compliancia**: El sistema debe cumplir con todas las leyes y reglamentos aplicables
+**NFR-009. Compatibility**: The system must be compatible with other systems.
 
-El sistema debe de tener una disponibilidad del 99,96%.
+**NFR-010. Compliance**: The system must be compliant with all applicable laws and regulations.
 
-## 8.Modelo conceptual UML
+The system must have an availability of 99.96%.
 
-![DIAGRAMA](diagramaConceptual.png)
+## UML Conceptual Model
+
+![DIAGRAM](diagramaConceptual.png)
