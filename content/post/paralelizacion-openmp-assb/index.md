@@ -1,11 +1,11 @@
 ---
-title: Computación paralela en procesadores multinúcleos con OpenMP.
-description: Programa escrito de forma paralela en C con OpenMP que cálcula el valor del número Pi mediante el método Montecarlo aprovechando los múltiples núcleos del procesador multinúcleo de la máquina donde se ejecuta.  
+title: Parallel computing on multicore processors with OpenMP.
+description: Academic project | Program written in parallel in C with OpenMP that calculates the value of the number Pi by means of the Monte Carlo method taking advantage of the multiple cores of the multicore processor of the machine where it is executed.  
 slug: openmp-assb
 date: 2023-10-01 00:00:00+0000
 image: openmp-logo.png
 categories:
-    - Programación paralela
+    - Parallel Programming
 tags:
     - C
     - OpenMP
@@ -14,17 +14,16 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-Este proyecto fue desarrollado durante la asignatura Arquitectura de Sistemas y Software de Base (ASSB) durante mi cuarto año de carrera. El objetivo principal era implementar un algoritmo para el cálculo del número Pi utilizando el método de MonteCarlo programando en C tanto de forma secuencial como utilizando técnicas de programación paralela para aprovechar al máximo los recursos de los procesadores multinúcleo mediante la librería OpenMP, que permite ejecutar código en múltiples hilos de manera eficiente.
+This project was developed during the Systems and Software Architecture and Basis (ASSB) course during my fourth year of studies. The main objective was to implement an algorithm for calculating the Pi number using the MonteCarlo method by programming in C both sequentially and using parallel programming techniques to take full advantage of the resources of multicore processors using the OpenMP library, which allows code to be executed in multiple threads efficiently.
 
-Las principales tareas realizadas fueron las siguientes:
+The main tasks performed were the following:
 
-- **Desarrollo de la versión secuencial y paralela del algoritmo**: Implementé un programa que simula el lanzamiento de "dardos" aleatorios dentro de un cuadrado inscrito en un círculo. La relación entre los aciertos dentro del círculo y los lanzamientos totales permite calcular el valor de Pi. En la versión paralela, utilicé OpenMP para dividir el trabajo entre varios hilos, aprovechando al máximo los recursos de los procesadores multinúcleo.
+- **Development of the sequential and parallel version of the algorithm**: I implemented a program that simulates the throwing of random ‘darts’ inside a square inscribed in a circle. The ratio between the hits inside the circle and the total throws is used to calculate the value of Pi. In the parallel version, I used OpenMP to divide the work among several threads, taking full advantage of the resources of multi-core processors.
 
-- **Mediciones de tiempo y análisis de rendimiento**: Tras desarrollar las dos versiones del programa, realicé mediciones de tiempo para evaluar el rendimiento de la versión paralela en comparación con la secuencial. Utilicé diferentes configuraciones de hilos, desde un solo hilo hasta más del doble de los núcleos físicos del procesador, con el objetivo de analizar la aceleración y escalabilidad del algoritmo. La aceleración se calculó como la relación entre el tiempo de ejecución en un único hilo y el tiempo de ejecución con varios hilos.
+- **Time measurements and performance analysis**: After developing the two versions of the program, I performed time measurements to evaluate the performance of the parallel version compared to the sequential version. I used different thread configurations, from a single thread to more than twice the physical cores of the processor, in order to analyse the speedup and scalability of the algorithm. The speedup was calculated as the ratio between the single-threaded execution time and the multi-threaded execution time.
 
-- **Optimización y gestión de recursos compartidos**: Durante el desarrollo, fue necesario resolver problemas comunes de la programación paralela, como las condiciones de carrera. En este caso, utilicé directivas de OpenMP para definir variables privadas en cada hilo, evitando que varios hilos accedieran simultáneamente a las mismas variables globales y afectaran el resultado final. Además, implementé la directiva `reduction` para combinar los resultados de los hilos de manera eficiente sin utilizar regiones críticas, lo que mejoró el rendimiento.
+- **Optimisation and management of shared resources**: During development, it was necessary to solve common problems in parallel programming, such as race conditions. In this case, I used OpenMP directives to define private variables on a per-thread basis, preventing multiple threads from simultaneously accessing the same global variables and affecting the final result.
 
-- **Generación de gráficos de rendimiento**: Tras recopilar los datos de tiempos de ejecución y aceleración, generé gráficos para visualizar el rendimiento del programa a medida que aumentaba el número de hilos. Estos gráficos demostraron cómo la aplicación escalaba con un mayor número de hilos, destacando las ventajas y limitaciones de la paralelización en un entorno de memoria compartida. 
+- **Generating performance graphs**: After collecting runtime and speedup data, I generated graphs to visualise the performance of the program as the number of threads increased. These graphs demonstrated how the application scaled with increased thread count, highlighting the advantages and limitations of parallelisation in a shared-memory environment. 
 
-
-Documentación del proyecto: [**Visualizar documentación en pdf**](ASSB-openmp.pdf)
+Project documentation: [**View documentation in pdf**](ASSB-openmp.pdf)
