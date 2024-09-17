@@ -4,11 +4,11 @@ languageName = "English"
 languagedirection = "ltr"
 title = "Alejandro Inglés Martínez"
 weight = 1
-baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/en/'
+# baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/en/'
 
 [es]
 languageName = "Español"
 languagedirection = "ltr"
 title = "Alejandro Inglés Martínez"
 weight = 2
-baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/es/'
+# baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/es/'
