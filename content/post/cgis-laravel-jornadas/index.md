@@ -21,14 +21,14 @@ In general terms, for the normal roles of healthcare professionals, the applicat
 
 In addition to this, the application allows functionalities common to all roles such as the creation of user accounts, the management of user profiles...
 
-{{< video src=‘/laravel-cgis-jornadas.mp4’ >}}
+{{< video src=/laravel-cgis-jornadas.mp4 >}}
 
 # Documentation
 # Table of contents
 
 1. [Problem_domain](#Problem_domain)
 2. [Objectives](#Objectives)
-3.[System_Users](#System_Users:) 4.
+3. [System_Users](#System_Users:)
 4. [Information_requirements:](#Information_requirements:)
 5. [Functional_requirements:](#Functional_requirements:)
 6. [Business_rules:](#Business_rules:)
@@ -70,13 +70,13 @@ Administrator
 
 ## Information requirements:
 
-**RI-001. User information:** The system shall store personal data on all users. Primary and secondary email address, password and name.
+**IR-001. User information:** The system shall store personal data on all users. Primary and secondary email address, password and name.
 
 **IR-002. Information on healthcare personnel:** The system shall store data on healthcare personnel. Type of profession (doctor and nurse), medical speciality and position within the hospital system (management, duty manager, regular healthcare).
 
-**RI-003. Información sobre las especialidades médicas:** El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).
+**IR-003. Información sobre las especialidades médicas:** El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).
 
-**RI-003. Information on medical specialties:** The system shall store data on the medical specialties of health personnel. Name of speciality (cardiology, radiology and paediatrics).
+**IR-003. Information on medical specialties:** The system shall store data on the medical specialties of health personnel. Name of speciality (cardiology, radiology and paediatrics).
 
 **IR-004. Information on access to the health care centre:** The system shall record data on access to the health care centre by health care personnel. Date/time of entry, date/time of exit and number of hours worked in each day.
 
