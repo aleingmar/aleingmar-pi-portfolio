@@ -1,11 +1,11 @@
 ---
-title: Base de datos para la gestión del equipamiento de quirófanos.
-description: Base de datos relacional para la gestión de instalaciones y equipamientos electromédicos de quirófanos.
+title: Relational database for the management of operating room equipment.
+description: Academic project | Relational database for the management of facilities and electromedical equipment for operating theatres.
 slug: bd-quirofano
 date: 2021-04-01 00:00:00+0000
 image: bd.png
 categories:
-    - Bases de Datos
+    - Databases
 tags:
     - SQL
     - MariaDB
@@ -13,16 +13,16 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-Este proyecto fue desarrollado como parte de la asignatura de Bases de Datos (BD) durante mi segundo año de carrera. El objetivo principal era diseñar, modelar y desarrollar una base de datos para gestionar y almacenar la información de las instalaciones y equipamientos electromédicos de un quirófano. La base de datos permitiría no solo gestionar los equipos y su mantenimiento, sino también asegurar el cumplimiento de regulaciones sanitarias, controlar el valor del equipamiento, supervisar las revisiones periódicas...
+This project was developed during the Database (DB) course during my second year of my degree. The main objective was to design, model and develop a SQL database to manage and store the information of the electromedical facilities and equipment of an operating theatre. The database would allow not only to manage the equipment and its maintenance, but also to ensure compliance with health regulations, to control the value of the equipment, to supervise periodic revisions...
 
-Algunas de las tareas realizadas incluyen:
+Some of the tasks performed include:
 
-- **Diseño y modelado de la base de datos**: A partir de un análisis exhaustivo de los requisitos, se elaboró un modelo relacional que representa los diferentes elementos del quirófano, como los equipos electromédicos, las instalaciones de climatización y electricidad, y los perfiles de los usuarios que gestionan esta información (ingenieros biomédicos, ingenieros de mantenimiento y directores de servicios generales).
+- **Design and modelling of the database**: Based on an exhaustive analysis of the requirements, a relational model was developed representing the different elements of the operating theatre, the electro-medical equipment, the air conditioning and electrical installations, and the profiles of the users managing this information (biomedical engineers, maintenance engineers and general services managers).
 
-- **Gestión del ciclo de vida de los equipos**: La base de datos almacena información clave sobre el equipamiento, como su fecha de adquisición, vida útil, proveedor, valor de compra y parámetros técnicos que deben mantenerse dentro de ciertos rangos para asegurar su correcto funcionamiento. Esto permite controlar los plazos de mantenimiento y prever sustituciones de manera oportuna.
+- **Equipment lifecycle management**: The database stores key information about the equipment, such as its acquisition date, useful life, supplier, purchase value and technical parameters that must be kept within certain ranges to ensure its correct functioning. This allows maintenance schedules to be controlled and replacements to be planned in a timely manner.
 
-- **Automatización de revisiones**: A través de **triggers** y **procedimientos almacenados**, la base de datos es capaz de generar alertas cuando se acerquen las fechas de revisión o cuando un equipo esté próximo a superar su vida útil. Esto asegura que el quirófano se mantenga dentro de los estándares requeridos sin interrupciones imprevistas​.
+- **Automation of overhauls**: Through **triggers** and **stored procedures**, the database is able to generate alerts when overhaul dates are approaching or when a piece of equipment is close to exceeding its useful life. This ensures that the OR is maintained to the required standards without unplanned interruptions.
 
-- **Consultas avanzadas y generación de reportes**: Implementación de una serie de **vistas** y **consultas** para facilitar el acceso a la información relevante, como el estado de las revisiones, el coste total del equipamiento o el historial de mantenimientos realizados por los ingenieros. Esto permite a los usuarios obtener informes personalizados que pueden ser utilizados para la toma de decisiones estratégicas dentro del hospital.
+- **Advanced queries and reporting**: Implementation of a series of **views** and **queries** to provide easy access to relevant information, such as overhaul status, total equipment cost and engineers' maintenance history. This allows users to obtain customised reports that can be used for strategic decision making within the hospital.
 
-Documentación del proyecto: [**Visualizar documentación en pdf**](bd-quirofano.pdf)
+Project documentation: [**View documentation in pdf**](bd-quirofano.pdf)
