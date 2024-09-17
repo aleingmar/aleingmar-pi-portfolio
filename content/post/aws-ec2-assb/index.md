@@ -1,11 +1,12 @@
 ---
-title: Despliegue de servicio web con EC2 AWS
-description: Balancedor de carga que distribuía las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.
+title: Web service deployment with EC2 AWS
+description: Academic project | Load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.
 slug: aws-ec2-assb
 date: 2024-01-01 00:00:00+0000
 image: aws-ec2.png
 categories:
-    - Programación paralela
+    - DevOps
+    - Cloud
 tags:
     - Bash
     - WSL
@@ -14,17 +15,17 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar servicio web funcional en un entorno en la nube utilizando los servicios de **AWS**, manteniéndonos dentro de los límites del plan gratuito.
+This project was developed for a Systems Architectures and Distributed Systems (ASSB) assignment during my fourth year of undergraduate studies. The main objective was to deploy a functional web service in a cloud environment using **AWS** services, staying within the limits of the free plan.
 
-**Este servicio web se conformaba por un balancedor de carga que distribuía las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.**
+**The deployed web service consists of a load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.
 
-Las principales tareas realizadas incluyeron:
+The main tasks performed included:
 
-- **Control y creación de alertas de costes**: Configuración de alertas en AWS para asegurar que todas las operaciones se ajustaran al plan gratuito, evitando cargos adicionales no deseados.
-- **Despliegue de instancias EC2**: Levantar dos instancias de **EC2** y conectarnos a ellas mediante **SSH**. En cada una de las instancias, instalar el servidor web **Apache**.
-- **Configuración de servidores web**: Configuración de los servicios de Apache en ambas instancias para que sirvieran una página web estática creada por mi mismo.
-- **Implementación de un balanceador de carga**: Despliegue de un balanceador de carga en AWS, que distribuye de manera equitativa las peticiones entrantes entre los dos servidores Apache, optimizando la carga y asegurando una mayor disponibilidad.
+- **Controlling and creating cost alerts**: Setting up alerts in AWS to ensure that all operations conformed to the free plan, avoiding unwanted additional charges.
+- **Deployment of EC2 instances**: Raise two instances of **EC2** and connect to them via **SSH**. On each of the instances, install the **Apache** web server.
+- **Configuring Apache web servers**: Configuring the Apache services on both instances to serve a static web page created by myself.
+- **Deployment of a load balancer**: Deployment of a load balancer on AWS to evenly distribute incoming requests between the two Apache servers, optimising the load and ensuring higher availability.
 
 
-[**Visualizar memoria en pdf**](assb-aes-ec2.pdf)
+[**View memory in pdf**](assb-aes-ec2.pdf)
 
