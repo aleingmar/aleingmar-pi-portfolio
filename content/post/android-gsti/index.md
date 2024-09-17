@@ -1,6 +1,6 @@
 ---
 title: AVI Health
-description: Aplicación movil para la teleasistencia personalizada de pacientes dermatológicos.
+description: Academic project | Mobile application for personalised tele-assistance for dermatological patients.
 slug: android-gsti
 date: 2024-02-15 00:00:00+0000
 image: avi-health.png
@@ -10,13 +10,19 @@ tags:
     - Android
     - Kotlin
     - Firebase
+    - Firestore
     - Android Studio
+    - e-Heath
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
-Este proyecto fue desarrollado para la asignatura de Gestión de servicios y tecnologías de la información (GSTI) durante mi cuarto año de carrera. El objetivo principal 
+This project was developed during the Management of Information Services and Technologies (GSTI) course during my fourth year of my degree. The main objective of the project was to develop an Android mobile application to cover the telecare needs of an integrated care process (PAI) modelled by the Andalusian Health Service (SAS). Specifically, this application focuses on the dermatological telecare process for patients with skin cancer. 
 
-Memoria del proyecto:
-[**Visualizar pdf**](DocumentaciónAppMovil.pdf)
+The purpose of the application is to facilitate the interaction between the patient and the dermatologist, speeding up communication and clinical decision-making, as part of an e-Health system. This application provides an environment that allows the patient to share images of their evolution with the dermatologist, who can respond and follow up almost immediately, reducing the usual waiting times. These images are stored in the Goggle Cloud, which ensures the scalability of the system and protection against loss. 
+
+In addition, the application includes other key functionalities such as the creation of appointments and teleconsultations through the app, access to the location of nearby medical centres on Google Maps, management of both doctor and patient profiles... 
+
+Project report:
+[**View pdf**](DocumentaciónAppMovil.pdf)
 
 
 {{< video src="/video_avi_health.webm" >}}
