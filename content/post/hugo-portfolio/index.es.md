@@ -17,6 +17,7 @@ tags:
     - Html, Css, Js
     - VSCode
     - RPI5
+    - GoogleAnalytics
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.
@@ -33,6 +34,6 @@ El tema que seleccioné para mi portfolio es [hugo-theme-stack](https://github.c
 
 En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en mi servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno ordenado y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.
 
-El servidor web que gestiona las peticiones es **Caddy**, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera.
+El servidor web que gestiona las peticiones es **Caddy**, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera. Para monitorizar el portfolio web utilizo Google Analytics 4 (GA4) lo que me permite ver estadísticas sobre los accesos al sitio web.
 
-Para el desarrollo, suelo trabajar en local utilizando **Visual Studio Code**, aunque en ocasiones utilizo **GitHub Codespaces** cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está automatizado mediante un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización .
+Para el desarrollo, suelo trabajar en local utilizando **Visual Studio Code**, aunque en ocasiones utilizo **GitHub Codespaces** cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está automatizado mediante un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización.

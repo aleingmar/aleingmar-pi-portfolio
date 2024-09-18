@@ -17,6 +17,7 @@ tags:
     - Html, Css, Js
     - VSCode
     - RPI5
+    - GoogleAnalytics
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.
@@ -33,6 +34,6 @@ The theme I selected for my portfolio is [hugo-theme-stack](https://github.com/C
 
 In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.
 
-The web server that handles the requests is **Caddy**, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container.
+The web server that handles the requests is **Caddy**, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.
 
 For development, I usually work locally using **Visual Studio Code**, although sometimes I use **GitHub Codespaces** when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is automated via a Docker Compose file, which simplifies the process of pulling up the web application with each update.
