@@ -17,7 +17,7 @@ weight: 1       # You can add weight to some posts to override the default sorti
 
 This project was developed for a Systems Architectures and Distributed Systems (ASSB) assignment during my fourth year of undergraduate studies. The main objective was to deploy a functional web service in a cloud environment using **AWS** services, staying within the limits of the free plan.
 
-**The deployed web service consists of a load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.
+**The deployed web service consists of a load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.**
 
 The main tasks performed included:
 
