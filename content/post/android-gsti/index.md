@@ -22,7 +22,7 @@ The purpose of the application is to facilitate the interaction between the pati
 In addition, the application includes other key functionalities such as the creation of appointments and teleconsultations through the app, access to the location of nearby medical centres on Google Maps, management of both doctor and patient profiles... 
 
 Project report:
-[**View pdf**](DocumentaciónAppMovil.pdf)
+[**View pdf**](/post/android-gsti/DocumentaciónAppMovil.pdf)
 
 
-{{< video src="/video_avi_health.webm" >}}
+{{< video src="/post/android-gsti/video_avi_health.webm" >}}

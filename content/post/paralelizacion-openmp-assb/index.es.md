@@ -27,4 +27,4 @@ Las principales tareas realizadas fueron las siguientes:
 - **Generación de gráficos de rendimiento**: Tras recopilar los datos de tiempos de ejecución y aceleración, generé gráficos para visualizar el rendimiento del programa a medida que aumentaba el número de hilos. Estos gráficos demostraron cómo la aplicación escalaba con un mayor número de hilos, destacando las ventajas y limitaciones de la paralelización en un entorno de memoria compartida. 
 
 
-Documentación del proyecto: [**Visualizar documentación en pdf**](ASSB-openmp.pdf)
+Documentación del proyecto: [**Visualizar documentación en pdf**](/post/paralelizacion-openmp-assb/ASSB-openmp.pdf)

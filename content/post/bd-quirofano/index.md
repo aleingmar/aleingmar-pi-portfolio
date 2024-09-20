@@ -25,4 +25,4 @@ Some of the tasks performed include:
 
 - **Advanced queries and reporting**: Implementation of a series of **views** and **queries** to provide easy access to relevant information, such as overhaul status, total equipment cost and engineers' maintenance history. This allows users to obtain customised reports that can be used for strategic decision making within the hospital.
 
-Project documentation: [**View documentation in pdf**](bd-quirofano.pdf)
+Project documentation: [**View documentation in pdf**](/post/bd-quirofano/bd-quirofano.pdf)

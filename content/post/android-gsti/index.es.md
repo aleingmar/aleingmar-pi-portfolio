@@ -22,7 +22,7 @@ El propósito de la aplicación es facilitar la interacción entre el paciente y
 Además, la aplicación incluye otras funcionalidades clave como la creación de citas y teleconsultas a través de la app, el acceso a la ubicación de centros médicos cercanos en Google Maps, la gestión de perfiles tanto de médicos como de pacientes...
 
 Memoria del proyecto:
-[**Visualizar pdf**](DocumentaciónAppMovil.pdf)
+[**Visualizar pdf**](/post/android-gsti/DocumentaciónAppMovil.pdf)
 
 
-{{< video src="/video_avi_health.webm" >}}
+{{< video src="/post/android-gsti/video_avi_health.webm" >}}

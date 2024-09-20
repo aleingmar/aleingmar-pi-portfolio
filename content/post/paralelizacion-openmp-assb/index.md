@@ -26,4 +26,4 @@ The main tasks performed were the following:
 
 - **Generating performance graphs**: After collecting runtime and speedup data, I generated graphs to visualise the performance of the program as the number of threads increased. These graphs demonstrated how the application scaled with increased thread count, highlighting the advantages and limitations of parallelisation in a shared-memory environment. 
 
-Project documentation: [**View documentation in pdf**](ASSB-openmp.pdf)
+Project documentation: [**View documentation in pdf**](/post/paralelizacion-openmp-assb/ASSB-openmp.pdf)

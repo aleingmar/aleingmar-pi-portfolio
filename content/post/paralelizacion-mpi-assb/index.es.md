@@ -26,4 +26,4 @@ Las principales tareas de este proyecto son:
 
 - **Análisis de rendimiento y escalabilidad**: Para evaluar el rendimiento del programa paralelo, medí los tiempos de ejecución y la aceleración al utilizar diferentes cantidades de procesos, desde 1 hasta más del doble del número de núcleos físicos disponibles. Los resultados se visualizaron mediante gráficos que mostraban cómo la aceleración mejoraba conforme aumentaba el número de procesos, pero también cómo disminuía la eficiencia en ciertos puntos debido a la sobrecarga en la comunicación entre procesos.
 
-Documentación del proyecto: [**Visualizar documentación en pdf**](ASSB-mpi.pdf)
+Documentación del proyecto: [**Visualizar documentación en pdf**](/post/paralelizacion-mpi-assb/ASSB-mpi.pdf)

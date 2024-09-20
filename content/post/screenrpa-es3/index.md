@@ -33,7 +33,7 @@ This project allowed me to apply advanced knowledge in automation, Machine Learn
 
 
 Final thesis report related to this project:
-[**View pdf**](memoria-tfg.pdf)
+[**View pdf**](/post/screenrpa-es3/memoria-tfg.pdf)
 
 Part of the screenRPA platform developed in my work:
-{{< video src=/video-screenrpa.mp4 >}}
+{{< video src="/post/screenrpa-es3/video-screenrpa.mp4" >}}

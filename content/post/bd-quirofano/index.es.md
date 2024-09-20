@@ -25,4 +25,4 @@ Algunas de las tareas realizadas incluyen:
 
 - **Consultas avanzadas y generación de reportes**: Implementación de una serie de **vistas** y **consultas** para facilitar el acceso a la información relevante, como el estado de las revisiones, el coste total del equipamiento o el historial de mantenimientos realizados por los ingenieros. Esto permite a los usuarios obtener informes personalizados que pueden ser utilizados para la toma de decisiones estratégicas dentro del hospital.
 
-Documentación del proyecto: [**Visualizar documentación en pdf**](bd-quirofano.pdf)
+Documentación del proyecto: [**Visualizar documentación en pdf**](/post/bd-quirofano/bd-quirofano.pdf)

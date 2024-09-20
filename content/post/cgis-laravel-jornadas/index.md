@@ -21,7 +21,7 @@ In general terms, for the normal roles of healthcare professionals, the applicat
 
 In addition to this, the application allows functionalities common to all roles such as the creation of user accounts, the management of user profiles...
 
-{{< video src=/laravel-cgis-jornadas.mp4 >}}
+{{< video src="/post/cgis-laravel-jornadas/laravel-cgis-jornadas.mp4" >}}
 
 # Documentation
 # Table of contents

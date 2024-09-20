@@ -26,4 +26,4 @@ The main tasks of this project are:
 
 - **Performance and scalability analysis**: To evaluate the performance of the parallel program, I measured execution times and speedup when using different numbers of processes, from 1 to more than twice the number of available physical cores. The results were visualised in graphs showing how speedup improved as the number of processes increased, but also how efficiency decreased at certain points due to overhead in inter-process communication.
 
-Project documentation: [**View documentation in pdf**](ASSB-mpi.pdf)
+Project documentation: [**View documentation in pdf**](/post/paralelizacion-mpi-assb/ASSB-mpi.pdf)

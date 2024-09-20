@@ -32,7 +32,7 @@ Este proyecto me permitió aplicar conocimientos avanzados en automatización, M
 
 
 Memoria del trabajo fin de grado relacionado con este proyexto:
-[**Visualizar pdf**](memoria-tfg.pdf)
+[**Visualizar pdf**](/post/screenrpa-es3/memoria-tfg.pdf)
 
 Parte de la plataforma screenRPA desarrollada en mi trabajo:
-{{< video src="/video-screenrpa.mp4" >}}
+{{< video src="/post/screenrpa-es3/video-screenrpa.mp4" >}}
