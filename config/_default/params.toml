@@ -44,7 +44,7 @@ limit = 15
 type = "categories"
 
 [widgets.homepage.params]
-limit = 25
+limit = 50
 
 [[widgets.homepage]]
 type = "tag-cloud"
