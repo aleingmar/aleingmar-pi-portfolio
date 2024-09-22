@@ -22,14 +22,14 @@ weight: 1       # You can add weight to some posts to override the default sorti
 ---
 This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.
 
-**Web Development**
+## Web Development
 
 
 For the construction of my portfolio I chose **Hugo**, a static website generation platform that allows you to create modern frontend pages using **Markdown** files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo's ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.
 
 The theme I selected for my portfolio is [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack), because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.
 
-**DevOps and Deployment**.
+## DevOps and Deployment
 
 
 In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.
