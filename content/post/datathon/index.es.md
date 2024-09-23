@@ -6,7 +6,7 @@ date: 2023-02-01 00:00:00+0000
 image: dedalus-logo.png
 categories:
     - Análisis de datos
-    - Machine Learning
+    - Aprendizaje Automático
 tags:
     - Python
     - JupyterNotebook
