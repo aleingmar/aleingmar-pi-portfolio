@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Caddy on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/tags/caddy/</link><description>Recent content in Caddy on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/es/tags/caddy/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue y creación de portfolio web con Hugo.</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Despliegue y creación de portfolio web con Hugo." />&lt;p>Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.&lt;/p>
+&lt;h2 id="desarrollo-web">Desarrollo Web
+&lt;/h2>&lt;p>Para la construcción de mi portfolio elegí &lt;strong>Hugo&lt;/strong>, una plataforma de generación de sitios web estáticos que permite crear páginas modernas de frontend utilizando archivos &lt;strong>Markdown&lt;/strong>. La decisión de usar Hugo se basó en que ya había redactado una parte de mi portfolio en Obsidian, una herramienta (donde también se escribe en Markdown) que utilizo habitualmente para tomar notas y organizar mis apuntes. La capacidad de Hugo para aprovechar archivos en formato Markdown me permitió migrar este contenido fácilmente y enfocarme más en la calidad del contenido que en el desarrollo técnico.&lt;/p>
+&lt;p>El tema que seleccioné para mi portfolio es &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a>, debido a su formato limpio y moderno, que se ajusta perfectamente a la estructura y diseño que buscaba. Esta plantilla, con su enfoque en el rendimiento y la simplicidad, me permitió optimizar el desarrollo de mi portfolio sin necesidad de invertir demasiado tiempo en el diseño de la interfaz. Aun así, he programado nuevas funcionalidades que difieren del proyecto base open source para mi uso personal.&lt;/p>
+&lt;h2 id="devops-y-despliegue">DevOps y Despliegue
+&lt;/h2>&lt;p>En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en mi servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno ordenado y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.&lt;/p>
+&lt;p>El servidor web que gestiona las peticiones es &lt;strong>Caddy&lt;/strong>, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera. Para monitorizar el portfolio web utilizo Google Analytics 4 (GA4) lo que me permite ver estadísticas sobre los accesos al sitio web.&lt;/p>
+&lt;p>Para el desarrollo, suelo trabajar en local utilizando &lt;strong>Visual Studio Code&lt;/strong>, aunque en ocasiones utilizo &lt;strong>GitHub Codespaces&lt;/strong> cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está totalmente automatizado mediante un script de bash y un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización.&lt;/p></description></item><item><title>Mi propio servidor RPI5</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/my-server/rasberry.png" alt="Featured image of post Mi propio servidor RPI5" />&lt;p>Este proyecto consiste en conseguir alojar y gestionar de forma autónoma determinados servicios en mi propio servidor, una RasberryPi 5 de 8gb de Ram.&lt;/p>
+&lt;p>Para la administración y configuración tanto del servidor como de sus servicios alojados, accedo de forma remota a través del protocolo SSH.&lt;/p>
+&lt;p>El servidor está asociado a un dominio principal gestionado por &lt;strong>DuckDNS&lt;/strong>, lo que me permite acceder a los servicios de manera remota a través del navegador. Para evitar que la IP dinámica de mi red doméstica cambie y pierda el acceso al servidor cuento con un servicio que de forma autónoma actualiza automáticamente cada 5 minutos esta ip, asegurando que siempre esté correctamente sincronizada.&lt;/p>
+&lt;p>Para organizar los accesos mediante subdominios y asegurar la conexión a mis servicios mediante &lt;strong>HTTPS&lt;/strong>, utilizo &lt;strong>Caddy&lt;/strong> como servidor web, que actúa como intermediario y maneja los certificados TLS/SSL, garantizando un acceso seguro y sin complicaciones.&lt;/p>
+&lt;p>Además, he implementado un panel de control avanzado llamado &lt;strong>Homarr&lt;/strong>, que me proporciona una interfaz centralizada desde la cual puedo iniciar sesión y acceder fácilmente a los diferentes servicios desplegados en el servidor.&lt;/p>
+&lt;p>Todos los servicios alojados en el servidor incluyendo los mencionados anteriormente se alojan mediante &lt;strong>contenedores Docker&lt;/strong> y se organizan en subdominios específicos.
+En el momento que escribo esto, los servicios no mencionados que aloja el servidor son:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Vaultwarden&lt;/strong>: Un gestor de contraseñas.&lt;/li>
+&lt;li>&lt;strong>Portainer&lt;/strong>: Un gestor de contenedores con interfaz web.&lt;/li>
+&lt;li>&lt;strong>Pi-hole&lt;/strong>: Un servicio de DNS bloqueador de anuncios.&lt;/li>
+&lt;li>&lt;strong>WireGuard&lt;/strong>: Un servicio VPN.&lt;/li>
+&lt;/ul>
+&lt;p>WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.&lt;/p>
+&lt;p>&lt;img src="../../../p/my-server/homarr.png"
+width="1905"
+height="1013"
+srcset="../../../p/my-server/homarr_hu13141877406497588544.png 480w, ../../../p/my-server/homarr_hu1879694516232457999.png 1024w"
+loading="lazy"
+alt="Dashboard Homarr"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;img src="../../../p/my-server/vaultwarden.png"
+width="927"
+height="835"
+srcset="../../../p/my-server/vaultwarden_hu2992386036923389129.png 480w, ../../../p/my-server/vaultwarden_hu12562285439546566563.png 1024w"
+loading="lazy"
+alt="Gestor de contraseñas Vaultwarden"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+>&lt;/p>
+&lt;p>&lt;img src="../../../p/my-server/portainer.png"
+width="794"
+height="808"
+srcset="../../../p/my-server/portainer_hu14049985874781465710.png 480w, ../../../p/my-server/portainer_hu14339782898715529867.png 1024w"
+loading="lazy"
+alt="Gestor de contenedores Portainer"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="235px"
+>&lt;img src="../../../p/my-server/pihole.png"
+width="685"
+height="786"
+srcset="../../../p/my-server/pihole_hu9298812940104605404.png 480w, ../../../p/my-server/pihole_hu837838057630727188.png 1024w"
+loading="lazy"
+alt="Interfaz web de administración de Pihole"
+class="gallery-image"
+data-flex-grow="87"
+data-flex-basis="209px"
+>&lt;/p></description></item></channel></rss>

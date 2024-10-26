@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bash on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/tags/bash/</link><description>Recent content in Bash on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/es/tags/bash/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue y creación de portfolio web con Hugo.</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Despliegue y creación de portfolio web con Hugo." />&lt;p>Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.&lt;/p>
+&lt;h2 id="desarrollo-web">Desarrollo Web
+&lt;/h2>&lt;p>Para la construcción de mi portfolio elegí &lt;strong>Hugo&lt;/strong>, una plataforma de generación de sitios web estáticos que permite crear páginas modernas de frontend utilizando archivos &lt;strong>Markdown&lt;/strong>. La decisión de usar Hugo se basó en que ya había redactado una parte de mi portfolio en Obsidian, una herramienta (donde también se escribe en Markdown) que utilizo habitualmente para tomar notas y organizar mis apuntes. La capacidad de Hugo para aprovechar archivos en formato Markdown me permitió migrar este contenido fácilmente y enfocarme más en la calidad del contenido que en el desarrollo técnico.&lt;/p>
+&lt;p>El tema que seleccioné para mi portfolio es &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a>, debido a su formato limpio y moderno, que se ajusta perfectamente a la estructura y diseño que buscaba. Esta plantilla, con su enfoque en el rendimiento y la simplicidad, me permitió optimizar el desarrollo de mi portfolio sin necesidad de invertir demasiado tiempo en el diseño de la interfaz. Aun así, he programado nuevas funcionalidades que difieren del proyecto base open source para mi uso personal.&lt;/p>
+&lt;h2 id="devops-y-despliegue">DevOps y Despliegue
+&lt;/h2>&lt;p>En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en mi servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno ordenado y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.&lt;/p>
+&lt;p>El servidor web que gestiona las peticiones es &lt;strong>Caddy&lt;/strong>, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera. Para monitorizar el portfolio web utilizo Google Analytics 4 (GA4) lo que me permite ver estadísticas sobre los accesos al sitio web.&lt;/p>
+&lt;p>Para el desarrollo, suelo trabajar en local utilizando &lt;strong>Visual Studio Code&lt;/strong>, aunque en ocasiones utilizo &lt;strong>GitHub Codespaces&lt;/strong> cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está totalmente automatizado mediante un script de bash y un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización.&lt;/p></description></item><item><title>Mi propio servidor RPI5</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/my-server/rasberry.png" alt="Featured image of post Mi propio servidor RPI5" />&lt;p>Este proyecto consiste en conseguir alojar y gestionar de forma autónoma determinados servicios en mi propio servidor, una RasberryPi 5 de 8gb de Ram.&lt;/p>
+&lt;p>Para la administración y configuración tanto del servidor como de sus servicios alojados, accedo de forma remota a través del protocolo SSH.&lt;/p>
+&lt;p>El servidor está asociado a un dominio principal gestionado por &lt;strong>DuckDNS&lt;/strong>, lo que me permite acceder a los servicios de manera remota a través del navegador. Para evitar que la IP dinámica de mi red doméstica cambie y pierda el acceso al servidor cuento con un servicio que de forma autónoma actualiza automáticamente cada 5 minutos esta ip, asegurando que siempre esté correctamente sincronizada.&lt;/p>
+&lt;p>Para organizar los accesos mediante subdominios y asegurar la conexión a mis servicios mediante &lt;strong>HTTPS&lt;/strong>, utilizo &lt;strong>Caddy&lt;/strong> como servidor web, que actúa como intermediario y maneja los certificados TLS/SSL, garantizando un acceso seguro y sin complicaciones.&lt;/p>
+&lt;p>Además, he implementado un panel de control avanzado llamado &lt;strong>Homarr&lt;/strong>, que me proporciona una interfaz centralizada desde la cual puedo iniciar sesión y acceder fácilmente a los diferentes servicios desplegados en el servidor.&lt;/p>
+&lt;p>Todos los servicios alojados en el servidor incluyendo los mencionados anteriormente se alojan mediante &lt;strong>contenedores Docker&lt;/strong> y se organizan en subdominios específicos.
+En el momento que escribo esto, los servicios no mencionados que aloja el servidor son:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Vaultwarden&lt;/strong>: Un gestor de contraseñas.&lt;/li>
+&lt;li>&lt;strong>Portainer&lt;/strong>: Un gestor de contenedores con interfaz web.&lt;/li>
+&lt;li>&lt;strong>Pi-hole&lt;/strong>: Un servicio de DNS bloqueador de anuncios.&lt;/li>
+&lt;li>&lt;strong>WireGuard&lt;/strong>: Un servicio VPN.&lt;/li>
+&lt;/ul>
+&lt;p>WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.&lt;/p>
+&lt;p>&lt;img src="../../../p/my-server/homarr.png"
+width="1905"
+height="1013"
+srcset="../../../p/my-server/homarr_hu13141877406497588544.png 480w, ../../../p/my-server/homarr_hu1879694516232457999.png 1024w"
+loading="lazy"
+alt="Dashboard Homarr"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;img src="../../../p/my-server/vaultwarden.png"
+width="927"
+height="835"
+srcset="../../../p/my-server/vaultwarden_hu2992386036923389129.png 480w, ../../../p/my-server/vaultwarden_hu12562285439546566563.png 1024w"
+loading="lazy"
+alt="Gestor de contraseñas Vaultwarden"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+>&lt;/p>
+&lt;p>&lt;img src="../../../p/my-server/portainer.png"
+width="794"
+height="808"
+srcset="../../../p/my-server/portainer_hu14049985874781465710.png 480w, ../../../p/my-server/portainer_hu14339782898715529867.png 1024w"
+loading="lazy"
+alt="Gestor de contenedores Portainer"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="235px"
+>&lt;img src="../../../p/my-server/pihole.png"
+width="685"
+height="786"
+srcset="../../../p/my-server/pihole_hu9298812940104605404.png 480w, ../../../p/my-server/pihole_hu837838057630727188.png 1024w"
+loading="lazy"
+alt="Interfaz web de administración de Pihole"
+class="gallery-image"
+data-flex-grow="87"
+data-flex-basis="209px"
+>&lt;/p></description></item><item><title>Despliegue de servicio web con EC2 AWS</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Despliegue de servicio web con EC2 AWS" />&lt;p>Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar un servicio web funcional en un entorno en la nube utilizando los servicios de &lt;strong>AWS&lt;/strong>, manteniéndonos dentro de los límites del plan gratuito.&lt;/p>
+&lt;p>&lt;strong>El servicio web desplegado se conforma por un balancedor de carga que distribuye las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.&lt;/strong>&lt;/p>
+&lt;p>Las principales tareas realizadas incluyeron:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Control y creación de alertas de costes&lt;/strong>: Configuración de alertas en AWS para asegurar que todas las operaciones se ajustaran al plan gratuito, evitando cargos adicionales no deseados.&lt;/li>
+&lt;li>&lt;strong>Despliegue de instancias EC2&lt;/strong>: Levantar dos instancias de &lt;strong>EC2&lt;/strong> y conectarnos a ellas mediante &lt;strong>SSH&lt;/strong>. En cada una de las instancias, instalar el servidor web &lt;strong>Apache&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuración de servidores web Apache&lt;/strong>: Configuración de los servicios de Apache en ambas instancias para que sirvieran una página web estática creada por mi mismo.&lt;/li>
+&lt;li>&lt;strong>Implementación de un balanceador de carga&lt;/strong>: Despliegue de un balanceador de carga en AWS para distribuir de manera equitativa las peticiones entrantes entre los dos servidores Apache, optimizando la carga y asegurando una mayor disponibilidad.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="../../../post/aws-ec2-assb/assb-aes-ec2.pdf" >&lt;strong>Visualizar memoria en pdf&lt;/strong>&lt;/a>&lt;/p></description></item><item><title>Computación paralela en sistemas distribuidos con MPI.</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/mpi-assb/</link><pubDate>Wed, 01 Nov 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/mpi-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/mpi-assb/mpi-logo.png" alt="Featured image of post Computación paralela en sistemas distribuidos con MPI." />&lt;p>Este proyecto fue desarrollado para la asignatura Arquitectura de Sistemas y Software de Base (ASSB), durante mi cuarto año de carrera. El objetivo principal era familiarizarse con la programación paralela en computadores de memoria distribuida utilizando la &lt;strong>librería MPI&lt;/strong> en &lt;strong>C&lt;/strong> (Message-Passing Interface). Una técnica muy utilizada para la computación distribuida en múltiples máquinas, comúnmente utilizado en clústeres de alto rendimiento. En el caso de este proyecto todo se ejecutó en mi propio computador, entendiendo mi computador como una especie de clúster y sus diferentes núcleos como máquinas que forman este.&lt;/p>
+&lt;p>Las principales tareas de este proyecto son:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Desarrollo del programa de &amp;ldquo;Hola Mundo&amp;rdquo; con MPI&lt;/strong>: Como primer paso, programé un programa básico para que &lt;strong>cada proceso imprimiera un mensaje con su rango y el nombre del procesador en el que estaba ejecutándose&lt;/strong>. Además, experimenté con la posibilidad de lanzar más procesos que el número de núcleos físicos disponibles, observando cómo MPI gestiona este escenario aunque pierda rendimiento.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Producto escalar de vectores en paralelo&lt;/strong>: Implementé un programa con MPI que &lt;strong>calcula el producto escalar de dos vectores&lt;/strong> de gran tamaño, distribuyendo el trabajo entre varios procesos. Cada proceso calculaba una parte del producto escalar, y luego los resultados se reunían en el proceso de rango 0, que mostraba el resultado total. También se añadió una medición del tiempo de ejecución, lo que permitió analizar cómo variaba el rendimiento al cambiar el número de procesos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Resolución de integrales con el método de los trapecios&lt;/strong>: Posteriormente, &lt;strong>implementé un programa para calcular integrales mediante el método de los trapecios&lt;/strong>, paralelizando el programa para que cada proceso calculara la suma de los trapecios en un subintervalo específico. Al igual que antes, el proceso de rango 0 era responsable de sumar los resultados de todos los procesos y mostrar el valor final de la integral.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Análisis de rendimiento y escalabilidad&lt;/strong>: Para evaluar el rendimiento del programa paralelo, medí los tiempos de ejecución y la aceleración al utilizar diferentes cantidades de procesos, desde 1 hasta más del doble del número de núcleos físicos disponibles. Los resultados se visualizaron mediante gráficos que mostraban cómo la aceleración mejoraba conforme aumentaba el número de procesos, pero también cómo disminuía la eficiencia en ciertos puntos debido a la sobrecarga en la comunicación entre procesos.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Documentación del proyecto: &lt;a class="link" href="../../../post/paralelizacion-mpi-assb/ASSB-mpi.pdf" >&lt;strong>Visualizar documentación en pdf&lt;/strong>&lt;/a>&lt;/p></description></item><item><title>Computación paralela en procesadores multinúcleos con OpenMP.</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/openmp-assb/</link><pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/openmp-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/openmp-assb/openmp-logo.png" alt="Featured image of post Computación paralela en procesadores multinúcleos con OpenMP." />&lt;p>Este proyecto fue desarrollado durante la asignatura de Arquitectura de Sistemas y Software de Base (ASSB) durante mi cuarto año de carrera. El objetivo principal era implementar un algoritmo para el cálculo del número Pi utilizando el método de MonteCarlo programando en C tanto de forma secuencial como utilizando técnicas de programación paralela para aprovechar al máximo los recursos de los procesadores multinúcleo mediante la librería OpenMP, que permite ejecutar código en múltiples hilos de manera eficiente.&lt;/p>
+&lt;p>Las principales tareas realizadas fueron las siguientes:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Desarrollo de la versión secuencial y paralela del algoritmo&lt;/strong>: Implementé un programa que simula el lanzamiento de &amp;ldquo;dardos&amp;rdquo; aleatorios dentro de un cuadrado inscrito en un círculo. La relación entre los aciertos dentro del círculo y los lanzamientos totales permite calcular el valor de Pi. En la versión paralela, utilicé OpenMP para dividir el trabajo entre varios hilos, aprovechando al máximo los recursos de los procesadores multinúcleo.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mediciones de tiempo y análisis de rendimiento&lt;/strong>: Tras desarrollar las dos versiones del programa, realicé mediciones de tiempo para evaluar el rendimiento de la versión paralela en comparación con la secuencial. Utilicé diferentes configuraciones de hilos, desde un solo hilo hasta más del doble de los núcleos físicos del procesador, con el objetivo de analizar la aceleración y escalabilidad del algoritmo. La aceleración se calculó como la relación entre el tiempo de ejecución en un único hilo y el tiempo de ejecución con varios hilos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Optimización y gestión de recursos compartidos&lt;/strong>: Durante el desarrollo, fue necesario resolver problemas comunes de la programación paralela, como las condiciones de carrera. En este caso, utilicé directivas de OpenMP para definir variables privadas en cada hilo, evitando que varios hilos accedieran simultáneamente a las mismas variables globales y afectaran el resultado final.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Generación de gráficos de rendimiento&lt;/strong>: Tras recopilar los datos de tiempos de ejecución y aceleración, generé gráficos para visualizar el rendimiento del programa a medida que aumentaba el número de hilos. Estos gráficos demostraron cómo la aplicación escalaba con un mayor número de hilos, destacando las ventajas y limitaciones de la paralelización en un entorno de memoria compartida.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Documentación del proyecto: &lt;a class="link" href="../../../post/paralelizacion-openmp-assb/ASSB-openmp.pdf" >&lt;strong>Visualizar documentación en pdf&lt;/strong>&lt;/a>&lt;/p></description></item></channel></rss>
