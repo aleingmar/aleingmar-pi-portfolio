@@ -27,7 +27,7 @@ icon = "brand-linkedin"
 [[social]]
 identifier = "cv"
 name = "cv"
-url = "/cv-alejandroingles-18-09-24.pdf"
+url = "/CV-en-AlejandroIngles.pdf"
 
 [social.params]
 icon = "file-cv"
