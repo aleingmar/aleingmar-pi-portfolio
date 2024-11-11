@@ -19,6 +19,8 @@ This project was developed for the Deployment Automation course, as part of the 
 
 The aim of the project is to deploy and configure in an automated way a web environment on a virtual machine hosting an Apache server, which serves a basic web page. The virtual machine is created using IaC (Infrastructure as Code) with Vagrant, and Puppet is used for its provisioning, which manages the installation of Apache and the automatic loading of a simple HTML file, thus creating a functional web service.
 
+In short, simply running a ‘vagrant up’ starts the whole deployment and provisioning process and automatically (without doing anything else) a virtual machine is raised in which puppet is installed, an Apache web server is configured and installed to activate and listen to port 80 (http) of the VM and to return a simple web page that is inserted inside it.
+
 **GitHub repository:** https://github.com/aleingmar/Despliegue_web_apache_Vagrant-Puppet
 
 

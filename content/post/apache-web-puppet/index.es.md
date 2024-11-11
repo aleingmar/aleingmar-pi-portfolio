@@ -19,6 +19,8 @@ Este proyecto fue desarrollado para la asignatura de Automatización de Desplieg
 
 El objetivo del proyecto es desplegar y configurar de manera automatizada un entorno web en una máquina virtual que hospeda un servidor Apache, el cual sirve una página web básica. La máquina virtual se crea mediante IaC (Infrastructure as Code) con Vagrant, y para su aprovisionamiento se utiliza Puppet, que gestiona la instalación de Apache y la carga automática de un archivo HTML simple, creando así un servicio web funcional.
 
+En definitiva, simplemente ejecutando un 'vagrant up' comienza todo el proceso de despliegue y aprovisionamiento y de forma automática (sin hacer nada más) se levanta una máquina virtual en la cual se instala puppet, se configura e instala un servidor web Apache para que se active y escuche el puerto 80 (http) de la Mv y para que devuelva una página web simple que se introduce en su interior.
+
 **Repositorio de GitHub:** https://github.com/aleingmar/Despliegue_web_apache_Vagrant-Puppet
 
 
