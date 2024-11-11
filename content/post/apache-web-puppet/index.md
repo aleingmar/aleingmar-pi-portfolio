@@ -35,5 +35,5 @@ The GiHub repository consists of a directory containing a ‘Vagrantfile’ file
 
 The service is accessible from the host on `localhost:8080` by redirecting port 8080 on the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.
 
-![Web page content served by apache](localhost.png)
 
+{{< youtube "8K7JzFuzGvg" >}}

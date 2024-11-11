@@ -35,4 +35,4 @@ El repositorio de GiHub se compone de un directorio donde se encuentra un ficher
 
 El servicio es accesible desde el host en `localhost:8080` gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.
 
-![Contenido de página web servido por apache](localhost.png)
+{{< youtube "8K7JzFuzGvg" >}}
