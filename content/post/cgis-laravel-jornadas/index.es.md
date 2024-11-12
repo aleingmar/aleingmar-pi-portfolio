@@ -22,7 +22,7 @@ De forma general, por parte de los roles normales de profesionales sanitarios, l
 
 Además de esto, la aplicación permite funcionalidades comunes a todos los roles como son la creación de cuentas de usuarios, la gestión de perfil de usuario...
 
-{{< video src="/post/cgis-laravel-jornadas/laravel-cgis-jornadas.mp4" >}}
+{{< youtube "5IerfTbQQ2Q" >}}
 
 # Documentación
 # Índice

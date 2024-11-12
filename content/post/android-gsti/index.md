@@ -25,4 +25,4 @@ Project report:
 [**View pdf**](/post/android-gsti/DocumentaciónAppMovil.pdf)
 
 
-{{< video src="/post/android-gsti/video_avi_health.webm" >}}
+{{< youtube "zTRWcF5hFIY" >}}

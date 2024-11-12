@@ -67,3 +67,6 @@ Make sure also to specify Hugo version in the environment variable `HUGO_VERSION
 
 ![Environment variable](https://user-images.githubusercontent.com/5889006/156917212-afb7c70d-ab85-480f-8288-b15781a462c0.png)
 </details>
+----------------
+Subir videos al portfolio pero tenerlos dentro del proyecto en /static
+{{< video src="/post/android-gsti/video_avi_health.webm" >}}
