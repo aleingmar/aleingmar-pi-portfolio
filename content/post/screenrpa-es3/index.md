@@ -36,4 +36,4 @@ Final thesis report related to this project:
 [**View pdf**](/post/screenrpa-es3/memoria-tfg.pdf)
 
 Part of the screenRPA platform developed in my work:
-{{< video src="/post/screenrpa-es3/video-screenrpa.mp4" >}}
+{{< youtube "wyJ44HuMGMQ" >}}
