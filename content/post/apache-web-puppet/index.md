@@ -21,10 +21,18 @@ The aim of the project is to deploy and configure in an automated way a web envi
 
 In short, simply running a `vagrant up` starts the whole deployment and provisioning process and automatically (without doing anything else) a virtual machine is raised in which puppet is installed, an Apache web server is configured and installed to activate and listen to port 80 (http) of the VM and to return a simple web page that is inserted inside it.
 
-**GitHub repository:** https://github.com/aleingmar/Despliegue_web_apache_Vagrant-Puppet
+**GitHub repository:** https://github.com/aleingmar/deployment_apache-puppet-vagrant
 
 
-The GiHub repository consists of a directory containing a ‘Vagrantfile’ file and a ‘manifests’ folder containing the ‘apache.pp’ file.
+The GiHub repository consists of two directories with two different versions: /easy_mode and /hard_mode.
+
+- The first folder (/easy_mode) contains the deployment project with a simplified structure. This version does not follow the architecture and code organisation of complex deployment projects, and the Apache configuration is more basic.
+
+- The second folder (/hard_mode) uses a more Puppet-friendly code pattern, for example using modules and other Puppet-typical elements. In addition, the Apache configuration is more advanced and detailed.
+
+Both versions manage to deploy correctly.
+
+Explaining for example the simple version (/easy_mode) a directory where a ‘Vagrantfile’ file is located and a ‘manifests’ folder inside which the ‘apache.pp’ file is located.
 
 - The Vagrantfile defines the virtual machine infrastructure that needs to be deployed to support the web service. This is taken care of by Vagrant and underneath it, it uses VirtualBox as virtualisation provider.
 

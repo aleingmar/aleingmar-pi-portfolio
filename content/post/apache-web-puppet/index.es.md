@@ -21,10 +21,18 @@ El objetivo del proyecto es desplegar y configurar de manera automatizada un ent
 
 En definitiva, simplemente ejecutando un `vagrant up` comienza todo el proceso de despliegue y aprovisionamiento y de forma automática (sin hacer nada más) se levanta una máquina virtual en la cual se instala puppet, se configura e instala un servidor web Apache para que se active y escuche el puerto 80 (http) de la Mv y para que devuelva una página web simple que se introduce en su interior.
 
-**Repositorio de GitHub:** https://github.com/aleingmar/Despliegue_web_apache_Vagrant-Puppet
+**Repositorio de GitHub:** https://github.com/aleingmar/deployment_apache-puppet-vagrant
 
 
-El repositorio de GiHub se compone de un directorio donde se encuentra un fichero "Vagrantfile" y una carpeta "manifests" en cuyo interior se encuentra el fichero "apache.pp".
+El repositorio de GiHub se compone de dos directorios con dos versiones distintas: /easy_mode y /hard_mode.
+
+- En la primera carpeta (/easy_mode) se encuentra el proyecto de despliegue con una estructura simplificada. Esta versión no sigue una arquitectura ni una organización de código propias de proyectos de despliegue complejos, y la configuración de Apache es más básica.
+
+- En la segunda carpeta (/hard_mode) se utiliza un patrón de código más adecuado para Puppet, empleando, por ejemplo, módulos y otros elementos típicos de esta tecnología. Además, la configuración de Apache es más avanzada y detallada.
+
+Ambas versiones consiguen realizar el despliegue correctamente.
+
+Explicando por ejemplo la versión sencilla (/easy_mode) un directorio donde se encuentra un fichero "Vagrantfile" y una carpeta "manifests" en cuyo interior se encuentra el fichero "apache.pp".
 
 - En el Vagrantfile se define la infraestructura de máquinas virtuales que es necesaria desplegar para sustentar el servicio web. De esto se encarga Vagrant y por debajo, usa como proveedor de virtualización VirtualBox.
 
