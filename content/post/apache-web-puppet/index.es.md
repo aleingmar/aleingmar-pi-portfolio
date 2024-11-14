@@ -1,6 +1,6 @@
 ---
-title: Despliegue automatizado de servidor web con Vagrant y Puppet
-description: Proyecto académico | Despliegue automatizado en local de servidor web Apache utilizando Vagrant y Puppet.
+title: Despliegue automatizado de Apache usando Vagrant y Puppet
+description: Proyecto académico | Despliegue automatizado de servidor web Apache (en local) utilizando como herramienta IaC Vagrant y para su aprovisionamiento Puppet.
 slug: apache-web-puppet
 date: 2024-10-11 00:00:00+0000
 image: vagrantPuppet.png
