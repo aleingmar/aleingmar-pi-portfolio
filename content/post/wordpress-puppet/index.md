@@ -2,7 +2,7 @@
 title: Automated Wordpress Deployment using Vagrant and Puppet
 description: Academic project | Automated deployment of Wordpress website (locally) using Vagrant as IaC tool and Puppet as provisioning tool.
 slug: wordpress-puppet
-date: 2024-12-01 00:00:00+0000
+date: 2024-11-25 00:00:00+0000
 image: wordpress-puppet.png
 categories:
     - DevOps
