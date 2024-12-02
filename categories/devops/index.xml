@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DevOps on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/categories/devops/</link><description>Recent content in DevOps on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/categories/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>Automated Wordpress deployment using Vagrant and Puppet</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/wordpress-puppet/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/wordpress-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/wordpress-puppet/wordpress-puppet.png" alt="Featured image of post Automated Wordpress deployment using Vagrant and Puppet" />&lt;p>This project was developed for the Deployment Automation course, as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p>
+&lt;p>The main objective of this project is to automatically deploy a test web environment with a custom WordPress service, using Vagrant as the Infrastructure as Code (IaC) tool and Puppet for automated provisioning.
+By simply running the &lt;code>vagrant up&lt;/code> command in the terminal in the directory where the Vagrantfile is located, the entire environment is deployed without any additional configuration.
+Before you can deploy a WordPress web service, you need to perform several provisioning and configuration tasks, including the following:&lt;/p>
+&lt;ol>
+&lt;li>Install, configure and set up an Apache web server to redirect and serve all content.&lt;/li>
+&lt;li>Install all the specific PHP packages and modules required by WordPress.&lt;/li>
+&lt;li>Install, configure and set up a MySQL database that will be used by WordPress for the persistence of its data.&lt;/li>
+&lt;/ol>
+&lt;p>To verify correct operation, simply access &lt;code>localhost:8080&lt;/code> from the browser.&lt;/p>
+&lt;p>&lt;strong>GitHub repository:&lt;/strong> &lt;a class="link" href="https://github.com/aleingmar/WordPress_deployment-puppet-vagrant" target="_blank" rel="noopener"
+>https://github.com/aleingmar/WordPress_deployment-puppet-vagrant&lt;/a>&lt;/p>
+&lt;p>The project includes two different versions of the environment, organised in separate directories:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/puppet-two-nodes&lt;/code>.
+In this version, three Puppet nodes are deployed: one Puppet Master and two Puppet Clients.&lt;/li>
+&lt;/ul>
+&lt;p>Each client (node) hosts a WordPress environment, provisioned with the directives sent from the Puppet Master. Every min the puppet clients automatically request the new puppet configuration if any via a cron job.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/puppet-one-node&lt;/code>
+In this version, only one virtual machine (VM) with a self-provisioning Puppet client is raised, without the need for a Puppet Master.&lt;/li>
+&lt;/ul>
+&lt;h2 id="self-provisioning-version-puppet-one-node">Self-provisioning version: puppet-one-node
+&lt;/h2>&lt;p>In this version of the environment, only one mv is raised, a self-provisioning puppet agent/client without the need for a Puppet master node. The whole deployment process is done fully automatically.&lt;/p>
+&lt;h3 id="puppet-one-node-vagrantfile">puppet-one-node: Vagrantfile
+&lt;/h3>&lt;p>The Vagrantfile defines the basic virtual machine (VM) configuration for creating an Infrastructure-as-Code (IaC) environment. It specifies the Ubuntu base box to be used, the networking options (including port forwarding and assigning a private IP), and allocates 1024 MB of RAM to the VM. In addition, Puppet is installed in agent mode, eliminating the need for a master Puppet server, and is configured to use the main manifest &lt;code>default.pp&lt;/code>, modules from the &lt;code>modules&lt;/code> directory and the Hiera configuration file &lt;code>hiera.yaml&lt;/code> to centrally manage data.&lt;/p>
+&lt;h2 id="client-server-architecture-version-puppet-two-nodes">Client-server architecture version: puppet-two-nodes
+&lt;/h2>&lt;p>In this version of the environment 3 mvs are raised, one puppet master and two puppet clients. The mvs are automatically raised and their corresponding puppet versions are installed (to the master node the master is installed and so on).
+Once the client node is up (which is up after the master), as soon as it starts it sends its certificate to the master (which knows it because it is in its puppet.config file).
+In a &lt;strong>MANUAL&lt;/strong> way, you have to perform the different administration tasks:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>SERVER side&lt;/strong>:
+Manually, the only thing the sysadmin in charge of this environment has to do is to do an:
+&lt;code>sudo /opt/puppetlabs/bin/puppetserver ca sign --all&lt;/code> to sign all the unsigned certificates that have arrived (in this case one for each client node) and send them signed to the corresponding clients.&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>On a voluntary basis, but recommended for security purposes, especially in real production environments, you should run &lt;strong>before&lt;/strong> signing them a:
+&lt;code>sudo /opt/puppetlabs/bin/puppetserver ca list --all&lt;/code> to list all the certificates and verify that you don&amp;rsquo;t sign a certificate that you shouldn&amp;rsquo;t.&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>&lt;strong>CLIENT side&lt;/strong>:
+Once this is done on the server, the corresponding client should receive its signed certificate, with which it will be able to communicate with the master node and
+ask for puppet configuration/provisioning by executing this command: &lt;code>sudo /opt/puppetlabs/bin/puppet agent --test&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;h3 id="general-structure-of-the-puppet-provisioning-project">General structure of the puppet provisioning project
+&lt;/h3>&lt;p>The organisation of the files and modules is detailed below, which makes it easier to understand the general functioning of the project:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Main file&lt;/strong>: &lt;code>manifests/default.pp&lt;/code>.
+This file acts as the starting point for Puppet. The modules needed to configure all the components of the environment are imported from here. In this case, the code is split into three modules: &lt;strong>apache, mysql and wordpress&lt;/strong>, which are executed and imported in this order. The PHP installation I have decided to code it directly in this module, without adding another module just for this as it is only 3 or 4 lines of code. The installation of these components is done in this order: &lt;strong>apache, php, mysql and wordpress&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Variables management with Hiera**: &lt;code>hiera.yaml, data/common.yaml&lt;/code>.
+To manage variables, Hiera is used, which allows the keys to be separated from the source code. This ensures a more secure approach, as it avoids exposing sensitive credentials when uploading the project to a cloud repository. Although this project is academic and does not include encrypted variables, Hiera also offers the possibility to encrypt keys.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Variables are declared along with their values in &lt;code>data/common.yaml&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The &lt;code>hiera.yaml&lt;/code> file configures how Hiera works.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>To integrate Hiera with Vagrant, the line &lt;code>puppet.hiera_config_path = ‘hiera.yaml’&lt;/code> is added to the Vagrantfile.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Modules used&lt;/strong>:
+The project is divided into three main modules, which guarantees modularity and organisation in the code:&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Apache module&lt;/strong>: This module provisions and configures the Apache web server in the VM.
+This module provisions and configures the Apache web server in the VM, leaving it ready and active so that the wordpress module can manage and serve content from it.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>mysql module&lt;/strong>
+In this module a MySQL server is installed and configured in the VM, ensuring the correct functioning of the database manager. In addition, the necessary database for WordPress is created using the &lt;code>init-wordpress.sql.erb&lt;/code> file.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>wordpress module&lt;/strong>
+This module installs and configures WordPress, making it fully functional. The main actions performed are:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Installation of the wordpress packages and dependencies and activation of the service.&lt;/li>
+&lt;li>Configuration of the &lt;code>wp-config.conf.erb&lt;/code> file, which configures the service, among other things, connects WordPress with the database and defines previously generated access keys.&lt;/li>
+&lt;li>Installation and use of the &lt;code>wp-cli&lt;/code> tool to automate the configuration of the website.&lt;/li>
+&lt;li>Initialisation of the database using the &lt;code>init-wordpress-content.sql.erb&lt;/code> file with the minimum content necessary to launch a web page.&lt;/li>
+&lt;li>Configuration of Apache to serve the page content, using the &lt;code>wp-apache-config.conf.erb&lt;/code> file.&lt;/li>
+&lt;/ul>
+&lt;p>The service is accessible from the host at &lt;code>localhost:8080&lt;/code> thanks to port 8080 redirection from the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.&lt;/p>
+&lt;p>Deployment of the puppet-one-node version enviroment:
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/xQdjuHr-2-U"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;/p></description></item><item><title>Automated Apache deployment using Vagrant and Puppet</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/apache-web-puppet/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/apache-web-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/apache-web-puppet/apache-puppet.png" alt="Featured image of post Automated Apache deployment using Vagrant and Puppet" />&lt;p>This project was developed for the Deployment Automation course, as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p>
+&lt;p>The aim of the project is to deploy and configure in an automated way a web environment on a virtual machine hosting an Apache server, which serves a basic web page. The virtual machine is created using IaC (Infrastructure as Code) with Vagrant, and Puppet is used for its provisioning, which manages the installation of Apache and the automatic loading of a simple HTML file, thus creating a functional web service.&lt;/p>
+&lt;p>In short, simply running a &lt;code>vagrant up&lt;/code> starts the whole deployment and provisioning process and automatically (without doing anything else) a virtual machine is raised in which puppet is installed, an Apache web server is configured and installed to activate and listen to port 80 (http) of the VM and to return a simple web page that is inserted inside it.&lt;/p>
+&lt;p>&lt;strong>GitHub repository:&lt;/strong> &lt;a class="link" href="https://github.com/aleingmar/deployment_apache-puppet-vagrant" target="_blank" rel="noopener"
+>https://github.com/aleingmar/deployment_apache-puppet-vagrant&lt;/a>&lt;/p>
+&lt;p>The GiHub repository consists of two directories with two different versions: /easy_mode and /hard_mode.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>The first folder (/easy_mode) contains the deployment project with a simplified structure. This version does not follow the architecture and code organisation of complex deployment projects, and the Apache configuration is more basic.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The second folder (/hard_mode) uses a more Puppet-friendly code pattern, for example using modules and other Puppet-typical elements. In addition, the Apache configuration is more advanced and detailed.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Both versions manage to deploy correctly.&lt;/p>
+&lt;p>Explaining for example the simple version (/easy_mode) a directory where a ‘Vagrantfile’ file is located and a ‘manifests’ folder inside which the ‘apache.pp’ file is located.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>The Vagrantfile defines the virtual machine infrastructure that needs to be deployed to support the web service. This is taken care of by Vagrant and underneath it, it uses VirtualBox as virtualisation provider.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In the Vagrantfile, before telling Vagrant to provision the infrastructure using Puppet, a script is run to install Puppet inside the virtual machines. Puppet in this case works in stand-alone mode (without following the client-server model).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The file ‘apache.pp’ defines the desired configuration for this infrastructure and serves as a declarative guide for Puppet to develop its work. Since Puppet uses a declarative language, you don&amp;rsquo;t tell it how you want things to be done, only what you want to achieve, and Puppet does the rest.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>The service is accessible from the host on &lt;code>localhost:8080&lt;/code> by redirecting port 8080 on the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/8K7JzFuzGvg"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>Deployment and creation of a web portfolio with Hugo.</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Deployment and creation of a web portfolio with Hugo." />&lt;p>This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.&lt;/p>
+&lt;h2 id="web-development">Web Development
+&lt;/h2>&lt;p>For the construction of my portfolio I chose &lt;strong>Hugo&lt;/strong>, a static website generation platform that allows you to create modern frontend pages using &lt;strong>Markdown&lt;/strong> files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo&amp;rsquo;s ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.&lt;/p>
+&lt;p>The theme I selected for my portfolio is &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a>, because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.&lt;/p>
+&lt;h2 id="devops-and-deployment">DevOps and Deployment
+&lt;/h2>&lt;p>In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.&lt;/p>
+&lt;p>The web server that handles the requests is &lt;strong>Caddy&lt;/strong>, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.&lt;/p>
+&lt;p>For development, I usually work locally using &lt;strong>Visual Studio Code&lt;/strong>, although sometimes I use &lt;strong>GitHub Codespaces&lt;/strong> when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is fully automated through a bash script and a Docker Compose file, which simplifies the process of lifting the web application with each update.&lt;/p>
+&lt;p>&lt;strong>Web portfolio change deployment process with bash scripting:&lt;/strong>&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>My own RPI5 server</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/my-server/rasberry.png" alt="Featured image of post My own RPI5 server" />&lt;p>This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram.&lt;/p>
+&lt;p>For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.&lt;/p>
+&lt;p>The server is associated to a main domain managed by &lt;strong>DuckDNS&lt;/strong>, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.&lt;/p>
+&lt;p>To organise access via subdomains and ensure connection to my services via &lt;strong>HTTPS&lt;/strong>, I use &lt;strong>Caddy&lt;/strong> as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.&lt;/p>
+&lt;p>In addition, I have implemented an advanced control panel called &lt;strong>Homarr&lt;/strong>, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server.&lt;/p>
+&lt;p>All the services hosted on the server including the ones mentioned above are hosted using &lt;strong>Docker containers&lt;/strong> and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Vaultwarden&lt;/strong>: A password manager.&lt;/li>
+&lt;li>&lt;strong>Portainer&lt;/strong>: A container manager with a web interface.&lt;/li>
+&lt;li>&lt;strong>Pi-hole&lt;/strong>: An ad-blocking DNS service.&lt;/li>
+&lt;li>&lt;strong>WireGuard&lt;/strong>: A VPN service.&lt;/li>
+&lt;/ul>
+&lt;p>WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.&lt;/p>
+&lt;p>&lt;img src="../../p/my-server/homarr.png"
+width="1905"
+height="1013"
+srcset="../../p/my-server/homarr_hu13141877406497588544.png 480w, ../../p/my-server/homarr_hu1879694516232457999.png 1024w"
+loading="lazy"
+alt="Dashboard Homarr"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;img src="../../p/my-server/vaultwarden.png"
+width="927"
+height="835"
+srcset="../../p/my-server/vaultwarden_hu2992386036923389129.png 480w, ../../p/my-server/vaultwarden_hu12562285439546566563.png 1024w"
+loading="lazy"
+alt="Vaultwarden Password Manager"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+>&lt;/p>
+&lt;p>&lt;img src="../../p/my-server/portainer.png"
+width="794"
+height="808"
+srcset="../../p/my-server/portainer_hu14049985874781465710.png 480w, ../../p/my-server/portainer_hu14339782898715529867.png 1024w"
+loading="lazy"
+alt="Portainer Container Manager"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="235px"
+>&lt;img src="../../p/my-server/pihole.png"
+width="685"
+height="786"
+srcset="../../p/my-server/pihole_hu9298812940104605404.png 480w, ../../p/my-server/pihole_hu837838057630727188.png 1024w"
+loading="lazy"
+alt="Pihole administration web interface"
+class="gallery-image"
+data-flex-grow="87"
+data-flex-basis="209px"
+>&lt;/p></description></item><item><title>Web service deployment with EC2 AWS</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Web service deployment with EC2 AWS" />&lt;p>This project was developed for a Systems Architectures and Distributed Systems (ASSB) assignment during my fourth year of undergraduate studies. The main objective was to deploy a functional web service in a cloud environment using &lt;strong>AWS&lt;/strong> services, staying within the limits of the free plan.&lt;/p>
+&lt;p>&lt;strong>The deployed web service consists of a load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.&lt;/strong>&lt;/p>
+&lt;p>The main tasks performed included:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Controlling and creating cost alerts&lt;/strong>: Setting up alerts in AWS to ensure that all operations conformed to the free plan, avoiding unwanted additional charges.&lt;/li>
+&lt;li>&lt;strong>Deployment of EC2 instances&lt;/strong>: Raise two instances of &lt;strong>EC2&lt;/strong> and connect to them via &lt;strong>SSH&lt;/strong>. On each of the instances, install the &lt;strong>Apache&lt;/strong> web server.&lt;/li>
+&lt;li>&lt;strong>Configuring Apache web servers&lt;/strong>: Configuring the Apache services on both instances to serve a static web page created by myself.&lt;/li>
+&lt;li>&lt;strong>Deployment of a load balancer&lt;/strong>: Deployment of a load balancer on AWS to evenly distribute incoming requests between the two Apache servers, optimising the load and ensuring higher availability.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="../../post/aws-ec2-assb/assb-aes-ec2.pdf" >&lt;strong>View memory in pdf&lt;/strong>&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MySQL on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/tags/mysql/</link><description>Recent content in MySQL on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/es/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue automatizado de Wordpress usando Vagrant y Puppet</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/wordpress-puppet/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/wordpress-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/wordpress-puppet/wordpress-puppet.png" alt="Featured image of post Despliegue automatizado de Wordpress usando Vagrant y Puppet" />&lt;p>Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p>
+&lt;p>El objetivo principal de este proyecto es desplegar de forma automática un entorno web de prueba con un servicio WordPress personalizado, utilizando Vagrant como herramienta de Infraestructura como Código (IaC) y Puppet para su aprovisionamiento automatizado.
+Simplemente ejecutando en la terminal el comando &lt;code>vagrant up&lt;/code> en el directorio donde se encuentra el Vagrantfile, se despliega todo el entorno sin necesidad de realizar configuraciones adicionales.
+Antes de poder desplegar un servicio web de WordPress, es necesario llevar a cabo varias tareas de aprovisionamiento y configuración previas, entre ellas están:&lt;/p>
+&lt;ol>
+&lt;li>Instalar, configurar y levantar un servidor web Apache para redirigir y servir todo el contenido.&lt;/li>
+&lt;li>Instalar todos los paquetes y módulos específicos de PHP requeridos por WordPress.&lt;/li>
+&lt;li>Instalar, configurar y levantar una base de datos MySQL que será utilizada por WordPress para la persistencia de sus datos.&lt;/li>
+&lt;/ol>
+&lt;p>Para verificar el correcto funcionamiento, basta con acceder a &lt;code>localhost:8080&lt;/code> desde el navegador.&lt;/p>
+&lt;p>&lt;strong>Repositorio de GitHub:&lt;/strong> &lt;a class="link" href="https://github.com/aleingmar/WordPress_deployment-puppet-vagrant" target="_blank" rel="noopener"
+>https://github.com/aleingmar/WordPress_deployment-puppet-vagrant&lt;/a>&lt;/p>
+&lt;p>El proyecto incluye dos versiones diferentes de entorno, organizadas en directorios separados:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/puppet-two-nodes&lt;/code>
+En esta versión se despliegan tres nodos Puppet: un Puppet Master y dos Puppet Client.&lt;/li>
+&lt;/ul>
+&lt;p>Cada cliente (nodo) aloja un entorno de WordPress, aprovisionado con las directivas enviadas desde el Puppet Master. Cada min de forma automática los puppet clients solicitan la nueva configuracon de puppet si la hubiera mediante una tarea cron.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/puppet-one-node&lt;/code>
+En esta versión se levanta únicamente una máquina virtual (MV) con un cliente Puppet que se autoaprovisiona, sin necesidad de un Puppet Master.&lt;/li>
+&lt;/ul>
+&lt;h2 id="versión-de-autoaprovisionamiento-puppet-one-node">Versión de autoaprovisionamiento: puppet-one-node
+&lt;/h2>&lt;p>En esta version del entorno se levanta solo una mv, un puppet agente/cliente que se autoaprovisiona sin necesidad de ningún nodo master. Todo el proceso de despliegue se hace totalmente de forma automática.&lt;/p>
+&lt;h3 id="puppet-one-node-vagrantfile">puppet-one-node: Vagrantfile
+&lt;/h3>&lt;p>El Vagrantfile define la configuración básica de la máquina virtual (MV) para crear un entorno de infraestructura como código (IaC). Se especifica la caja base de Ubuntu que se utilizará, las opciones de red (incluyendo el redireccionamiento de puertos y la asignación de una IP privada), y se asigna 1024 MB de memoria RAM a la MV. Además, se instala Puppet en modo agente, eliminando la necesidad de un servidor Puppet maestro, y se configura para utilizar el manifiesto principal &lt;code>default.pp&lt;/code>, los módulos desde el directorio &lt;code>modules&lt;/code> y el archivo de configuración de Hiera &lt;code>hiera.yaml&lt;/code> para gestionar datos de forma centralizada.&lt;/p>
+&lt;h2 id="versión-de-arquitectura-cliente-servidor-puppet-two-nodes">Versión de arquitectura cliente-servidor: puppet-two-nodes
+&lt;/h2>&lt;p>En esta version del entorno se levantan 3 mvs, un puppet master y dos puppet clients. De forma automática se levantan las mvs y se instalan sus correspondientes versiones de puppet (al nodo master se instala el master y asi).
+Una vez que se levanta el nodo cliente (que se levanta despues del master), nada mas que arranca envia su certificado al master (que lo conoce porque esta en su fichero puppet.config).
+De forma &lt;strong>MANUAL&lt;/strong> hay que realizar las distintas tareas de administración:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Lado del SERVER&lt;/strong>:
+De forma manual, lo único que tiene que hacer el administrador de sistemas que se encargue de este entorno es hacer un:
+&lt;code>sudo /opt/puppetlabs/bin/puppetserver ca sign --all&lt;/code> para firmar todos los certificados sin firmar que le han llegado (en este caso uno por cada nodo cliente) y mandarselos firmados a los clientes correspondientes.&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar &lt;strong>antes&lt;/strong> de firmarlos un:
+&lt;code>sudo /opt/puppetlabs/bin/puppetserver ca list --all&lt;/code> para listar todos los certificados y verificar que no firma un certificado que no deberia.&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>&lt;strong>Lado del CLIENTE&lt;/strong>:
+Una vez hecho esto en el server, al cliente correspondiente le debe de llegar su certificado ya firmado, con el que podrá comunicarse ante el nodo master y
+pedirle la configuraciones/aprovisionamiento de puppet ejecutando este comando: &lt;code>sudo /opt/puppetlabs/bin/puppet agent --test&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h2 id="estructura-general-del-proyecto-de-aprovisionamiento-con-puppet">Estructura general del proyecto de aprovisionamiento con puppet
+&lt;/h2>&lt;p>A continuación, se detalla la organización de los archivos y módulos, lo que facilita la comprensión del funcionamiento general del proyecto:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Archivo principal&lt;/strong>: &lt;code>manifests/default.pp&lt;/code>
+Este archivo actúa como el punto de inicio de Puppet. Desde aquí se importan los módulos necesarios para configurar todos los componentes del entorno. En este caso, el código está dividido en tres módulos: &lt;strong>apache, mysql y wordpress&lt;/strong>, que son ejecutados e importados en este orden. La instalación de PHP he decidido codificarla directamente en este módulo, sin añadir un módulo más simplemente para esto ya que son apenas 3 o 4 líneas de código. La instalación de estos componentes se hace en este orden: &lt;strong>apache, php, mysql y wordpress&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Gestión de variables con Hiera&lt;/strong>: &lt;code>hiera.yaml, data/common.yaml&lt;/code>
+Para gestionar las variables, se utiliza Hiera, lo que permite separar las claves del código fuente. Esto asegura un enfoque más seguro, ya que evita exponer credenciales sensibles al subir el proyecto a un repositorio en la nube. Aunque este proyecto es académico y no incluye variables encriptadas, Hiera también ofrece la posibilidad de encriptar claves.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Las variables se declaran junto con sus valores en &lt;code>data/common.yaml&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>El archivo &lt;code>hiera.yaml&lt;/code> configura el funcionamiento de Hiera.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Para integrar Hiera con Vagrant, se añade la línea &lt;code>puppet.hiera_config_path = &amp;quot;hiera.yaml&amp;quot;&lt;/code> en el Vagrantfile.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulos utilizados&lt;/strong>:
+El proyecto está dividido en tres módulos principales, lo que garantiza modularidad y organización en el código:&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Módulo apache&lt;/strong>
+Este módulo aprovisiona y configura el servidor web Apache en la MV, dejándolo preparado y activo para que el módulo wordpress pueda administrar y servir contenido desde él.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo mysql&lt;/strong>
+En este módulo se instala y configura un servidor MySQL en la MV, asegurando el correcto funcionamiento del gestor de bases de datos. Además, se crea la base de datos necesaria para WordPress mediante el archivo &lt;code>init-wordpress.sql.erb&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo wordpress&lt;/strong>
+Este módulo instala y configura WordPress, dejándolo completamente funcional. Las principales acciones realizadas son:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Instalación de los paquetes y dependencias de Wordpress y activación del servicio.&lt;/li>
+&lt;li>Configuración del archivo &lt;code>wp-config.conf.erb&lt;/code>, que configura el servicio, entre otras cosas, conecta WordPress con la base de datos y define claves de acceso generadas previamente.&lt;/li>
+&lt;li>Instalación y uso de la herramienta &lt;code>wp-cli&lt;/code> para automatizar la configuración del sitio web.&lt;/li>
+&lt;li>Inicialización de la base de datos mediante el archivo &lt;code>init-wordpress-content.sql.erb&lt;/code> con un contenido mínimo necesario para lanzar una página web.&lt;/li>
+&lt;li>Configuración de Apache para servir el contenido de la página, utilizando el archivo &lt;code>wp-apache-config.conf.erb&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>El servicio es accesible desde el host en &lt;code>localhost:8080&lt;/code> gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.&lt;/p>
+&lt;p>Despliegue del entorno en la versión puppet-one-node:
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/xQdjuHr-2-U"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;/p></description></item></channel></rss>

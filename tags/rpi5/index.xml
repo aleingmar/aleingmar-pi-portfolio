@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>RPI5 on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/tags/rpi5/</link><description>Recent content in RPI5 on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/tags/rpi5/index.xml" rel="self" type="application/rss+xml"/><item><title>Deployment and creation of a web portfolio with Hugo.</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Deployment and creation of a web portfolio with Hugo." />&lt;p>This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.&lt;/p>
+&lt;h2 id="web-development">Web Development
+&lt;/h2>&lt;p>For the construction of my portfolio I chose &lt;strong>Hugo&lt;/strong>, a static website generation platform that allows you to create modern frontend pages using &lt;strong>Markdown&lt;/strong> files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo&amp;rsquo;s ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.&lt;/p>
+&lt;p>The theme I selected for my portfolio is &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a>, because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.&lt;/p>
+&lt;h2 id="devops-and-deployment">DevOps and Deployment
+&lt;/h2>&lt;p>In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.&lt;/p>
+&lt;p>The web server that handles the requests is &lt;strong>Caddy&lt;/strong>, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.&lt;/p>
+&lt;p>For development, I usually work locally using &lt;strong>Visual Studio Code&lt;/strong>, although sometimes I use &lt;strong>GitHub Codespaces&lt;/strong> when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is fully automated through a bash script and a Docker Compose file, which simplifies the process of lifting the web application with each update.&lt;/p>
+&lt;p>&lt;strong>Web portfolio change deployment process with bash scripting:&lt;/strong>&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>My own RPI5 server</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/my-server/rasberry.png" alt="Featured image of post My own RPI5 server" />&lt;p>This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram.&lt;/p>
+&lt;p>For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.&lt;/p>
+&lt;p>The server is associated to a main domain managed by &lt;strong>DuckDNS&lt;/strong>, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.&lt;/p>
+&lt;p>To organise access via subdomains and ensure connection to my services via &lt;strong>HTTPS&lt;/strong>, I use &lt;strong>Caddy&lt;/strong> as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.&lt;/p>
+&lt;p>In addition, I have implemented an advanced control panel called &lt;strong>Homarr&lt;/strong>, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server.&lt;/p>
+&lt;p>All the services hosted on the server including the ones mentioned above are hosted using &lt;strong>Docker containers&lt;/strong> and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Vaultwarden&lt;/strong>: A password manager.&lt;/li>
+&lt;li>&lt;strong>Portainer&lt;/strong>: A container manager with a web interface.&lt;/li>
+&lt;li>&lt;strong>Pi-hole&lt;/strong>: An ad-blocking DNS service.&lt;/li>
+&lt;li>&lt;strong>WireGuard&lt;/strong>: A VPN service.&lt;/li>
+&lt;/ul>
+&lt;p>WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.&lt;/p>
+&lt;p>&lt;img src="../../p/my-server/homarr.png"
+width="1905"
+height="1013"
+srcset="../../p/my-server/homarr_hu13141877406497588544.png 480w, ../../p/my-server/homarr_hu1879694516232457999.png 1024w"
+loading="lazy"
+alt="Dashboard Homarr"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;img src="../../p/my-server/vaultwarden.png"
+width="927"
+height="835"
+srcset="../../p/my-server/vaultwarden_hu2992386036923389129.png 480w, ../../p/my-server/vaultwarden_hu12562285439546566563.png 1024w"
+loading="lazy"
+alt="Vaultwarden Password Manager"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+>&lt;/p>
+&lt;p>&lt;img src="../../p/my-server/portainer.png"
+width="794"
+height="808"
+srcset="../../p/my-server/portainer_hu14049985874781465710.png 480w, ../../p/my-server/portainer_hu14339782898715529867.png 1024w"
+loading="lazy"
+alt="Portainer Container Manager"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="235px"
+>&lt;img src="../../p/my-server/pihole.png"
+width="685"
+height="786"
+srcset="../../p/my-server/pihole_hu9298812940104605404.png 480w, ../../p/my-server/pihole_hu837838057630727188.png 1024w"
+loading="lazy"
+alt="Pihole administration web interface"
+class="gallery-image"
+data-flex-grow="87"
+data-flex-basis="209px"
+>&lt;/p></description></item></channel></rss>
