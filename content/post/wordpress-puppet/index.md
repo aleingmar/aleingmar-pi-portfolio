@@ -78,4 +78,5 @@ This module installs and configures WordPress, making it fully functional. The m
 
 The service is accessible from the host at `localhost:8080` thanks to port 8080 redirection from the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.
 
+Deployment of the puppet-one-node version enviroment:
 {{< youtube "xQdjuHr-2-U" >}}

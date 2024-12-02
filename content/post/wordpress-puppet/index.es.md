@@ -1,8 +1,8 @@
 ---
 title: Despliegue automatizado de Wordpress usando Vagrant y Puppet
-description: Proyecto académico | Despliegue automatizado de página web en Wordpress (en local) utilizando como herramienta IaC Vagrant y para su aprovisionamiento Puppet.
+description: Proyecto académico | Despliegue automatizado de entorno web de prueba con un servicio Wordpress personalizado (en local) utilizando como herramienta IaC Vagrant y para su aprovisionamiento Puppet.
 slug: wordpress-puppet
-date: 2024-12-01 00:00:00+0000
+date: 2024-11-25 00:00:00+0000
 image: wordpress-puppet.png
 categories:
     - DevOps
@@ -19,13 +19,13 @@ weight: 1       # You can add weight to some posts to override the default sorti
 
 Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).
 
-El objetivo principal de este proyecto es desplegar de forma automática un entorno web de prueba con un WordPress personalizado, utilizando Vagrant como herramienta de Infraestructura como Código (IaC) y Puppet para su aprovisionamiento automatizado. 
-Simplemente ejecutando en la terminal el comando `vagrant up` en el directorio donde se encuentra el Vagrantfile, se despliega todo el entorno sin necesidad de realizar configuraciones adicionales. 
-Antes de desplegar el entorno WordPress configurado, es necesario llevar a cabo varias tareas de aprovisionamiento y configuración, entre ellas:
+El objetivo principal de este proyecto es desplegar de forma automática un entorno web de prueba con un servicio WordPress personalizado, utilizando Vagrant como herramienta de Infraestructura como Código (IaC) y Puppet para su aprovisionamiento automatizado. 
+Simplemente ejecutando en la terminal el comando `vagrant up` en el directorio donde se encuentra el Vagrantfile, se despliega todo el entorno sin necesidad de realizar configuraciones adicionales.
+Antes de poder desplegar un servicio web de WordPress, es necesario llevar a cabo varias tareas de aprovisionamiento y configuración previas, entre ellas están:
 
-1.	Preparar y configurar la máquina virtual (MV) con un servidor web Apache para redirigir y servir todo el contenido.
-2.	Instalar los módulos específicos de PHP requeridos por WordPress.
-3.	Configurar una base de datos MySQL que será utilizada por WordPress para su funcionamiento.
+1.	Instalar, configurar y levantar un servidor web Apache para redirigir y servir todo el contenido.
+2.	Instalar todos los paquetes y módulos específicos de PHP requeridos por WordPress.
+3.	Instalar, configurar y levantar una base de datos MySQL que será utilizada por WordPress para la persistencia de sus datos.
 
 Para verificar el correcto funcionamiento, basta con acceder a `localhost:8080` desde el navegador.
 
@@ -33,19 +33,36 @@ Para verificar el correcto funcionamiento, basta con acceder a `localhost:8080` 
 **Repositorio de GitHub:** https://github.com/aleingmar/WordPress_deployment-puppet-vagrant
 
 
-El proyecto incluye dos versiones del entorno, organizadas en directorios separados:
+El proyecto incluye dos versiones diferentes de entorno, organizadas en directorios separados:
 
 - `/puppet-two-nodes`
-En esta versión se despliegan dos nodos Puppet: un Puppet Master y un Puppet Client.
+En esta versión se despliegan tres nodos Puppet: un Puppet Master y dos Puppet Client.
 
-Cada cliente (nodo) aloja un entorno de WordPress, aprovisionado con las directivas enviadas desde el Puppet Master. Cada min los puppet clients solicitan la nueva configuracon de pupet si la hubiera mediante una tarea cron.
+Cada cliente (nodo) aloja un entorno de WordPress, aprovisionado con las directivas enviadas desde el Puppet Master. Cada min de forma automática los puppet clients solicitan la nueva configuracon de puppet si la hubiera mediante una tarea cron.
+
 - `/puppet-one-node`
 En esta versión se levanta únicamente una máquina virtual (MV) con un cliente Puppet que se autoaprovisiona, sin necesidad de un Puppet Master.
 
-### Vagrantfile de puppet-one-node
+## Versión de autoaprovisionamiento: puppet-one-node 
+En esta version del entorno se levanta solo una mv, un puppet agente/cliente que se autoaprovisiona sin necesidad de ningún nodo master. Todo el proceso de despliegue se hace totalmente de forma automática.
+### puppet-one-node: Vagrantfile
 El Vagrantfile define la configuración básica de la máquina virtual (MV) para crear un entorno de infraestructura como código (IaC). Se especifica la caja base de Ubuntu que se utilizará, las opciones de red (incluyendo el redireccionamiento de puertos y la asignación de una IP privada), y se asigna 1024 MB de memoria RAM a la MV. Además, se instala Puppet en modo agente, eliminando la necesidad de un servidor Puppet maestro, y se configura para utilizar el manifiesto principal `default.pp`, los módulos desde el directorio `modules` y el archivo de configuración de Hiera `hiera.yaml` para gestionar datos de forma centralizada.
 
-### Estructura general del proyecto de aprovisionamiento con puppet
+## Versión de arquitectura cliente-servidor: puppet-two-nodes 
+En esta version del entorno se levantan 3 mvs, un puppet master y dos puppet clients. De forma automática se levantan las mvs y se instalan sus correspondientes versiones de puppet (al nodo master se instala el master y asi).
+Una vez que se levanta el nodo cliente (que se levanta despues del master), nada mas que arranca envia su certificado al master (que lo conoce porque esta en su fichero puppet.config).
+De forma **MANUAL** hay que realizar las distintas tareas de administración:
+1. Lado del SERVER:
+De forma manual, lo único que tiene que hacer el administrador de sistemas que se encargue de este entorno es hacer un:
+`sudo /opt/puppetlabs/bin/puppetserver ca sign --all` para firmar todos los certificados sin firmar que le han llegado (en este caso uno por cada nodo cliente) y mandarselos firmados a los clientes correspondientes. 
+- De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar ANTES de firmarlos un:
+`sudo /opt/puppetlabs/bin/puppetserver ca list --all` para listar todos los certificados y verificar que no firma un certificado que no deberia.
+2. Lado del CLIENTE:
+Una vez hecho esto en el server, al cliente correspondiente le debe de llegar su certificado ya firmado, con el que podrá comunicarse ante el nodo master y
+pedirle la configuraciones/aprovisionamiento de puppet ejecutando este comando: `sudo /opt/puppetlabs/bin/puppet agent --test` 
+
+
+## Estructura general del proyecto de aprovisionamiento con puppet
 
 A continuación, se detalla la organización de los archivos y módulos, lo que facilita la comprensión del funcionamiento general del proyecto:
 
@@ -80,4 +97,5 @@ Este módulo instala y configura WordPress, dejándolo completamente funcional. 
 
 El servicio es accesible desde el host en `localhost:8080` gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.
 
+Despliegue del entorno en la versión puppet-one-node:
 {{< youtube "xQdjuHr-2-U" >}}

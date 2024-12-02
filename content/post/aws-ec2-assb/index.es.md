@@ -2,7 +2,7 @@
 title: Despliegue de servicio web con EC2 AWS 
 description: Proyecto académico | Balancedor de carga que distribuye las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.
 slug: aws-ec2-assb
-date: 2024-11-25 00:00:00+0000
+date: 2024-01-01 00:00:00+0000
 image: aws-ec2.png
 categories:
     - DevOps
