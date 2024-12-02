@@ -52,12 +52,12 @@ El Vagrantfile define la configuración básica de la máquina virtual (MV) para
 En esta version del entorno se levantan 3 mvs, un puppet master y dos puppet clients. De forma automática se levantan las mvs y se instalan sus correspondientes versiones de puppet (al nodo master se instala el master y asi).
 Una vez que se levanta el nodo cliente (que se levanta despues del master), nada mas que arranca envia su certificado al master (que lo conoce porque esta en su fichero puppet.config).
 De forma **MANUAL** hay que realizar las distintas tareas de administración:
-1. Lado del SERVER:
+1. **Lado del SERVER**:
 De forma manual, lo único que tiene que hacer el administrador de sistemas que se encargue de este entorno es hacer un:
 `sudo /opt/puppetlabs/bin/puppetserver ca sign --all` para firmar todos los certificados sin firmar que le han llegado (en este caso uno por cada nodo cliente) y mandarselos firmados a los clientes correspondientes. 
-- De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar ANTES de firmarlos un:
+- De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar **antes** de firmarlos un:
 `sudo /opt/puppetlabs/bin/puppetserver ca list --all` para listar todos los certificados y verificar que no firma un certificado que no deberia.
-2. Lado del CLIENTE:
+2. **Lado del CLIENTE**:
 Una vez hecho esto en el server, al cliente correspondiente le debe de llegar su certificado ya firmado, con el que podrá comunicarse ante el nodo master y
 pedirle la configuraciones/aprovisionamiento de puppet ejecutando este comando: `sudo /opt/puppetlabs/bin/puppet agent --test` 
 

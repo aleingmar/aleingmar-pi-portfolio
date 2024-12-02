@@ -1,6 +1,6 @@
 ---
-title: Automated Wordpress Deployment using Vagrant and Puppet
-description: Academic project | Automated deployment of Wordpress website (locally) using Vagrant as IaC tool and Puppet as provisioning tool.
+title: Automated Wordpress deployment using Vagrant and Puppet
+description: Academic project | Automated deployment of a test web environment with a custom Wordpress service (on-premises) using Vagrant as IaC tool and Puppet for provisioning.
 slug: wordpress-puppet
 date: 2024-11-25 00:00:00+0000
 image: wordpress-puppet.png
@@ -19,30 +19,47 @@ weight: 1 # You can add weight to some posts to override the default sorting (da
 
 This project was developed for the Deployment Automation course, as part of the official university master's degree in Development and Operations (DevOps).
 
-The main objective of this project is to automatically deploy a test web environment with a custom WordPress, using Vagrant as the Infrastructure as Code (IaC) tool and Puppet for automated provisioning. 
-By simply running the `vagrant up` command in the terminal in the directory where the Vagrantfile is located, the entire environment is deployed without any additional configuration. 
-Before deploying the configured WordPress environment, several provisioning and configuration tasks need to be performed:
+The main objective of this project is to automatically deploy a test web environment with a custom WordPress service, using Vagrant as the Infrastructure as Code (IaC) tool and Puppet for automated provisioning. 
+By simply running the `vagrant up` command in the terminal in the directory where the Vagrantfile is located, the entire environment is deployed without any additional configuration.
+Before you can deploy a WordPress web service, you need to perform several provisioning and configuration tasks, including the following:
 
-1. prepare and configure the virtual machine (VM) with an Apache web server to redirect and serve all content.
-2. Install the specific PHP modules required by WordPress.
-3.	Configure a MySQL database that will be used by WordPress for its operation.
+1. Install, configure and set up an Apache web server to redirect and serve all content.
+2. Install all the specific PHP packages and modules required by WordPress.
+3.	Install, configure and set up a MySQL database that will be used by WordPress for the persistence of its data.
 
 To verify correct operation, simply access `localhost:8080` from the browser.
 
+
 **GitHub repository:** https://github.com/aleingmar/WordPress_deployment-puppet-vagrant
 
-
-The project includes two versions of the environment, organised in separate directories:
+The project includes two different versions of the environment, organised in separate directories:
 
 - `/puppet-two-nodes`.
-This version deploys two Puppet nodes: a Puppet Master and a Puppet Client.
+In this version, three Puppet nodes are deployed: one Puppet Master and two Puppet Clients.
 
-Each client (node) hosts a WordPress environment, provisioned with directives sent from the Puppet Master. Every min the puppet clients request the new puppet configuration if any via a cron job.
+Each client (node) hosts a WordPress environment, provisioned with the directives sent from the Puppet Master. Every min the puppet clients automatically request the new puppet configuration if any via a cron job.
+
 - `/puppet-one-node`
-In this version, only one virtual machine (VM) is raised with a self-provisioning Puppet client, without the need for a Puppet Master.
+In this version, only one virtual machine (VM) with a self-provisioning Puppet client is raised, without the need for a Puppet Master.
 
-### puppet-one-node Vagrantfile
-The Vagrantfile defines the basic virtual machine (VM) configuration for creating an Infrastructure-as-Code (IaC) environment. It specifies the Ubuntu base box to be used, the networking options (including port forwarding and assigning a private IP), and allocates 1024 MB of RAM to the VM. In addition, Puppet is installed in agent mode, eliminating the need for a master Puppet server, and configured to use the main manifest `default.pp`, modules from the `modules` directory, and the Hiera configuration file `hiera.yaml` to centrally manage data.
+## Self-provisioning version: puppet-one-node 
+In this version of the environment, only one mv is raised, a self-provisioning puppet agent/client without the need for a Puppet master node. The whole deployment process is done fully automatically.
+### puppet-one-node: Vagrantfile
+The Vagrantfile defines the basic virtual machine (VM) configuration for creating an Infrastructure-as-Code (IaC) environment. It specifies the Ubuntu base box to be used, the networking options (including port forwarding and assigning a private IP), and allocates 1024 MB of RAM to the VM. In addition, Puppet is installed in agent mode, eliminating the need for a master Puppet server, and is configured to use the main manifest `default.pp`, modules from the `modules` directory and the Hiera configuration file `hiera.yaml` to centrally manage data.
+
+## Client-server architecture version: puppet-two-nodes 
+In this version of the environment 3 mvs are raised, one puppet master and two puppet clients. The mvs are automatically raised and their corresponding puppet versions are installed (to the master node the master is installed and so on).
+Once the client node is up (which is up after the master), as soon as it starts it sends its certificate to the master (which knows it because it is in its puppet.config file).
+In a **MANUAL** way, you have to perform the different administration tasks:
+1. **SERVER side**:
+Manually, the only thing the sysadmin in charge of this environment has to do is to do an:
+`sudo /opt/puppetlabs/bin/puppetserver ca sign --all` to sign all the unsigned certificates that have arrived (in this case one for each client node) and send them signed to the corresponding clients. 
+- On a voluntary basis, but recommended for security purposes, especially in real production environments, you should run **before** signing them a:
+`sudo /opt/puppetlabs/bin/puppetserver ca list --all` to list all the certificates and verify that you don't sign a certificate that you shouldn't.
+2. **CLIENT side**:
+Once this is done on the server, the corresponding client should receive its signed certificate, with which it will be able to communicate with the master node and
+ask for puppet configuration/provisioning by executing this command: `sudo /opt/puppetlabs/bin/puppet agent --test`. 
+
 
 ### General structure of the puppet provisioning project
 
