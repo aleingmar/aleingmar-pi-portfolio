@@ -29,6 +29,8 @@ The aim of the project is to **create and automatically deploy an image of a com
 - **Packer:** With Packer I build the complete system image. Packer uses the cloud as a provider for the creation of the image. It builds an instance and all the necessary infrastructure for the creation of the image and destroys it when it is finished.
 - **Ansible:** with ansible the provisioning of the instance that packer raises and from which the image is created is carried out. In the case of Azure I do this provisioning with Ansible, in the case of AWS I do the same but directly with Bash scripting.
 
+To control multicloud deployment, a parameter has been implemented that must be passed to the `terraform apply ‘deployment_target=’`, indicating whether you want to deploy in both clouds simultaneously or in a single cloud. If this is the case, you must indicate in which one you want to deploy.
+
 ### Creation and deployment process:
 
 The sequence of steps in the process would be as follows: 
@@ -75,6 +77,8 @@ The content of this file can be differentiated in several parts in which the fol
 - **BUILDER**: Define how the AMI is built in AWS --> `source{}`--> define the base system on which I want to create the image (ubuntu ISO) and the provider for which we create the image (technology with which the image will be deployed) --> AMAZON. AZURE
 - **PROVISIONERS**: Configure the operating system and the application, how the software will be installed and configured --> `build{}`. 
 
-### Experimentation video:
+
+### Experimentation video and report of the project:
+Project documentation: [**View the pdf**](/post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf)
 
 {{< youtube "BhRB0716G5w" >}}

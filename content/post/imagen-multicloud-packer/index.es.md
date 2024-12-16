@@ -29,6 +29,8 @@ El objetivo del proyecto es **crear y desplegar de forma automática una imagen 
 - **Packer:** Con Packer construyo la imagen del sistema completo. Packer utiliza como proveedor para la creación de la imagen la cloud. Levanta una instancia y toda la infraesturctura necesaria para la creación de la imagen y cuando termina las destruye.
 - **Ansible:** con ansible se lleva a cabo el aprovisionamiento de la instancia que levanta packer y a partir del cual se crea la imagen. En el caso de Azure este aprovisionamiento lo hago con Ansible, en el caso de AWS hago lo mismo pero directamente con scripting de Bash.
 
+Para controlar el despliegue multicloud, se ha implementado un parámetro que se debe pasar al `terraform apply "deployment_target="`, indicando si se quiere desplegar en las dos nubes simultaneamente o en una única nube. Si es este caso, hay que indicar en cual se desea desplegar.
+
 ### Proceso de creación y despliegue:
 
 La secuencia de pasos del proceso sería la siguiente: 
@@ -58,7 +60,7 @@ Explicando brevemente el contenido del directorio:
 - `/packer/`: directorio donde se encuentra todo el contenido necesario para la ejecución de Packer y para que pueda construir la imagen.
     - `/packer/main.pkr.hcl`: fichero principal de Packer donde se definen todos los recursos necesarios para contruir la imagen asi como defino todas las variables que van a utilizar.
     - `/packer/variables.pkrvars.hcl`: fichero donde les asigno valores a todos las variables definidas en el `main.pkr.hcl` menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores como variables de entorno de mi sistema operativo del host que utilizo para lanzar el terraform. Estos valores los paso como parámetros en el comando de `terraform apply` y `packer build`.
-    - `/packer/providers/`: directorio donde podemos encontrar los ficheros auxiliares que sirven para crear la imagen como pueden ser, el fichero de configuración de apache (`nginx_default.conf`), el playbook que define el aprovisionamiento con ansible (`playbook.yml`) y el código de la aplicación de nodejs (`app.js`). 
+    - `/packer/providers/`: directorio donde podemos encontrar los ficheros auxiliares que sirven para crear la imagen como pueden ser, el fichero de configuración de apache (`nginx_default.conf`), el playbook que define el aprovisionamiento con ansible (`provision.yml`) y el código de la aplicación de nodejs (`app.js`). 
 - `/terraform/`: directorio donde se encuentra todo el contenido necesario para la ejecución de terraform y para que pueda desplegar toda la infraesturtura necesaria para el proyecto.
     - `/terraform/main.tf`: fichero principal de terraform, donde se define todo el flujo de proceso que debe seguir el despliegue y toda la infraestrutura a levantar.
     - `/terraform/variables.tf`: fichero donde se definen todas las variables utilizadas por terraform.
@@ -75,6 +77,7 @@ El contenido de este fichero se puede diferenciar en varias partes en las cuales
 - **BUILDER**: Define cómo se construye la AMI en AWS --> `source{}`--> define el sistema base sobre el que quiero crear la imagen (ISO ubuntu) y el proveeedor para el que creamos la imagen (tecnologia con la que desplegará la imagen) --> AMAZON. AZURE
 - **PROVISIONERS**: Configura el sistema operativo y la aplicación, como se va instalar y configurar el software --> `build{}` 
 
-### Vídeo de la experimentación:
+### Vídeo de la experimentación y memoria del proyecto:
+Documentación del proyecto: [**Visualizar documentación en pdf**](/post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf)
 
 {{< youtube "BhRB0716G5w" >}}
