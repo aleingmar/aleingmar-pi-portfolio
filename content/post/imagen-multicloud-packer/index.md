@@ -3,7 +3,7 @@ title: Creation and automated deployment of image in multicloud environment.
 description: Academic project | Creation and automated deployment of image in multicloud environment (Azure and AWS). Creation of web app image (Nodejs and NginX) using Packer, deployment of cloud infrastructure using Terraform and provisioning of the infrastructure with Ansible.
 slug: imagen-multicloud-packer
 date: 2024-12-14 00:00:00+0000
-image: image-multicloud-packer2.png
+image: imagen-multicloud-packer2.png
 categories:
     - DevOps
     - Cloud
