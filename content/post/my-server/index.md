@@ -34,6 +34,4 @@ At the time of writing, the unmentioned services hosted on the server are:
 
 WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.
 
-![Dashboard Homarr](homarr.png)![Vaultwarden Password Manager](vaultwarden.png) 
-
-![Portainer Container Manager](portainer.png)![Pihole administration web interface](pihole.png) 
+{{< youtube "ZHQXSUq01k0" >}}

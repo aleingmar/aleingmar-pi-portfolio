@@ -35,6 +35,4 @@ En el momento que escribo esto, los servicios no mencionados que aloja el servid
 
 WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.
 
-![Dashboard Homarr](homarr.png)![Gestor de contraseñas Vaultwarden](vaultwarden.png) 
-
-![Gestor de contenedores Portainer](portainer.png)![Interfaz web de administración de Pihole](pihole.png) 
+{{< youtube "ZHQXSUq01k0" >}} 
