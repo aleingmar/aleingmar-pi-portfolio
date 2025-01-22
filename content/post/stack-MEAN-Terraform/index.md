@@ -49,7 +49,7 @@ It is also worth mentioning that for this project I have used similar technologi
 
 - **Ansible**: with Ansible I do the provisioning of the instance that is raised and used by Packer for the creation of the image. In this project, Ansible automatically provisions the instance with Angular, Express, MongoDB, Nginx, Node...
 
-- MEAN Stack**: The system being built is a service made up of the MEAN technology stack, widely used in the industry for its versatility and performance:
+- **MEAN Stack**: The system being built is a service made up of the MEAN technology stack, widely used in the industry for its versatility and performance:
     - **MongoDB**: Non-relational document-oriented database, ideal for handling large volumes of structured and unstructured data.
     - **Express**: Backend framework for Node.js that facilitates the development of robust and scalable web applications.
     - **Angular**: Frontend framework that allows the development of modern and reactive interfaces, improving the user experience.
