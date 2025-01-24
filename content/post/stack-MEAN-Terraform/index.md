@@ -23,7 +23,7 @@ weight: 1 # You can add weight to some posts to override the default sorting (da
 ---
 
 
-This project was developed for the DevOps Tools course, as part of the university's master's degree in Development and Operations (DevOps).
+This project was developed for the DevOps Tools course, as part of the oficial university's master's degree in Development and Operations (DevOps).
 
 The aim of the project was to automatically deploy a fully functional multi-tier MEAN system in the AWS cloud. This system consists of a load balancer, several instances for the web application and a dedicated instance for the MongoDB database. I use Terraform, Packer and Ansible for infrastructure automation and provisioning.
 

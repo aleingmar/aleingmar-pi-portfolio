@@ -22,7 +22,7 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario en Desarrollo y Operaciones (DevOps).
+Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).
 
 El objetivo del proyecto fue desplegar de forma automática un sistema MEAN multicapa completamente funcional en la nube de AWS. Este sistema se compone de un balanceador de carga, varias instancias para la aplicación web y una instancia dedicada para la base de datos MongoDB. Utilizo Terraform, Packer y Ansible para la automatización de infraestructura y aprovisionamiento.
 
