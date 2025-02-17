@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AWS on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/tags/aws/</link><description>Recent content in AWS on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Tue, 14 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/es/tags/aws/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue automático de servicio MEAN multicapa en AWS</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/stack-mean-terraform/</link><pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/stack-mean-terraform/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/stack-mean-terraform/stack.png" alt="Featured image of post Despliegue automático de servicio MEAN multicapa en AWS" />&lt;p>Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p>
+&lt;p>El objetivo del proyecto fue desplegar de forma automática un sistema MEAN multicapa completamente funcional en la nube de AWS. Este sistema se compone de un balanceador de carga, varias instancias para la aplicación web y una instancia dedicada para la base de datos MongoDB. Utilizo Terraform, Packer y Ansible para la automatización de infraestructura y aprovisionamiento.&lt;/p>
+&lt;p>A nivel personal, considero importante destacar que el informe de documentación de este proyecto está especialmente completo, ya que recoge todos los detalles del proceso de desarrollo. Entre ellos, he tenido que enfrentarme a tres problemas principales durante este proceso. Sin entrar en demasiados detalles, estos fueron:&lt;/p>
+&lt;ol>
+&lt;li>Despliegue en Azure, incompatibilidad de versiones y elección de AWS.&lt;/li>
+&lt;li>Ejecución de un comando interactivo que bloquea el proceso automático de aprovisionamiento.&lt;/li>
+&lt;li>Inconsistencia de recursos estáticos y cierre de sesión del balanceador.&lt;/li>
+&lt;/ol>
+&lt;p>En mi opinión, estos problemas resultan muy interesantes de analizar, ya que son situaciones habituales en este tipo de trabajos. Aunque pueden parecer menores, han sido fundamentales en el desarrollo del proyecto.&lt;/p>
+&lt;p>También cabe mencionar que para este proyecto he utilizado tecnologías similares a las del proyecto &lt;strong>&amp;ldquo;Creación y despliegue automatizado de imagen en entorno multicloud&amp;rdquo;&lt;/strong>, que también está disponible en mi portfolio. Por esta razón, en esta publicación he decidido resaltar tres aspectos que diferencian ambos trabajos:&lt;/p>
+&lt;ul>
+&lt;li>El uso del stack MEAN.&lt;/li>
+&lt;li>La modularización de Terraform.&lt;/li>
+&lt;li>El proceso de despliegue y arquitectura, aunque este último se presenta de forma resumida, ya que se explica de manera extensa y detallada en el informe.&lt;/li>
+&lt;/ul>
+&lt;h3 id="stack-tecnológico">Stack Tecnológico
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Terraform&lt;/strong>: con terraform centralizo todo el proceso de despliegue, levanto y gestiono los elementos de infraestructura que forman el sistema. Algunos de estos elementos son por ejemplos las redes que conectan las distintas instancias, las propias instancias, el balanceador de carga&amp;hellip; En definitiva la infra que sustenta el servicio.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Packer&lt;/strong>: con packer creo la imagen que me sirve como base para las instancias que levanto con Terraform. En este proyecto, Packer genera una imagen personalizada para la primera capa del sistema, aprovisionándola con los servicios necesarios como Node.js, Nginx, Angular&amp;hellip;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Ansible&lt;/strong>: con Ansible realizo el aprovisionamiento de la instancia que levanta y usa Packer para la creación de la imagen. En este proyecto, Ansible aprovisiona de forma automática la instancia con Angular, Express, MongoDB, Nginx, Node&amp;hellip;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Stack MEAN&lt;/strong>: El sistema que se levanta se trata de un servicio conformado por el stack tecnológico MEAN, ampliamente utilizado en la industria por su versatilidad y rendimiento:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>MongoDB&lt;/strong>: Base de datos no relacional orientada a documentos, ideal para manejar grandes volúmenes de datos estructurados y no estructurados.&lt;/li>
+&lt;li>&lt;strong>Express&lt;/strong>: Framework backend para Node.js que facilita el desarrollo de aplicaciones web robustas y escalables.&lt;/li>
+&lt;li>&lt;strong>Angular&lt;/strong>: Framework frontend que permite desarrollar interfaces modernas y reactivas, mejorando la experiencia del usuario.&lt;/li>
+&lt;li>&lt;strong>Node.js&lt;/strong>: Entorno de ejecución para Js en el lado del servidor.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="modularización-de-la-plantilla-terraform">Modularización de la plantilla Terraform
+&lt;/h3>&lt;h4 id="importancia-de-la-modularización">Importancia de la modularización
+&lt;/h4>&lt;p>La modularización en Terraform es vital en los proyectos que utilizan Terraform. Básicamente consiste en dividir el &lt;strong>main.tf&lt;/strong> en distintos &amp;ldquo;módulos&amp;rdquo; según ciertas categorías. No solo mejora la legibilidad y mantenimiento del código, sino que también permite dividir responsabilidades y reutilizar configuraciones entre proyectos. Aunque la gestión de variables entre módulos puede ser compleja, esta práctica resulta esencial en infraestructuras grandes y dinámicas.&lt;/p>
+&lt;h4 id="módulos-del-proyecto">Módulos del proyecto
+&lt;/h4>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Módulo de seguridad&lt;/strong>: Este módulo gestiona los grupos de seguridad que definen las reglas de tráfico hacia y desde las instancias, posibilitando tráfico de protocolos como SSH, HTTP&amp;hellip; También se configuran las claves SSH necesarias para acceder a las instancias de forma remota.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo de redes&lt;/strong>: Define las redes y subredes privadas necesarias para la conectividad del sistema y además, configura tablas de enrutamiento y gateways para garantizar el acceso entre las capas de la infraestructura.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo de instancias&lt;/strong>: Despliega las instancias de la primera y segunda capa, asignando direcciones IP públicas y privadas y además,provisiona estas instancias para su correcto funcionamiento en el sistema.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo de balanceador de carga&lt;/strong>: Configura y define todo lo relacionado con el balanceador de carga que distribuye el tráfico entre las instancias de la primera capa. Además del propio balanceador de carga, para que este funcione necesita más elementos como son grupos de destino, estrategias de distribución como round-robin, definición de la persistencia de sesiones&amp;hellip;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Módulo de imagen&lt;/strong>: Este módulo integra Terraform con Packer para la creación de imágenes base. Terraform ejecuta &lt;strong>packer build&lt;/strong>, recupera la imagen generada y la utiliza para instanciar recursos de la primera capa.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="../../../p/stack-mean-terraform/modulos.png"
+width="475"
+height="614"
+srcset="../../../p/stack-mean-terraform/modulos_hu_8de2a353a31560ed.png 480w, ../../../p/stack-mean-terraform/modulos_hu_9c56eb89ab0adb31.png 1024w"
+loading="lazy"
+alt="Estructura de directorios"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="185px"
+>&lt;/p>
+&lt;h3 id="proceso-de-despliegue-y-arquitectura">Proceso de despliegue y arquitectura
+&lt;/h3>&lt;p>El despliegue comienza con la integración de Terraform y Packer. Terraform invoca a Packer, que se encarga de levantar una instancia temporal en AWS para generar una imagen base. Durante este proceso, esta instancia es aprovisionada con Ansible, que instala y configura servicios como Angular, Express y MongoDB, además de copiar ficheros esenciales desde el entorno local. Una vez completado el aprovisionamiento, Packer crea la imagen base y destruye la instancia temporal, dejando preparada una imagen lista para su reutilización.&lt;/p>
+&lt;p>Con la imagen generada, Terraform procede a desplegar la infraestructura completa. En primer lugar, se configuran las redes y subredes, asegurando la conectividad interna entre las capas del sistema. A continuación, se despliegan las instancias de la primera capa utilizando la imagen base. Estas instancias alojan el frontend y backend de la aplicación, con Node.js y Nginx sirviendo como núcleo operativo.&lt;/p>
+&lt;p>Simultáneamente, Terraform levanta la instancia de la segunda capa, dedicada a la persistencia de datos con MongoDB. Esta instancia se conecta mediante una red privada a las instancias de la primera capa, garantizando una comunicación segura y estable. Además de esto, terraform también levanta un balanceador de carga, configurado para distribuir el tráfico entre las instancias de la primera capa, lo que asegura alta disponibilidad y escalabilidad.&lt;/p>
+&lt;p>El último paso es el aprovisionamiento final. Terraform utiliza scripting en Bash para terminar de configurar las instancias desplegadas. Por ejemplo, en las instancias de la primera capa, se ajustan las configuraciones de Angular para incluir las direcciones IP del backend, lo que permite que se generen los ficheros estáticos que son servidos por Nginx con las rutas necesarias para conectar el cliente con el backend.&lt;/p>
+&lt;p>Todo este proceso asegura un despliegue completamente automatizado, resultando en un sistema funcional y listo para producción, con componentes integrados y configurados para ofrecer un rendimiento óptimo.&lt;/p>
+&lt;p>&lt;strong>Repositorio de GitHub:&lt;/strong>
+&lt;a class="link" href="https://github.com/aleingmar/Multi-layer_MEAN_Deployment" target="_blank" rel="noopener"
+>https://github.com/aleingmar/Multi-layer_MEAN_Deployment&lt;/a>&lt;/p>
+&lt;h3 id="vídeo-de-la-experimentación-y-memoria-del-proyecto">Vídeo de la experimentación y memoria del proyecto:
+&lt;/h3>&lt;p>Documentación del proyecto: &lt;a class="link" href="../../../post/stack-MEAN-Terraform/Act2_StackMEAN_Terraform_AlejandroIngles.pdf" >&lt;strong>Visualizar documentación en pdf&lt;/strong>&lt;/a>&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zRGhkBebEbA"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>Creación y despliegue automatizado de imagen en entorno multicloud.</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/imagen-multicloud-packer/</link><pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/imagen-multicloud-packer/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/imagen-multicloud-packer/imagen-multicloud-packer2.png" alt="Featured image of post Creación y despliegue automatizado de imagen en entorno multicloud." />&lt;p>Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p>
+&lt;p>El objetivo del proyecto es &lt;strong>crear y desplegar de forma automática una imagen de un sistema web completo en un entorno multicloud de Azure y AWS&lt;/strong>. Este sistema web se compone de una pequeña aplicación escrita con Nodejs y un servidor web Nginx. Para conseguirlo, utilizo las tecnologías de Terraform, Ansible y Packer principalmente.&lt;/p>
+&lt;h3 id="tecnologías-utilizadas">Tecnologías utilizadas:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Terraform:&lt;/strong> Con Terraform centralizo todo la ejecución del proceso y despliego la infraestructura necesaria para levantar una instancia en la nube creada a partir de la imagen del sistema y accesible a través de internet.&lt;/li>
+&lt;li>&lt;strong>Packer:&lt;/strong> Con Packer construyo la imagen del sistema completo. Packer utiliza como proveedor para la creación de la imagen la cloud. Levanta una instancia y toda la infraesturctura necesaria para la creación de la imagen y cuando termina las destruye.&lt;/li>
+&lt;li>&lt;strong>Ansible:&lt;/strong> con ansible se lleva a cabo el aprovisionamiento de la instancia que levanta packer y a partir del cual se crea la imagen. En el caso de Azure este aprovisionamiento lo hago con Ansible, en el caso de AWS hago lo mismo pero directamente con scripting de Bash.&lt;/li>
+&lt;/ul>
+&lt;p>Para controlar el despliegue multicloud, se ha implementado un parámetro que se debe pasar al &lt;code>terraform apply &amp;quot;deployment_target=&amp;quot;&lt;/code>, indicando si se quiere desplegar en las dos nubes simultaneamente o en una única nube. Si es este caso, hay que indicar en cual se desea desplegar.&lt;/p>
+&lt;h3 id="proceso-de-creación-y-despliegue">Proceso de creación y despliegue:
+&lt;/h3>&lt;p>La secuencia de pasos del proceso sería la siguiente:&lt;/p>
+&lt;ol>
+&lt;li>Inicializar ejecutando manualmente en la shell un &lt;code>terraform init &amp;amp;&amp;amp; terraform apply&lt;/code>&lt;/li>
+&lt;li>Tras ello, terraform ejecuta el comando &lt;code>packer build&lt;/code> que se encarga de levantar toda la infraesturctura necesaria y la máquina que utilizá para la creación de la imagen. En el caso de Azure, en esta máquina se instala un Ansible y este se autoaprovisiona ejecutando un playbook y una serie de task definidos en él. En el caso de AWS, se ejecutan los mismos pasos pero en vez de con un Ansible directamente de forma manual con un scripting en Bash. El aprovisionamiento se basa entre otras cosas en la instalación y gestión de los servicios: Nodejs, Nginx, pm2 y App.js en la instancia que crea la imagen.&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;strong>Nodejs:&lt;/strong> Proporciona un entorno con todo lo necesario para que la aplicación ejecute y funcione correctamente.&lt;/li>
+&lt;li>&lt;strong>Nginx:&lt;/strong> servidor web que se encargará de redirijir todo el tráfico a la aplicación y de reenviar sus respuestas. Muy importante su configuración para que cuando se despliegue la iamgen el servidor esté activo y correctamente configurado para que sirva a la app. Pasa el tráfico del puerto 80 al 3000 (donde escucha la app.js)&lt;/li>
+&lt;li>&lt;strong>PM2:&lt;/strong> gestor de procesos de Nodejs que sirve para asegurar que la app.js esté activa cuando se despliegue la imagen sin tener que hacer nada más. (especialmente delicada este paso).&lt;/li>
+&lt;li>&lt;strong>App.js&lt;/strong>: aplicación central y funcional de la imagen, es importante trasferir el código fuente de la app para que sea accesible por la instancia que crea la imagen.&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>Tras esto, Packer crea la imagen y destruye toda la infraestructura que ha necesitado levantar en el proveedor correspondiente de cloud.&lt;/li>
+&lt;li>Terraform tras esperar que la creación de la imagen finalice correctamente, levanta toda la infraestructura necesaria (par de claves, grupo de seguridad, disco&amp;hellip;) para levantar una instancia a partir de esta imagen.&lt;/li>
+&lt;li>Una vez terminado el despliegue, está instancia es accesible a través de internet a raiz de la ip pública.&lt;/li>
+&lt;/ol>
+&lt;p>En definitiva, solo ejecutando un: &lt;code>terraform init &amp;amp;&amp;amp; terraform apply&lt;/code> despliegas todo un entorno web funcional y accesible desde internet en la nube pública de Azure y AWS. Y además creas una imagen reutilizable para poder desplegar más instancias idénticas a estas en un futuro de una forma mucho más rápida y seguro ante posibles errores humanos.&lt;/p>
+&lt;p>&lt;strong>Repositorio de GitHub:&lt;/strong> &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+>https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a>&lt;/p>
+&lt;h3 id="contenido-del-repositorio-y-ficheros-del-proyecto">Contenido del repositorio y ficheros del proyecto:
+&lt;/h3>&lt;p>El repositorio de GiHub se compone de dos directorios principales con dos versiones distintas: &lt;code>/version-2&lt;/code> y &lt;code>/version-3.1&lt;/code>
+El directorio totalmente funcional y que contiene la ultima version del proyecto es el segundo (&lt;code>/version-3.1&lt;/code>). Este es el directorio donde hay que ubicarse para desplegar el &lt;code>terraform init &amp;amp;&amp;amp; terraform apply&lt;/code> (&lt;code>cd version-3.1/te*&lt;/code>).&lt;/p>
+&lt;p>Explicando brevemente el contenido del directorio:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/packer/&lt;/code>: directorio donde se encuentra todo el contenido necesario para la ejecución de Packer y para que pueda construir la imagen.
+&lt;ul>
+&lt;li>&lt;code>/packer/main.pkr.hcl&lt;/code>: fichero principal de Packer donde se definen todos los recursos necesarios para contruir la imagen asi como defino todas las variables que van a utilizar.&lt;/li>
+&lt;li>&lt;code>/packer/variables.pkrvars.hcl&lt;/code>: fichero donde les asigno valores a todos las variables definidas en el &lt;code>main.pkr.hcl&lt;/code> menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores como variables de entorno de mi sistema operativo del host que utilizo para lanzar el terraform. Estos valores los paso como parámetros en el comando de &lt;code>terraform apply&lt;/code> y &lt;code>packer build&lt;/code>.&lt;/li>
+&lt;li>&lt;code>/packer/providers/&lt;/code>: directorio donde podemos encontrar los ficheros auxiliares que sirven para crear la imagen como pueden ser, el fichero de configuración de apache (&lt;code>nginx_default.conf&lt;/code>), el playbook que define el aprovisionamiento con ansible (&lt;code>provision.yml&lt;/code>) y el código de la aplicación de nodejs (&lt;code>app.js&lt;/code>).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>/terraform/&lt;/code>: directorio donde se encuentra todo el contenido necesario para la ejecución de terraform y para que pueda desplegar toda la infraesturtura necesaria para el proyecto.
+&lt;ul>
+&lt;li>&lt;code>/terraform/main.tf&lt;/code>: fichero principal de terraform, donde se define todo el flujo de proceso que debe seguir el despliegue y toda la infraestrutura a levantar.&lt;/li>
+&lt;li>&lt;code>/terraform/variables.tf&lt;/code>: fichero donde se definen todas las variables utilizadas por terraform.&lt;/li>
+&lt;li>&lt;code>/terraform/terraform.tfvars&lt;/code>: fichero donde se les da valor a todas las variables menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores en variables de entorno de mi sistema operativo del host desde donde lanzo el terraform. Estos valores los paso como parámetros en el comando de &lt;code>terraform apply&lt;/code> y &lt;code>packer build&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="../../../p/imagen-multicloud-packer/ficheros.png"
+width="400"
+height="469"
+srcset="../../../p/imagen-multicloud-packer/ficheros_hu_8ecbe9f6c2ea3ce2.png 480w, ../../../p/imagen-multicloud-packer/ficheros_hu_d1084500bdd4b64e.png 1024w"
+loading="lazy"
+alt="Contenido del directorio"
+class="gallery-image"
+data-flex-grow="85"
+data-flex-basis="204px"
+>&lt;/p>
+&lt;h3 id="contenido-del-packer-main">Contenido del Packer main:
+&lt;/h3>&lt;p>El contenido de este fichero se puede diferenciar en varias partes en las cuales se definen los siguientes componentes necesarios para la creación de la imagen:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>PLUGINS&lt;/strong>: Define los plugins necesarios para la plantilla.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Definición de variables&lt;/strong>: (no se les asigna valor aquí, solo alomejor el de por defecto)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>BUILDER&lt;/strong>: Define cómo se construye la AMI en AWS &amp;ndash;&amp;gt; &lt;code>source{}&lt;/code>&amp;ndash;&amp;gt; define el sistema base sobre el que quiero crear la imagen (ISO ubuntu) y el proveeedor para el que creamos la imagen (tecnologia con la que desplegará la imagen) &amp;ndash;&amp;gt; AMAZON. AZURE&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>PROVISIONERS&lt;/strong>: Configura el sistema operativo y la aplicación, como se va instalar y configurar el software &amp;ndash;&amp;gt; &lt;code>build{}&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="vídeo-de-la-experimentación-y-memoria-del-proyecto">Vídeo de la experimentación y memoria del proyecto:
+&lt;/h3>&lt;p>Documentación del proyecto: &lt;a class="link" href="../../../post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf" >&lt;strong>Visualizar documentación en pdf&lt;/strong>&lt;/a>&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/BhRB0716G5w"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>Despliegue de servicio web con EC2 AWS</title><link>https://aleingmar-pi-portfolio.duckdns.org/es/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/es/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Despliegue de servicio web con EC2 AWS" />&lt;p>Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar un servicio web funcional en un entorno en la nube utilizando los servicios de &lt;strong>AWS&lt;/strong>, manteniéndonos dentro de los límites del plan gratuito.&lt;/p>
+&lt;p>&lt;strong>El servicio web desplegado se conforma por un balancedor de carga que distribuye las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.&lt;/strong>&lt;/p>
+&lt;p>Las principales tareas realizadas incluyeron:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Control y creación de alertas de costes&lt;/strong>: Configuración de alertas en AWS para asegurar que todas las operaciones se ajustaran al plan gratuito, evitando cargos adicionales no deseados.&lt;/li>
+&lt;li>&lt;strong>Despliegue de instancias EC2&lt;/strong>: Levantar dos instancias de &lt;strong>EC2&lt;/strong> y conectarnos a ellas mediante &lt;strong>SSH&lt;/strong>. En cada una de las instancias, instalar el servidor web &lt;strong>Apache&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuración de servidores web Apache&lt;/strong>: Configuración de los servicios de Apache en ambas instancias para que sirvieran una página web estática creada por mi mismo.&lt;/li>
+&lt;li>&lt;strong>Implementación de un balanceador de carga&lt;/strong>: Despliegue de un balanceador de carga en AWS para distribuir de manera equitativa las peticiones entrantes entre los dos servidores Apache, optimizando la carga y asegurando una mayor disponibilidad.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="../../../post/aws-ec2-assb/assb-aes-ec2.pdf" >&lt;strong>Visualizar memoria en pdf&lt;/strong>&lt;/a>&lt;/p></description></item></channel></rss>
