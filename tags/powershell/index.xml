@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PowerShell on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.duckdns.org/tags/powershell/</link><description>Recent content in PowerShell on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 17 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.duckdns.org/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item><title>PowerShell Scripting</title><link>https://aleingmar-pi-portfolio.duckdns.org/p/powershell-scripting/</link><pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.duckdns.org/p/powershell-scripting/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.duckdns.org/p/powershell-scripting/powershell-logo.png" alt="Featured image of post PowerShell Scripting" />&lt;p>This project was developed for the Cloud Systems Administration subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p>
+&lt;p>The main objective of the project was to develop scripts in Powershell to automate common tasks in Windows environments, streamlining processes that would normally require manual intervention.&lt;/p>
+&lt;h2 id="powershell-conceptual-snapshots">PowerShell conceptual snapshots
+&lt;/h2>&lt;p>PowerShell is Microsoft&amp;rsquo;s command interpreter and scripting language, designed specifically for Windows system administration. It is based on an object-oriented language, which means that the output of commands is not simply text, but structured objects with properties and methods that can be easily manipulated.&lt;/p>
+&lt;p>For example, in Bash, inter-process communication in pipes (|) is in plain text, which forces the use of additional tools such as grep, awk or sed to process the output. In PowerShell, on the other hand, pipelines exchange objects, allowing you to work directly with their attributes without the need to pause and restart the pipeline.&lt;/p>
+&lt;h3 id="example-comparison-of-powershell-vs-bash">Example Comparison of PowerShell vs. Bash
+&lt;/h3>&lt;p>&lt;strong>PowerShell (working with objects):&lt;/strong>&lt;/p>
+&lt;p>&lt;code>Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name, CPU&lt;/code>&lt;/p>
+&lt;p>Here, &lt;code>Get-Process&lt;/code> returns a list of processes as objects, and we filter out those whose CPU usage (&lt;code>$_ .CPU&lt;/code>) is greater than 10. Then, we select only the Name and CPU properties.&lt;/p>
+&lt;p>&lt;strong>Bash (working with text):&lt;/strong>&lt;/p>
+&lt;p>&lt;code>ps aux | awk '$3 &amp;gt; 10 {print $11, $3}'&lt;/code>&lt;/p>
+&lt;p>&lt;code>ps aux&lt;/code> returns the list of processes as plain text, so it is necessary to use awk to extract and compare the third column (CPU usage).&lt;/p>
+&lt;h2 id="tasks-automated-by-means-of-scripts">Tasks automated by means of scripts:
+&lt;/h2>&lt;p>Specifically the four tasks to be automated are as follows:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Listing files by size&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>Write a script that displays a list of files in the current directory that are larger than 1024 bytes.&lt;/p>
+&lt;ol start="2">
+&lt;li>&lt;strong>Rename JPG files by date&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>Write a script that renames all files with a JPG extension in the current directory, adding a date prefix in year, month, day format. For example, a file named &amp;ldquo;image1.jpg&amp;rdquo; would be renamed to &amp;ldquo;20240413-image1.jpg&amp;rdquo;, if the script is run on 13 April 2024.&lt;/p>
+&lt;ol start="3">
+&lt;li>&lt;strong>Hard disk space monitoring&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>Program a PowerShell script that displays hard disks with a percentage of free space below a given parameter. The script should print the drive letter and the values in GB of free space and size without decimals. The expression Get-WmiObject Win32_LogicalDisk retrieves the information of the system disks.&lt;/p>
+&lt;ol start="4">
+&lt;li>&lt;strong>Creating an interactive menu&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>Program a script that displays a menu with the following options, so that the option associated with the number entered by the user is executed:&lt;/p>
+&lt;ul>
+&lt;li>List the services started.&lt;/li>
+&lt;li>Display the system date.&lt;/li>
+&lt;li>Execute the Notepad.&lt;/li>
+&lt;li>Run the Calculator.&lt;/li>
+&lt;li>Exit.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>GitHub repository:&lt;/strong>
+&lt;a class="link" href="https://github.com/aleingmar/Powershell-Scripting" target="_blank" rel="noopener"
+>https://github.com/aleingmar/Powershell-Scripting&lt;/a>&lt;/p>
+&lt;h2 id="experimentation-video-and-project-report">Experimentation video and project report:
+&lt;/h2>&lt;p>Project documentation: &lt;a class="link" href="../../post/powershell-scripting/PowershellScripting.pdf" >&lt;strong>View documentation in pdf&lt;/strong>&lt;/a>&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/trwkbmmlKwY"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item></channel></rss>
