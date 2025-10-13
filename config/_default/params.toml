@@ -19,7 +19,7 @@ subtitle = "BSc. Clinical IT Engineering | MSc. Development and Operations (DevO
 [sidebar.avatar]
 enabled = true
 local = true
-src = "img/yo-chico.jpeg"
+src = "img/cv-image.png"
 
 [article]
 headingAnchor = false

@@ -2,7 +2,7 @@
 title: Test Automation with Python
 description: Academic project | Unit and API test automation using Python.
 slug: automatic-tests-python
-date: 2025-05-17 00:00:00:00+0000
+date: 2025-05-17 00:00:00+0000
 image: pytest.png
 categories:
     - DevOps
