@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SysAdmin on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/categories/sysadmin/</link><description>Recent content in SysAdmin on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 10 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/categories/sysadmin/index.xml" rel="self" type="application/rss+xml"/><item><title>Deployment of multi-container service</title><link>https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/</link><pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/dockerCompose.png" alt="Featured image of post Deployment of multi-container service" /&gt;&lt;p&gt;This project was developed for the Containers subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).
+The main objective of this project is to deploy a multi-tier application built on top of several containers orchestrated and deployed using Docker compose technology.
+The deployment is based on and is a continuation of the project &amp;ldquo;Dockerisation of multi-tier application&amp;rdquo; already uploaded to this portfolio.
+&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockercompose" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockercompose&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="project-report"&gt;Project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="../../post/multicapa-dockerCompose/Act2_DockerCompose_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Dockerization of a Multi-layer application</title><link>https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/</link><pubDate>Sat, 19 Apr 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/dockerizacion.png" alt="Featured image of post Dockerization of a Multi-layer application" /&gt;&lt;p&gt;This project was developed for the Containers subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).
+The main objective of this project is to dockerise a simple multilayer application, designed with a pedagogical perspective to illustrate the layered architecture and its deployment using containers. This application has been designed with three different layers: web presentation, business logic and data persistence.
+Although a MEAN (Mongo - Express - Angular - Node) stack was initially considered, the presentation layer based on Angular and Nginx has not been fully implemented. Therefore, the final structure of the project is configured as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;First layer, presentation layer: Nginx + Website&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Second layer, business logic layer: App.js application developed using Express on Node.js.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Persistence layer: Implemented using MongoDB.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The functionality of the application is deliberately simple, with the aim of focusing on structure and deployment. It is a kind of ‘Hello World’, where the client initially connects to the presentation layer (Nginx), which delivers an index.html file.
+This file contains a call that triggers a second HTTP request to the same Nginx server, but which is processed differently depending on the PATH of the request.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../p/multilayer-dockerisation/image-1.png"
+width="350"
+height="111"
+srcset="../../p/multilayer-dockerisation/image-1_hu_c97b4990d7f9d4f5.png 480w, ../../p/multilayer-dockerisation/image-1_hu_bd8b1e215da2610d.png 1024w"
+loading="lazy"
+alt="Index.html"
+class="gallery-image"
+data-flex-grow="315"
+data-flex-basis="756px"
+&gt;
+&lt;img src="../../p/multilayer-dockerisation/image-2.png"
+width="460"
+height="332"
+srcset="../../p/multilayer-dockerisation/image-2_hu_57e6612e699a0f29.png 480w, ../../p/multilayer-dockerisation/image-2_hu_c647fd2f42f5c107.png 1024w"
+loading="lazy"
+alt="Nginx.conf"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+&gt;&lt;/p&gt;
+&lt;p&gt;This request is redirected to the backend layer, where the Express application is deployed.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../p/multilayer-dockerisation/image-3.png"
+width="515"
+height="93"
+srcset="../../p/multilayer-dockerisation/image-3_hu_40bd72a20f925c4b.png 480w, ../../p/multilayer-dockerisation/image-3_hu_1938546d60b1eea0.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="553"
+data-flex-basis="1329px"
+&gt;&lt;/p&gt;
+&lt;p&gt;From there, the application tries to establish a connection to the MongoDB database.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../p/multilayer-dockerisation/image-4.png"
+width="764"
+height="77"
+srcset="../../p/multilayer-dockerisation/image-4_hu_eb9089e930e8b6bd.png 480w, ../../p/multilayer-dockerisation/image-4_hu_ab5213d8bf1b585d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="992"
+data-flex-basis="2381px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Depending on the result of that connection, the backend responds to the client with a message in JSON format, indicating if the connection was successful (‘Hello world, connection successfully established’) or if an error occurred.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../p/multilayer-dockerisation/image.png"
+width="1064"
+height="730"
+srcset="../../p/multilayer-dockerisation/image_hu_d16c63b6a70c3a88.png 480w, ../../p/multilayer-dockerisation/image_hu_92d8feaeffa86bea.png 1024w"
+loading="lazy"
+alt="Architecture"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockerisation" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockerisation&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-memory"&gt;Experimentation video and project memory:
+&lt;/h2&gt;&lt;p&gt;Documentation of the project: &lt;a class="link" href="../../post/multicapa-dockerizacion/Act1_Dockerizacion_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/vvb0ahpH7mE"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>PowerShell Scripting</title><link>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</link><pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/powershell-logo.png" alt="Featured image of post PowerShell Scripting" /&gt;&lt;p&gt;This project was developed for the Cloud Systems Administration subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The main objective of the project was to develop scripts in Powershell to automate common tasks in Windows environments, streamlining processes that would normally require manual intervention.&lt;/p&gt;
+&lt;h2 id="powershell-conceptual-snapshots"&gt;PowerShell conceptual snapshots
+&lt;/h2&gt;&lt;p&gt;PowerShell is Microsoft&amp;rsquo;s command interpreter and scripting language, designed specifically for Windows system administration. It is based on an object-oriented language, which means that the output of commands is not simply text, but structured objects with properties and methods that can be easily manipulated.&lt;/p&gt;
+&lt;p&gt;For example, in Bash, inter-process communication in pipes (|) is in plain text, which forces the use of additional tools such as grep, awk or sed to process the output. In PowerShell, on the other hand, pipelines exchange objects, allowing you to work directly with their attributes without the need to pause and restart the pipeline.&lt;/p&gt;
+&lt;h3 id="example-comparison-of-powershell-vs-bash"&gt;Example Comparison of PowerShell vs. Bash
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;PowerShell (working with objects):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name, CPU&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here, &lt;code&gt;Get-Process&lt;/code&gt; returns a list of processes as objects, and we filter out those whose CPU usage (&lt;code&gt;$_ .CPU&lt;/code&gt;) is greater than 10. Then, we select only the Name and CPU properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bash (working with text):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux | awk '$3 &amp;gt; 10 {print $11, $3}'&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux&lt;/code&gt; returns the list of processes as plain text, so it is necessary to use awk to extract and compare the third column (CPU usage).&lt;/p&gt;
+&lt;h2 id="tasks-automated-by-means-of-scripts"&gt;Tasks automated by means of scripts:
+&lt;/h2&gt;&lt;p&gt;Specifically the four tasks to be automated are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Listing files by size&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that displays a list of files in the current directory that are larger than 1024 bytes.&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Rename JPG files by date&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that renames all files with a JPG extension in the current directory, adding a date prefix in year, month, day format. For example, a file named &amp;ldquo;image1.jpg&amp;rdquo; would be renamed to &amp;ldquo;20240413-image1.jpg&amp;rdquo;, if the script is run on 13 April 2024.&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;Hard disk space monitoring&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a PowerShell script that displays hard disks with a percentage of free space below a given parameter. The script should print the drive letter and the values in GB of free space and size without decimals. The expression Get-WmiObject Win32_LogicalDisk retrieves the information of the system disks.&lt;/p&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;&lt;strong&gt;Creating an interactive menu&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a script that displays a menu with the following options, so that the option associated with the number entered by the user is executed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;List the services started.&lt;/li&gt;
+&lt;li&gt;Display the system date.&lt;/li&gt;
+&lt;li&gt;Execute the Notepad.&lt;/li&gt;
+&lt;li&gt;Run the Calculator.&lt;/li&gt;
+&lt;li&gt;Exit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Powershell-Scripting" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Powershell-Scripting&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-report"&gt;Experimentation video and project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="../../post/powershell-scripting/PowershellScripting.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/trwkbmmlKwY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

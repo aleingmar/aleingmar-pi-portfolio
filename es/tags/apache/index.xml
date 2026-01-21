@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Apache on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/tags/apache/</link><description>Recent content in Apache on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Fri, 24 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/tags/apache/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue automatizado de entorno Wordpress con Ansible</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/wp-ansible/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/wp-ansible/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wp-ansible/wordpress-ansible.png" alt="Featured image of post Despliegue automatizado de entorno Wordpress con Ansible" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Herramientas de Automatización de Despliegues como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo principal del proyecto fue &lt;strong&gt;automatizar el despliegue en local de un entorno WordPress completo&lt;/strong&gt; utilizando &lt;strong&gt;Ansible y Vagrant&lt;/strong&gt;. Se implementó una arquitectura securizada optimizada mediante el uso de un &lt;strong&gt;Nginx como proxy inverso&lt;/strong&gt; que bloquea el tráfico destinado a ciertas rutas sensibles de administración de Wordpress.&lt;/p&gt;
+&lt;p&gt;Vagrant crea y levanta la máquina virtual, en la cual se instala Ansible. Luego, Ansible se autoaprovisiona y configura automáticamente todos los servicios necesarios, incluyendo Apache, MySQL, WordPress y Nginx, dejando el sistema completamente listo para su uso.&lt;/p&gt;
+&lt;h2 id="estructura-general-del-proyecto-de-aprovisionamiento-con-anisble"&gt;Estructura general del proyecto de aprovisionamiento con Anisble
+&lt;/h2&gt;&lt;p&gt;A continuación, se detalla la organización de los archivos y roles de Ansible, para facilitar la comprensión del funcionamiento general del proyecto:&lt;/p&gt;
+&lt;h3 id="playbook-principal-provisionplaybookyml"&gt;Playbook principal: provision/playbook.yml
+&lt;/h3&gt;&lt;p&gt;Este archivo actúa como el punto de inicio en Ansible. Desde aquí se incluyen los roles necesarios para configurar todos los componentes del entorno.
+En este caso, el código está dividido en cuatro roles: apache, mysql, wordpress y nginx, que se ejecutan en este orden.
+La instalación de PHP y sus módulos se ha decidido incluir directamente en este playbook, en lugar de crear un rol separado, ya que son solo unas pocas líneas de código.
+El orden de aprovisionamiento es el siguiente:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Módulos de PHP&lt;/li&gt;
+&lt;li&gt;Apache&lt;/li&gt;
+&lt;li&gt;MySQL&lt;/li&gt;
+&lt;li&gt;WordPress&lt;/li&gt;
+&lt;li&gt;Nginx&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="gestión-de-variables-con-ansible"&gt;Gestión de variables con Ansible
+&lt;/h3&gt;&lt;p&gt;En lugar de usar Hiera como con &lt;strong&gt;Puppet&lt;/strong&gt;, en Ansible se utilizan &lt;strong&gt;archivos YAML&lt;/strong&gt; dentro del directorio &lt;code&gt;group_vars/all.yml&lt;/code&gt;, lo que permite separar las variables del código principal.
+Esto asegura un enfoque más seguro, evitando exponer credenciales sensibles al subir el proyecto a un repositorio. Aunque este proyecto es académico y no incluye variables encriptadas, Ansible Vault permite cifrar variables si fuera necesario.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Las variables se declaran en: &lt;code&gt;group_vars/all.yml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Se utilizan plantillas Jinja2 (.j2) para inyectar valores dinámicos en los archivos de configuración.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="roles-en-ansible"&gt;Roles en Ansible
+&lt;/h3&gt;&lt;p&gt;Para organizar mejor los manifiestos y ficheros auxiliares que necesita Ansible para la automatización de la configuración de la infraestructura, dividí el contenido en &lt;strong&gt;cuatro roles principales en Ansible&lt;/strong&gt;, cada uno encargado de una parte del sistema. Esto permite &lt;strong&gt;modularidad, reutilización de código y una mejor organización&lt;/strong&gt; del playbook.&lt;/p&gt;
+&lt;h4 id="rol-apache"&gt;Rol Apache
+&lt;/h4&gt;&lt;p&gt;Con este rol, Ansible instala y configura el servidor web Apache, que actúa como backend para servir WordPress. Apache solo es accesible desde la propia máquina virtual, ya que Nginx actuará como proxy inverso.&lt;/p&gt;
+&lt;p&gt;Las principales tareas que realiza son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar Apache y asegurarse de que el servicio esté activo.&lt;/li&gt;
+&lt;li&gt;Eliminar la página por defecto de Apache.&lt;/li&gt;
+&lt;li&gt;Configurar Apache para escuchar en &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt;.
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Configurar el puerto de escucha en &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt; significa que &lt;strong&gt;Apache solo aceptará conexiones desde procesos locales en la misma máquina&lt;/strong&gt; donde se ejecuta. &lt;strong&gt;La dirección 127.0.0.1 es la dirección de loopback (localhost)&lt;/strong&gt;, lo que impide el acceso desde otras máquinas en la red. Esto es útil cuando Apache está detrás de un proxy inverso, como Nginx, que gestiona las conexiones externas y reenvía las solicitudes a Apache en el puerto 8080.&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Copiar la configuración personalizada desde una plantilla Jinja2 (&lt;code&gt;wp-apache-config.conf.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Habilitar el nuevo sitio y reiniciar Apache automáticamente.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Con esta configuración, Apache se mantiene aislado de accesos directos, asegurando que solo pueda ser consultado a través de Nginx.&lt;/p&gt;
+&lt;h4 id="rol-mysql"&gt;Rol MySQL
+&lt;/h4&gt;&lt;p&gt;En este rol Ansible aprovisiona la máquina virtual de una bd MySQL para garantizar el correcto almacenamiento y acceso a los datos de WordPress.&lt;/p&gt;
+&lt;p&gt;Las principales tareas que realiza son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar el servidor MySQL.&lt;/li&gt;
+&lt;li&gt;Crear la base de datos necesaria para WordPress.&lt;/li&gt;
+&lt;li&gt;Configurar el usuario y asignarle los permisos adecuados.&lt;/li&gt;
+&lt;li&gt;Ejecutar un script de inicialización (&lt;code&gt;init-wordpress.sql.j2&lt;/code&gt;) para preparar la base de datos con la estructura y datos iniciales.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este rol garantiza que la base de datos esté lista y correctamente configurada antes de que WordPress intente conectarse más adelante al ejecutar su rol.&lt;/p&gt;
+&lt;h4 id="rol-wordpress"&gt;Rol WordPress
+&lt;/h4&gt;&lt;p&gt;Este rol automatiza la instalación y configuración de WordPress, asegurando un despliegue funcional y listo para su uso.&lt;/p&gt;
+&lt;p&gt;Las tareas clave que realiza incluyen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Descargar y extraer WordPress en /var/www/html/wordpress.&lt;/li&gt;
+&lt;li&gt;Crear y configurar el archivo wp-config.php usando una plantilla (&lt;code&gt;wp-config.php.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Asegurar los permisos correctos para WordPress (&lt;code&gt;chown -R www-data:www-data&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Instalar wp-cli y usarlo para configurar WordPress automáticamente.&lt;/li&gt;
+&lt;li&gt;Inicializar la base de datos con un contenido mínimo utilizando &lt;code&gt;init-wordpress-content.sql.j2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Configurar Apache para servir el contenido de WordPress.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Con este rol, WordPress se instala, se configura automáticamente y se deja listo para su uso, sin necesidad de ninguna intervención manual.&lt;/p&gt;
+&lt;h4 id="rol-nginx"&gt;Rol Nginx
+&lt;/h4&gt;&lt;p&gt;Este rol implementa &lt;strong&gt;Nginx como proxy inverso&lt;/strong&gt;, formando la primera capa de defensa del sistema. Su función principal es gestionar las solicitudes entrantes y bloquear accesos no deseados.&lt;/p&gt;
+&lt;p&gt;Las principales acciones realizadas son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar Nginx en la máquina virtual.&lt;/li&gt;
+&lt;li&gt;Configurar Nginx como proxy inverso, redirigiendo las solicitudes a Apache en el puerto 8080.&lt;/li&gt;
+&lt;li&gt;Bloquear el acceso a rutas sensibles como &lt;code&gt;/wp-admin&lt;/code&gt; y &lt;code&gt;/wp-login.php&lt;/code&gt; para aumentar la seguridad.&lt;/li&gt;
+&lt;li&gt;Optimizar la entrega de archivos estáticos (CSS, JS, imágenes) directamente desde Nginx, mejorando el rendimiento.&lt;/li&gt;
+&lt;li&gt;Deshabilitar la página por defecto de Nginx y habilitar una configuración específica para WordPress.&lt;/li&gt;
+&lt;li&gt;Reiniciar Nginx automáticamente después de aplicar la configuración.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;¿Por qué es importante Nginx en este proyecto?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Protege Apache al actuar como único punto de acceso externo, evitando ataques directos.&lt;/li&gt;
+&lt;li&gt;Mejora la seguridad bloqueando accesos a rutas críticas de administración.
+Con esta configuración, Nginx filtra el tráfico y solo permite solicitudes seguras a WordPress, fortaleciendo la infraestructura del sistema.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../../p/wp-ansible/roles.png"
+width="382"
+height="700"
+srcset="../../../p/wp-ansible/roles_hu_79ce48b7c8b83a2a.png 480w, ../../../p/wp-ansible/roles_hu_d1f585e8f9a39b25.png 1024w"
+loading="lazy"
+alt="Estructura de directorios"
+class="gallery-image"
+data-flex-grow="54"
+data-flex-basis="130px"
+&gt;&lt;/p&gt;
+&lt;h2 id="arquitectura-del-sistema"&gt;Arquitectura del sistema
+&lt;/h2&gt;&lt;h3 id="proceso-de-una-solicitud-y-flujo-de-datos"&gt;&lt;strong&gt;Proceso de una solicitud y flujo de datos&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Cuando un usuario accede a WordPress, la solicitud sigue el siguiente flujo:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;El usuario accede a WordPress desde un navegador.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx recibe la solicitud en el puerto 80&lt;/strong&gt; y decide si la bloquea o la reenvía a Apache.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Si la solicitud es válida&lt;/strong&gt;, Nginx la reenvía a &lt;strong&gt;Apache en &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache procesa la solicitud&lt;/strong&gt;, ejecutando los scripts PHP de WordPress.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Si la página requiere datos de la base de datos&lt;/strong&gt;, Apache consulta MySQL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache devuelve la respuesta generada a Nginx&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx envía la respuesta al usuario&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Esto asegura que &lt;strong&gt;Apache solo sea accesible desde la propia máquina&lt;/strong&gt;, mientras que Nginx actúa como la primera línea de defensa.&lt;/p&gt;
+&lt;h3 id="comunicación-entre-nginx-y-apache"&gt;&lt;strong&gt;Comunicación entre Nginx y Apache&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Para entender mejor cómo se conectan ambos servidores, es importante conocer cómo funcionan sus &lt;strong&gt;puertos e IPs&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nginx escucha en &lt;code&gt;0.0.0.0:80&lt;/code&gt;&lt;/strong&gt;, lo que significa que acepta conexiones al puerto 80 y hacia cualquier IP que identifique la máquina que lo ejecuta.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache escucha en &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;, lo que significa que con este proceso solo se pueden comunicar otros procesos desde la misma máquina y que manden tráfico a esa ip y al puerto 8080.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;127.0.0.1&lt;/code&gt; es la dirección de loopback&lt;/strong&gt;, usada para comunicación interna dentro de la misma máquina.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;El tráfico externo nunca llega directamente a Apache&lt;/strong&gt;, ya que Nginx actúa como intermediario.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Beneficio clave:&lt;/strong&gt; Si alguien intenta acceder a Apache directamente desde otra máquina, la conexión será rechazada porque &lt;strong&gt;Apache no está expuesto a la red&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="conclusión"&gt;Conclusión
+&lt;/h2&gt;&lt;p&gt;En definitiva, simplemente ubicándose en la consola en el directorio donde se encuentra el &lt;strong&gt;Vagrantfile&lt;/strong&gt; y ejecutando un simple &lt;code&gt;vagrant up&lt;/code&gt;, se despliega automáticamente un entorno WordPress funcional, personalizado y seguro, accesible desde un cliente web en &lt;code&gt;http://192.168.55.10&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/wordpress_ansible" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/wordpress_ansible&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h2&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/wordpress-ansible/Act3_Wordpress_Ansible_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/lksomzUvzA0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue automatizado de Wordpress usando Vagrant y Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/wordpress-puppet/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/wordpress-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wordpress-puppet/wordpress-puppet.png" alt="Featured image of post Despliegue automatizado de Wordpress usando Vagrant y Puppet" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo principal de este proyecto es desplegar de forma automática un entorno web de prueba con un servicio WordPress personalizado, utilizando Vagrant como herramienta de Infraestructura como Código (IaC) y Puppet para su aprovisionamiento automatizado.
+Simplemente ejecutando en la terminal el comando &lt;code&gt;vagrant up&lt;/code&gt; en el directorio donde se encuentra el Vagrantfile, se despliega todo el entorno sin necesidad de realizar configuraciones adicionales.
+Antes de poder desplegar un servicio web de WordPress, es necesario llevar a cabo varias tareas de aprovisionamiento y configuración previas, entre ellas están:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Instalar, configurar y levantar un servidor web Apache para redirigir y servir todo el contenido.&lt;/li&gt;
+&lt;li&gt;Instalar todos los paquetes y módulos específicos de PHP requeridos por WordPress.&lt;/li&gt;
+&lt;li&gt;Instalar, configurar y levantar una base de datos MySQL que será utilizada por WordPress para la persistencia de sus datos.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Para verificar el correcto funcionamiento, basta con acceder a &lt;code&gt;localhost:8080&lt;/code&gt; desde el navegador.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/WordPress_deployment-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/WordPress_deployment-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;El proyecto incluye dos versiones diferentes de entorno, organizadas en directorios separados:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-two-nodes&lt;/code&gt;
+En esta versión se despliegan tres nodos Puppet: un Puppet Master y dos Puppet Client.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cada cliente (nodo) aloja un entorno de WordPress, aprovisionado con las directivas enviadas desde el Puppet Master. Cada min de forma automática los puppet clients solicitan la nueva configuracon de puppet si la hubiera mediante una tarea cron.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-one-node&lt;/code&gt;
+En esta versión se levanta únicamente una máquina virtual (MV) con un cliente Puppet que se autoaprovisiona, sin necesidad de un Puppet Master.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="versión-de-autoaprovisionamiento-puppet-one-node"&gt;Versión de autoaprovisionamiento: puppet-one-node
+&lt;/h2&gt;&lt;p&gt;En esta version del entorno se levanta solo una mv, un puppet agente/cliente que se autoaprovisiona sin necesidad de ningún nodo master. Todo el proceso de despliegue se hace totalmente de forma automática.&lt;/p&gt;
+&lt;h3 id="puppet-one-node-vagrantfile"&gt;puppet-one-node: Vagrantfile
+&lt;/h3&gt;&lt;p&gt;El Vagrantfile define la configuración básica de la máquina virtual (MV) para crear un entorno de infraestructura como código (IaC). Se especifica la caja base de Ubuntu que se utilizará, las opciones de red (incluyendo el redireccionamiento de puertos y la asignación de una IP privada), y se asigna 1024 MB de memoria RAM a la MV. Además, se instala Puppet en modo agente, eliminando la necesidad de un servidor Puppet maestro, y se configura para utilizar el manifiesto principal &lt;code&gt;default.pp&lt;/code&gt;, los módulos desde el directorio &lt;code&gt;modules&lt;/code&gt; y el archivo de configuración de Hiera &lt;code&gt;hiera.yaml&lt;/code&gt; para gestionar datos de forma centralizada.&lt;/p&gt;
+&lt;h2 id="versión-de-arquitectura-cliente-servidor-puppet-two-nodes"&gt;Versión de arquitectura cliente-servidor: puppet-two-nodes
+&lt;/h2&gt;&lt;p&gt;En esta version del entorno se levantan 3 mvs, un puppet master y dos puppet clients. De forma automática se levantan las mvs y se instalan sus correspondientes versiones de puppet (al nodo master se instala el master y asi).
+Una vez que se levanta el nodo cliente (que se levanta despues del master), nada mas que arranca envia su certificado al master (que lo conoce porque esta en su fichero puppet.config).
+De forma &lt;strong&gt;MANUAL&lt;/strong&gt; hay que realizar las distintas tareas de administración:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Lado del SERVER&lt;/strong&gt;:
+De forma manual, lo único que tiene que hacer el administrador de sistemas que se encargue de este entorno es hacer un:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca sign --all&lt;/code&gt; para firmar todos los certificados sin firmar que le han llegado (en este caso uno por cada nodo cliente) y mandarselos firmados a los clientes correspondientes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar &lt;strong&gt;antes&lt;/strong&gt; de firmarlos un:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca list --all&lt;/code&gt; para listar todos los certificados y verificar que no firma un certificado que no deberia.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Lado del CLIENTE&lt;/strong&gt;:
+Una vez hecho esto en el server, al cliente correspondiente le debe de llegar su certificado ya firmado, con el que podrá comunicarse ante el nodo master y
+pedirle la configuraciones/aprovisionamiento de puppet ejecutando este comando: &lt;code&gt;sudo /opt/puppetlabs/bin/puppet agent --test&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="estructura-general-del-proyecto-de-aprovisionamiento-con-puppet"&gt;Estructura general del proyecto de aprovisionamiento con puppet
+&lt;/h2&gt;&lt;p&gt;A continuación, se detalla la organización de los archivos y módulos, lo que facilita la comprensión del funcionamiento general del proyecto:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Archivo principal&lt;/strong&gt;: &lt;code&gt;manifests/default.pp&lt;/code&gt;
+Este archivo actúa como el punto de inicio de Puppet. Desde aquí se importan los módulos necesarios para configurar todos los componentes del entorno. En este caso, el código está dividido en tres módulos: &lt;strong&gt;apache, mysql y wordpress&lt;/strong&gt;, que son ejecutados e importados en este orden. La instalación de PHP he decidido codificarla directamente en este módulo, sin añadir un módulo más simplemente para esto ya que son apenas 3 o 4 líneas de código. La instalación de estos componentes se hace en este orden: &lt;strong&gt;apache, php, mysql y wordpress&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Gestión de variables con Hiera&lt;/strong&gt;: &lt;code&gt;hiera.yaml, data/common.yaml&lt;/code&gt;
+Para gestionar las variables, se utiliza Hiera, lo que permite separar las claves del código fuente. Esto asegura un enfoque más seguro, ya que evita exponer credenciales sensibles al subir el proyecto a un repositorio en la nube. Aunque este proyecto es académico y no incluye variables encriptadas, Hiera también ofrece la posibilidad de encriptar claves.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las variables se declaran junto con sus valores en &lt;code&gt;data/common.yaml&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;El archivo &lt;code&gt;hiera.yaml&lt;/code&gt; configura el funcionamiento de Hiera.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Para integrar Hiera con Vagrant, se añade la línea &lt;code&gt;puppet.hiera_config_path = &amp;quot;hiera.yaml&amp;quot;&lt;/code&gt; en el Vagrantfile.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulos utilizados&lt;/strong&gt;:
+El proyecto está dividido en tres módulos principales, lo que garantiza modularidad y organización en el código:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo apache&lt;/strong&gt;
+Este módulo aprovisiona y configura el servidor web Apache en la MV, dejándolo preparado y activo para que el módulo wordpress pueda administrar y servir contenido desde él.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo mysql&lt;/strong&gt;
+En este módulo se instala y configura un servidor MySQL en la MV, asegurando el correcto funcionamiento del gestor de bases de datos. Además, se crea la base de datos necesaria para WordPress mediante el archivo &lt;code&gt;init-wordpress.sql.erb&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo wordpress&lt;/strong&gt;
+Este módulo instala y configura WordPress, dejándolo completamente funcional. Las principales acciones realizadas son:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalación de los paquetes y dependencias de Wordpress y activación del servicio.&lt;/li&gt;
+&lt;li&gt;Configuración del archivo &lt;code&gt;wp-config.conf.erb&lt;/code&gt;, que configura el servicio, entre otras cosas, conecta WordPress con la base de datos y define claves de acceso generadas previamente.&lt;/li&gt;
+&lt;li&gt;Instalación y uso de la herramienta &lt;code&gt;wp-cli&lt;/code&gt; para automatizar la configuración del sitio web.&lt;/li&gt;
+&lt;li&gt;Inicialización de la base de datos mediante el archivo &lt;code&gt;init-wordpress-content.sql.erb&lt;/code&gt; con un contenido mínimo necesario para lanzar una página web.&lt;/li&gt;
+&lt;li&gt;Configuración de Apache para servir el contenido de la página, utilizando el archivo &lt;code&gt;wp-apache-config.conf.erb&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El servicio es accesible desde el host en &lt;code&gt;localhost:8080&lt;/code&gt; gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.&lt;/p&gt;
+&lt;p&gt;Despliegue del entorno en la versión puppet-one-node:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/xQdjuHr-2-U"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Despliegue automatizado de Apache usando Vagrant y Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/apache-web-puppet/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/apache-web-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/apache-web-puppet/apache-puppet.png" alt="Featured image of post Despliegue automatizado de Apache usando Vagrant y Puppet" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo del proyecto es desplegar y configurar de manera automatizada un entorno web en una máquina virtual que hospeda un servidor Apache, el cual sirve una página web básica. La máquina virtual se crea mediante IaC (Infrastructure as Code) con Vagrant, y para su aprovisionamiento se utiliza Puppet, que gestiona la instalación de Apache y la carga automática de un archivo HTML simple, creando así un servicio web funcional.&lt;/p&gt;
+&lt;p&gt;En definitiva, simplemente ejecutando un &lt;code&gt;vagrant up&lt;/code&gt; comienza todo el proceso de despliegue y aprovisionamiento y de forma automática (sin hacer nada más) se levanta una máquina virtual en la cual se instala puppet, se configura e instala un servidor web Apache para que se active y escuche el puerto 80 (http) de la Mv y para que devuelva una página web simple que se introduce en su interior.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/deployment_apache-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/deployment_apache-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;El repositorio de GiHub se compone de dos directorios con dos versiones distintas: /easy_mode y /hard_mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;En la primera carpeta (/easy_mode) se encuentra el proyecto de despliegue con una estructura simplificada. Esta versión no sigue una arquitectura ni una organización de código propias de proyectos de despliegue complejos, y la configuración de Apache es más básica.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En la segunda carpeta (/hard_mode) se utiliza un patrón de código más adecuado para Puppet, empleando, por ejemplo, módulos y otros elementos típicos de esta tecnología. Además, la configuración de Apache es más avanzada y detallada.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ambas versiones consiguen realizar el despliegue correctamente.&lt;/p&gt;
+&lt;p&gt;Explicando por ejemplo la versión sencilla (/easy_mode) un directorio donde se encuentra un fichero &amp;ldquo;Vagrantfile&amp;rdquo; y una carpeta &amp;ldquo;manifests&amp;rdquo; en cuyo interior se encuentra el fichero &amp;ldquo;apache.pp&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;En el Vagrantfile se define la infraestructura de máquinas virtuales que es necesaria desplegar para sustentar el servicio web. De esto se encarga Vagrant y por debajo, usa como proveedor de virtualización VirtualBox.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el Vagrantfile antes de indicarle a Vagrant que debe hacer el aprovisionamiento de la infraestructura usando Puppet, se ejecuta un script para instalar Puppet dentro de las máquinas virtuales. Puppet en este caso trabaja en modo stand-alone (sin seguir modelo cliiente-servidor).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el fichero &amp;ldquo;apache.pp&amp;rdquo; se define la configuración deseada para esta infraestructur y le sirve a Puppet de guía declarativa para desarrollar su trabajo. Como Puppet usa un lenguaje declarativo no se le indica como se quiere que se hagan las cosas, sino solo lo que se quiere conseguir y Puppet se encarga del resto.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El servicio es accesible desde el host en &lt;code&gt;localhost:8080&lt;/code&gt; gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/8K7JzFuzGvg"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue de servicio web con EC2 AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Despliegue de servicio web con EC2 AWS" /&gt;&lt;p&gt;Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar un servicio web funcional en un entorno en la nube utilizando los servicios de &lt;strong&gt;AWS&lt;/strong&gt;, manteniéndonos dentro de los límites del plan gratuito.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;El servicio web desplegado se conforma por un balancedor de carga que distribuye las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Las principales tareas realizadas incluyeron:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Control y creación de alertas de costes&lt;/strong&gt;: Configuración de alertas en AWS para asegurar que todas las operaciones se ajustaran al plan gratuito, evitando cargos adicionales no deseados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Despliegue de instancias EC2&lt;/strong&gt;: Levantar dos instancias de &lt;strong&gt;EC2&lt;/strong&gt; y conectarnos a ellas mediante &lt;strong&gt;SSH&lt;/strong&gt;. En cada una de las instancias, instalar el servidor web &lt;strong&gt;Apache&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Configuración de servidores web Apache&lt;/strong&gt;: Configuración de los servicios de Apache en ambas instancias para que sirvieran una página web estática creada por mi mismo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Implementación de un balanceador de carga&lt;/strong&gt;: Despliegue de un balanceador de carga en AWS para distribuir de manera equitativa las peticiones entrantes entre los dos servidores Apache, optimizando la carga y asegurando una mayor disponibilidad.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="../../../post/aws-ec2-assb/assb-aes-ec2.pdf" &gt;&lt;strong&gt;Visualizar memoria en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

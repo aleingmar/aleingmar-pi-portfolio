@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Análisis De Datos on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/categories/an%C3%A1lisis-de-datos/</link><description>Recent content in Análisis De Datos on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/categories/an%C3%A1lisis-de-datos/index.xml" rel="self" type="application/rss+xml"/><item><title>Datathon Andalucía Dedalus</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/datathon/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/datathon/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/datathon/dedalus-logo.png" alt="Featured image of post Datathon Andalucía Dedalus" /&gt;&lt;p&gt;Este proyecto fue desarrollado durante mi tercer año de carrera para el Datathon organizado por Dedalus y AWS en Andalucía, en colaboración con dos compañeros de carrera. El principal objetivo de este datathon era trabajar con un conjunto de datos proporcionados sobre pacientes ingresados en Unidades de Cuidados Intensivos (UCI), para extraer valor clínico mediante análisis de cohortes y la creación de modelos predictivos. Se buscaba con este concurso generar información relevante para mejorar la eficiencia hospitalaria y optimizar la toma de decisiones en contextos clínicos.&lt;/p&gt;
+&lt;h2 id="análisis-de-cohortes"&gt;Análisis de Cohortes
+&lt;/h2&gt;&lt;p&gt;El análisis de cohortes fue uno de los pilares fundamentales del proyecto, ya que nos permitió identificar patrones clave entre los pacientes hospitalizados.&lt;/p&gt;
+&lt;p&gt;Realizamos un &lt;strong&gt;análisis específico sobre pacientes con problemas cardiovasculares&lt;/strong&gt;. Este análisis incluyó varios aspectos importantes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El porcentaje de casos en función del género, que nos ayudó a identificar posibles diferencias en la prevalencia de los problemas cardiovasculares entre hombres y mujeres.&lt;/li&gt;
+&lt;li&gt;La distribución de casos en relación con la edad, lo que permitió obtener un panorama claro sobre las franjas etarias más afectadas.&lt;/li&gt;
+&lt;li&gt;El número de casos según el índice de masa corporal (IMC), que proporcionó una perspectiva sobre cómo el IMC influye en la incidencia de estas patologías.&lt;/li&gt;
+&lt;li&gt;El porcentaje de mortalidad en función del IMC, revelando posibles correlaciones entre el peso corporal y los desenlaces fatales en pacientes con problemas cardiovasculares.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Realizamos un &lt;strong&gt;análisis de cohortes más general&lt;/strong&gt; para todos los pacientes ingresados en la UCI. Este estudio incluyó:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El número de ingresos y altas en la UCI en distintas franjas horarias, lo que proporcionó información sobre los momentos del día en los que se producían más admisiones.&lt;/li&gt;
+&lt;li&gt;La tasa de mortalidad de los pacientes en función del diagnóstico, arrojando luz sobre cuáles eran las patologías más críticas en términos de supervivencia.&lt;/li&gt;
+&lt;li&gt;El tiempo de estancia en UCI según cada diagnóstico, lo que facilitó la identificación de los tratamientos y patologías que requerían mayor tiempo de hospitalización.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="comparativa-de-hospitales"&gt;Comparativa de Hospitales
+&lt;/h2&gt;&lt;p&gt;Otro aspecto destacado del proyecto fue el análisis comparativo entre diferentes hospitales. En este análisis, evaluamos el rendimiento de los hospitales en función de su capacidad para tratar patologías críticas, utilizando la mortalidad como indicador clave. Este análisis nos permitió comparar la eficiencia de los hospitales en el tratamiento de ciertos diagnósticos y patologías, además de explorar el tiempo medio de estancia en la UCI por cada hospital. Con esta información, pudimos identificar posibles áreas de mejora en la gestión hospitalaria y la atención clínica en diferentes centros de salud.&lt;/p&gt;
+&lt;h2 id="modelos-predictivos"&gt;Modelos Predictivos
+&lt;/h2&gt;&lt;p&gt;Como parte del proyecto, también desarrollamos modelos predictivos con el fin de anticipar comportamientos y mejorar la planificación en las UCI. Uno de los modelos principales fue el de &lt;strong&gt;control de la congestión en las UCI, que tenía la capacidad de predecir cuándo se alcanzarían niveles críticos de ocupación y así anticiparse a posibles cuellos de botella en la atención hospitalaria&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Además, diseñamos &lt;strong&gt;modelos que podían predecir la duración de la estancia de los pacientes en la UCI&lt;/strong&gt;, clasificándolos en estancias cortas, medias o largas. Estos modelos predictivos no solo permitieron optimizar la asignación de recursos hospitalarios, sino que también contribuyeron a una mejor planificación de las altas médicas y a la reducción de tiempos de espera.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../../p/datathon/datathon-foto-grupo-sevilla.jpg"
+width="615"
+height="380"
+srcset="../../../p/datathon/datathon-foto-grupo-sevilla_hu_bc622d1e1b635cac.jpg 480w, ../../../p/datathon/datathon-foto-grupo-sevilla_hu_1bec43cc8cdd2ed2.jpg 1024w"
+loading="lazy"
+alt="Foto grupal"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="388px"
+&gt;&lt;img src="../../../p/datathon/dedalus.jpg"
+width="720"
+height="675"
+srcset="../../../p/datathon/dedalus_hu_13600aa53aec4351.jpg 480w, ../../../p/datathon/dedalus_hu_bee6ca3975e73dd4.jpg 1024w"
+loading="lazy"
+alt="Foto durante la presentación"
+class="gallery-image"
+data-flex-grow="106"
+data-flex-basis="256px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Presentación: &lt;a class="link" href="../../../post/datathon/ATENAS_Datathon_Dedalus.pdf" &gt;&lt;strong&gt;Visualizar presentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Proyecto de datos con Weka</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/weka-espacial/</link><pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/weka-espacial/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/weka-espacial/weka.png" alt="Featured image of post Proyecto de datos con Weka" /&gt;&lt;p&gt;Este proyecto fue desarrollado como parte de la asignatura de Sistemas Inteligentes (SI) durante mi tercer año de carrera. El trabajo consistió en aplicar diferentes algoritmos de clasificación y preprocesamiento de datos para resolver un problema hipotético sobre un viaje espacial en un futuro distante. El objetivo principal era predecir, basado en ciertos atributos de los pasajeros, si estos serían transportados a una dimensión alternativa tras un accidente espacial.&lt;/p&gt;
+&lt;h2 id="contexto-y-objetivo"&gt;Contexto y Objetivo
+&lt;/h2&gt;&lt;p&gt;El problema plantea la situación en la que una nave espacial, con miles de pasajeros a bordo, choca con una anomalía espacio-temporal, y la mitad de los pasajeros son transportados a otra dimensión. El reto del proyecto consistía en desarrollar un modelo predictivo para identificar qué pasajeros habrían sido transportados a esa dimensión alternativa, basado en atributos como la edad, el planeta de origen, si estaban en crio sueño, y otros factores.&lt;/p&gt;
+&lt;h2 id="preprocesamiento-de-datos"&gt;Preprocesamiento de Datos
+&lt;/h2&gt;&lt;p&gt;El conjunto de datos proporcionado contenía información sobre aproximadamente 8700 pasajeros, y constaba de 14 atributos, tanto numéricos como nominales. Inicialmente, se eliminaron ciertas variables consideradas irrelevantes, como el destino del pasajero y las cantidades gastadas en servicios de lujo. A continuación, se realizaron imputaciones de valores perdidos y se binarizaron las variables categóricas utilizando One Hot Encoding.&lt;/p&gt;
+&lt;p&gt;Para mejorar la eficiencia de los algoritmos de clasificación basados en distancia, como KNN, se realizó la normalización de las variables numéricas, en particular la edad de los pasajeros, con el fin de garantizar una comparación justa entre los diferentes atributos.&lt;/p&gt;
+&lt;h2 id="algoritmos-implementados"&gt;Algoritmos Implementados
+&lt;/h2&gt;&lt;p&gt;Se probaron diversos algoritmos de clasificación, entre ellos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ZeroR&lt;/strong&gt;: Utilizado como baseline, clasificando todos los pasajeros en función del valor de la clase más frecuente.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;J48&lt;/strong&gt;: Un algoritmo de tipo árbol de decisión que mostró buenos resultados tras un proceso de poda para evitar el sobreajuste.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KNN&lt;/strong&gt; (k-Nearest Neighbors): Este clasificador se basó en la similitud entre individuos para predecir si un pasajero sería transportado. Se probaron diferentes valores de K, siendo 9 el valor que obtuvo mejores resultados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Naive Bayes&lt;/strong&gt;: Un algoritmo que, pese a su simplicidad, proporcionó buenos resultados al asumir la independencia entre los atributos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="resultados"&gt;Resultados
+&lt;/h2&gt;&lt;p&gt;El mejor rendimiento se obtuvo utilizando el algoritmo KNN con un valor de K=9, logrando una precisión del 74.3%. En comparación, los otros algoritmos mostraron rendimientos ligeramente inferiores. Los experimentos realizados con &lt;strong&gt;validación cruzada&lt;/strong&gt; ayudaron a evaluar de manera más confiable los modelos, asegurando que no hubiese sobreajuste.&lt;/p&gt;
+&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/weka-espacial/viaje-espacial-weka.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

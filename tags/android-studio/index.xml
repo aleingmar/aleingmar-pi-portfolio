@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android Studio on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/android-studio/</link><description>Recent content in Android Studio on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 15 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/android-studio/index.xml" rel="self" type="application/rss+xml"/><item><title>AVI Health</title><link>https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/</link><pubDate>Thu, 15 Feb 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/avi-health.png" alt="Featured image of post AVI Health" /&gt;&lt;p&gt;This project was developed during the Management of Information Services and Technologies (GSTI) course during my fourth year of my degree. The main objective of the project was to develop an Android mobile application to cover the telecare needs of an integrated care process (PAI) modelled by the Andalusian Health Service (SAS). Specifically, this application focuses on the dermatological telecare process for patients with skin cancer.&lt;/p&gt;
+&lt;p&gt;The purpose of the application is to facilitate the interaction between the patient and the dermatologist, speeding up communication and clinical decision-making, as part of an e-Health system. This application provides an environment that allows the patient to share images of their evolution with the dermatologist, who can respond and follow up almost immediately, reducing the usual waiting times. These images are stored in the Goggle Cloud, which ensures the scalability of the system and protection against loss.&lt;/p&gt;
+&lt;p&gt;In addition, the application includes other key functionalities such as the creation of appointments and teleconsultations through the app, access to the location of nearby medical centres on Google Maps, management of both doctor and patient profiles&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Project report:
+&lt;a class="link" href="../../post/android-gsti/Documentaci%c3%b3nAppMovil.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zTRWcF5hFIY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

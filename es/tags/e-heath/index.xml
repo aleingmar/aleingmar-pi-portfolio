@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>E-Heath on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/tags/e-heath/</link><description>Recent content in E-Heath on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Thu, 15 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/tags/e-heath/index.xml" rel="self" type="application/rss+xml"/><item><title>AVI Health</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/android-gsti/</link><pubDate>Thu, 15 Feb 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/android-gsti/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/avi-health.png" alt="Featured image of post AVI Health" /&gt;&lt;p&gt;Este proyecto fue desarrollado durante la asignatura de Gestión de Servicios y Tecnologías de la Información (GSTI) durante mi cuarto año de carrera. El objetivo principal del proyecto era desarrollar una aplicación móvil Android que cubriera la necesidad de teleasistencia de un proceso asistencial integrado (PAI) modelado por el Servicio Andaluz de Salud (SAS). En concreto, esta aplicación se centra en el proceso asistencial de teleasistencia dermatológica de pacientes con cáncer de piel.&lt;/p&gt;
+&lt;p&gt;El propósito de la aplicación es facilitar la interacción entre el paciente y el médico dermatólogo, acelerando la comunicación y la toma de decisiones clínicas, como parte de un sistema de e-Health. Esta aplicación proporciona un entorno que permite al paciente compartir imágenes de su evolución con el dermatólogo, quien puede responder y hacer un seguimiento casi inmediato, reduciendo los tiempos de espera habituales. Estas imágenes son almacenadas en Goggle Cloud lo que asegura la escalabilidad del sistema y la protección ante pérdidas.&lt;/p&gt;
+&lt;p&gt;Además, la aplicación incluye otras funcionalidades clave como la creación de citas y teleconsultas a través de la app, el acceso a la ubicación de centros médicos cercanos en Google Maps, la gestión de perfiles tanto de médicos como de pacientes&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Memoria del proyecto:
+&lt;a class="link" href="../../../post/android-gsti/Documentaci%c3%b3nAppMovil.pdf" &gt;&lt;strong&gt;Visualizar pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zTRWcF5hFIY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

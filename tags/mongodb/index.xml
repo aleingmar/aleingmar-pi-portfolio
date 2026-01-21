@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MongoDB on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/mongodb/</link><description>Recent content in MongoDB on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 14 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/mongodb/index.xml" rel="self" type="application/rss+xml"/><item><title>Automatic deployment of multilayer MEAN service on AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/</link><pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/stack.png" alt="Featured image of post Automatic deployment of multilayer MEAN service on AWS" /&gt;&lt;p&gt;This project was developed for the DevOps Tools course, as part of the oficial university&amp;rsquo;s master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The aim of the project was to automatically deploy a fully functional multi-tier MEAN system in the AWS cloud. This system consists of a load balancer, several instances for the web application and a dedicated instance for the MongoDB database. I use Terraform, Packer and Ansible for infrastructure automation and provisioning.&lt;/p&gt;
+&lt;p&gt;On a personal level, I consider it important to highlight that the documentation report of this project is particularly complete, as it includes all the details of the development process. Among them, I had to deal with three main problems during this process. Without going into too much detail, these were:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Deployment on Azure, version incompatibility and choice of AWS.&lt;/li&gt;
+&lt;li&gt;Execution of an interactive command blocking the automatic provisioning process.&lt;/li&gt;
+&lt;li&gt;Static resource inconsistency and balancer logoff.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In my opinion, these problems are very interesting to analyse, as they are common situations in this type of work. Although they may seem minor, they have been fundamental in the development of the project.&lt;/p&gt;
+&lt;p&gt;It is also worth mentioning that for this project I have used similar technologies to those of the project &lt;strong&gt;‘Creation and automated deployment of image in multicloud environment’&lt;/strong&gt;, which is also available in my portfolio. For this reason, in this publication I have decided to highlight three aspects that differentiate both works:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The use of the MEAN stack.&lt;/li&gt;
+&lt;li&gt;The modularisation of Terraform.&lt;/li&gt;
+&lt;li&gt;The deployment process and architecture, although the latter is presented in a summarised form, as it is explained extensively and in detail in the report.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="technology-stack"&gt;Technology Stack
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Terraform&lt;/strong&gt;: with terraform I centralise the whole deployment process, raise and manage the infrastructure elements that make up the system. Some of these elements are for example the networks that connect the different instances, the instances themselves, the load balancer&amp;hellip; In short, the infrastructure that supports the service.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Packer&lt;/strong&gt;: with packer I create the image that serves as a base for the instances that I build with Terraform. In this project, Packer generates a custom image for the first layer of the system, provisioning it with the necessary services such as Node.js, Nginx, Angular&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ansible&lt;/strong&gt;: with Ansible I do the provisioning of the instance that is raised and used by Packer for the creation of the image. In this project, Ansible automatically provisions the instance with Angular, Express, MongoDB, Nginx, Node&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MEAN Stack&lt;/strong&gt;: The system being built is a service made up of the MEAN technology stack, widely used in the industry for its versatility and performance:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MongoDB&lt;/strong&gt;: Non-relational document-oriented database, ideal for handling large volumes of structured and unstructured data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Express&lt;/strong&gt;: Backend framework for Node.js that facilitates the development of robust and scalable web applications.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Angular&lt;/strong&gt;: Frontend framework that allows the development of modern and reactive interfaces, improving the user experience.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt;: Execution environment for Js on the server side.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="modularisation-of-the-terraform-template"&gt;Modularisation of the Terraform template
+&lt;/h3&gt;&lt;h4 id="importance-of-modularisation"&gt;Importance of modularisation
+&lt;/h4&gt;&lt;p&gt;Modularisation in Terraform is vital in projects that use Terraform. It basically consists of dividing the &lt;strong&gt;main.tf&lt;/strong&gt; into different ‘modules’ according to certain categories. Not only does this improve code readability and maintainability, but it also allows responsibilities to be divided and configurations to be reused between projects. Although managing variables between modules can be complex, this practice is essential in large, dynamic infrastructures.&lt;/p&gt;
+&lt;h4 id="project-modules"&gt;Project modules
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Security module&lt;/strong&gt;: This module manages the security groups that define the traffic rules to and from the instances, enabling traffic from protocols such as SSH, HTTP&amp;hellip;. It also configures the SSH keys needed to access the instances remotely.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Network module&lt;/strong&gt;: Defines the networks and private subnets necessary for system connectivity and also configures routing tables and gateways to guarantee access between infrastructure layers.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Instance module&lt;/strong&gt;: Deploys the first and second layer instances, assigning public and private IP addresses and also provisions these instances for proper operation in the system.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Load balancer module&lt;/strong&gt;: Configures and defines everything related to the load balancer that distributes the traffic between the instances of the first layer. In addition to the load balancer itself, for this to work it needs more elements such as destination groups, distribution strategies such as round-robin, definition of session persistence&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Image module&lt;/strong&gt;: This module integrates Terraform with Packer for the creation of base images. Terraform executes &lt;strong&gt;packer build&lt;/strong&gt;, retrieves the generated image and uses it to instantiate resources of the first layer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../p/stack-mean-terraform/modulos.png"
+width="475"
+height="614"
+srcset="../../p/stack-mean-terraform/modulos_hu_38e6509afd8e9619.png 480w, ../../p/stack-mean-terraform/modulos_hu_89c902ab49a371c4.png 1024w"
+loading="lazy"
+alt="Directory structure"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="185px"
+&gt;&lt;/p&gt;
+&lt;h3 id="deployment-process-and-architecture"&gt;Deployment process and architecture
+&lt;/h3&gt;&lt;p&gt;The deployment starts with the integration of Terraform and Packer. Terraform invokes Packer, which is responsible for raising a temporary instance in AWS to generate a base image. During this process, this instance is provisioned with Ansible, which installs and configures services such as Angular, Express and MongoDB, as well as copying essential files from the local environment. Once provisioning is complete, Packer creates the base image and destroys the temporary instance, leaving an image ready for reuse.&lt;/p&gt;
+&lt;p&gt;With the image generated, Terraform proceeds to deploy the complete infrastructure. First, the networks and subnets are configured, ensuring internal connectivity between the layers of the system. Next, the first layer instances are deployed using the base image. These instances host the frontend and backend of the application, with Node.js and Nginx serving as the operational core.&lt;/p&gt;
+&lt;p&gt;At the same time, Terraform builds the second tier instance, dedicated to data persistence with MongoDB. This instance is connected via a private network to the first layer instances, guaranteeing secure and stable communication. In addition to this, terraform also raises a load balancer, configured to distribute the traffic between the first layer instances, which ensures high availability and scalability.&lt;/p&gt;
+&lt;p&gt;The last step is the final provisioning. Terraform uses Bash scripting to finish configuring the deployed instances. For example, in the first layer instances, Angular configurations are adjusted to include the IP addresses of the backend, which allows static files to be generated and served by Nginx with the necessary routes to connect the client to the backend.&lt;/p&gt;
+&lt;p&gt;This entire process ensures a fully automated deployment, resulting in a functional, production-ready system, with components integrated and configured for optimal performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Multi-layer_MEAN_Deployment" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Multi-layer_MEAN_Deployment&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="video-of-the-experimentation-and-project-report"&gt;Video of the experimentation and project report:
+&lt;/h3&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="../../post/stack-MEAN-Terraform/Act2_StackMEAN_Terraform_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zRGhkBebEbA"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

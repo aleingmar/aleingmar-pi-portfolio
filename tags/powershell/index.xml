@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PowerShell on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/powershell/</link><description>Recent content in PowerShell on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 17 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item><title>PowerShell Scripting</title><link>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</link><pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/powershell-logo.png" alt="Featured image of post PowerShell Scripting" /&gt;&lt;p&gt;This project was developed for the Cloud Systems Administration subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The main objective of the project was to develop scripts in Powershell to automate common tasks in Windows environments, streamlining processes that would normally require manual intervention.&lt;/p&gt;
+&lt;h2 id="powershell-conceptual-snapshots"&gt;PowerShell conceptual snapshots
+&lt;/h2&gt;&lt;p&gt;PowerShell is Microsoft&amp;rsquo;s command interpreter and scripting language, designed specifically for Windows system administration. It is based on an object-oriented language, which means that the output of commands is not simply text, but structured objects with properties and methods that can be easily manipulated.&lt;/p&gt;
+&lt;p&gt;For example, in Bash, inter-process communication in pipes (|) is in plain text, which forces the use of additional tools such as grep, awk or sed to process the output. In PowerShell, on the other hand, pipelines exchange objects, allowing you to work directly with their attributes without the need to pause and restart the pipeline.&lt;/p&gt;
+&lt;h3 id="example-comparison-of-powershell-vs-bash"&gt;Example Comparison of PowerShell vs. Bash
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;PowerShell (working with objects):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name, CPU&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here, &lt;code&gt;Get-Process&lt;/code&gt; returns a list of processes as objects, and we filter out those whose CPU usage (&lt;code&gt;$_ .CPU&lt;/code&gt;) is greater than 10. Then, we select only the Name and CPU properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bash (working with text):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux | awk '$3 &amp;gt; 10 {print $11, $3}'&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux&lt;/code&gt; returns the list of processes as plain text, so it is necessary to use awk to extract and compare the third column (CPU usage).&lt;/p&gt;
+&lt;h2 id="tasks-automated-by-means-of-scripts"&gt;Tasks automated by means of scripts:
+&lt;/h2&gt;&lt;p&gt;Specifically the four tasks to be automated are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Listing files by size&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that displays a list of files in the current directory that are larger than 1024 bytes.&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Rename JPG files by date&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that renames all files with a JPG extension in the current directory, adding a date prefix in year, month, day format. For example, a file named &amp;ldquo;image1.jpg&amp;rdquo; would be renamed to &amp;ldquo;20240413-image1.jpg&amp;rdquo;, if the script is run on 13 April 2024.&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;Hard disk space monitoring&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a PowerShell script that displays hard disks with a percentage of free space below a given parameter. The script should print the drive letter and the values in GB of free space and size without decimals. The expression Get-WmiObject Win32_LogicalDisk retrieves the information of the system disks.&lt;/p&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;&lt;strong&gt;Creating an interactive menu&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a script that displays a menu with the following options, so that the option associated with the number entered by the user is executed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;List the services started.&lt;/li&gt;
+&lt;li&gt;Display the system date.&lt;/li&gt;
+&lt;li&gt;Execute the Notepad.&lt;/li&gt;
+&lt;li&gt;Run the Calculator.&lt;/li&gt;
+&lt;li&gt;Exit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Powershell-Scripting" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Powershell-Scripting&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-report"&gt;Experimentation video and project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="../../post/powershell-scripting/PowershellScripting.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/trwkbmmlKwY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>
