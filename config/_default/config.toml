@@ -1,5 +1,8 @@
 # Change baseurl before deploy
-baseurl = "https://aleingmar-pi-portfolio.duckdns.org/"
+# baseurl (cuando estaba en rasberrypi) = "https://aleingmar-pi-portfolio.duckdns.org/"
+
+baseurl = "https://aleingmar-pi-portfolio.pages.dev/"
+
 languageCode = "en-us"
 title = "Alejandro Inglés Martínez Projects"
 relativeURLs = true

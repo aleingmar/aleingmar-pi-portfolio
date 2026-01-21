@@ -1,14 +1,17 @@
 # Rename this file to languages.toml to enable multilingual support
+# baseURL (cuando estaba en rasberrypi) = 'https://aleingmar-pi-portfolio.duckdns.org/en/'
+# baseURL (cuando estaba en rasberrypi) = 'https://aleingmar-pi-portfolio.duckdns.org/es/'
+
 [en]
 languageName = "English"
 languagedirection = "ltr"
 title = "Alejandro Inglés Martínez"
 weight = 1
-#baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/en/'
+#baseURL = 'https://aleingmar-pi-portfolio.pages.dev/en/'
 
 [es]
 languageName = "Español"
 languagedirection = "ltr"
 title = "Alejandro Inglés Martínez"
 weight = 2
-#baseURL = 'https://aleingmar-pi-portfolio.duckdns.org/es/'
+#baseURL = 'https://aleingmar-pi-portfolio.pages.dev/es/'
