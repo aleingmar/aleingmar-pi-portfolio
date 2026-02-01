@@ -10,7 +10,7 @@ categories:
 
 tags:
     - Docker
-weight: 1 # You can add weight to some posts to override the default sorting (date descending)
+weight: 6 # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project was developed for the Containers subject as part of the official university master's degree in Development and Operations (DevOps).
 The main objective of this project is to dockerise a simple multilayer application, designed with a pedagogical perspective to illustrate the layered architecture and its deployment using containers. This application has been designed with three different layers: web presentation, business logic and data persistence.

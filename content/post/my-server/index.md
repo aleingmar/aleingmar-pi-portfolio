@@ -12,7 +12,7 @@ tags:
     - Docker
     - Caddy
     - RPI5
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram. 
 

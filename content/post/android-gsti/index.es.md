@@ -13,7 +13,7 @@ tags:
     - Firestore
     - Android Studio
     - e-Heath
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Este proyecto fue desarrollado durante la asignatura de Gestión de Servicios y Tecnologías de la Información (GSTI) durante mi cuarto año de carrera. El objetivo principal del proyecto era desarrollar una aplicación móvil Android que cubriera la necesidad de teleasistencia de un proceso asistencial integrado (PAI) modelado por el Servicio Andaluz de Salud (SAS). En concreto, esta aplicación se centra en el proceso asistencial de teleasistencia dermatológica de pacientes con cáncer de piel. 
 

@@ -17,7 +17,7 @@ tags:
     - MV's
     - Bash
     - Vagrant
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 3       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado para la asignatura de Herramientas de Automatización de Despliegues como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).

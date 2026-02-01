@@ -18,7 +18,7 @@ tags:
     - VSCode
     - RPI5
     - GoogleAnalytics
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.
 

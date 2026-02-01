@@ -10,7 +10,7 @@ categories:
 tags:
     - Python
     - JupyterNotebook
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 This project was developed during my third year of career for the Datathon organized by Dedalus and AWS in Andalusia, in collaboration with two fellow students. The main objective of this datathon was to work with a dataset provided on patients admitted to Intensive Care Units (ICU), to extract clinical value through cohort analysis and the creation of predictive models. The aim of this competition was to generate relevant information to improve hospital efficiency and optimize decision making in clinical contexts.

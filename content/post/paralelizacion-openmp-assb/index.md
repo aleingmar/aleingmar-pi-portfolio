@@ -11,7 +11,7 @@ tags:
     - OpenMP
     - WSL
     - Bash
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 This project was developed during the Systems and Software Architecture and Basis (ASSB) course during my fourth year of studies. The main objective was to implement an algorithm for calculating the Pi number using the MonteCarlo method by programming in C both sequentially and using parallel programming techniques to take full advantage of the resources of multicore processors using the OpenMP library, which allows code to be executed in multiple threads efficiently.

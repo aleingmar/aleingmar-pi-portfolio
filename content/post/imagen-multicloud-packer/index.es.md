@@ -16,7 +16,7 @@ tags:
     - NginX
     - MV's
     - Bash
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 2       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).
@@ -76,6 +76,8 @@ El contenido de este fichero se puede diferenciar en varias partes en las cuales
 
 - **BUILDER**: Define cómo se construye la AMI en AWS --> `source{}`--> define el sistema base sobre el que quiero crear la imagen (ISO ubuntu) y el proveeedor para el que creamos la imagen (tecnologia con la que desplegará la imagen) --> AMAZON. AZURE
 - **PROVISIONERS**: Configura el sistema operativo y la aplicación, como se va instalar y configurar el software --> `build{}` 
+
+**Repositorio de GitHub:** https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer
 
 ### Vídeo de la experimentación y memoria del proyecto:
 Documentación del proyecto: [**Visualizar documentación en pdf**](/post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf)

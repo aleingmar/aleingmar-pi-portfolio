@@ -9,7 +9,7 @@ categories:
 
 tags:
     - PowerShell
-weight: 1 # You can add weight to some posts to override the default sorting (date descending)
+weight: 6 # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 This project was developed for the Cloud Systems Administration subject as part of the official university master's degree in Development and Operations (DevOps).

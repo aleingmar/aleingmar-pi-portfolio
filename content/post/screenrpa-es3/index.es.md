@@ -18,7 +18,7 @@ tags:
     - Kanban
     - MVC
     - VSCode
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+weight: 6       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Durante la realización de mi Trabajo de Fin de Grado y las prácticas en empresa de la carrera, tuve la oportunidad de formar parte del grupo de investigación ES3 (Engineering and Science for Software Systems) de la Universidad de Sevilla. Grupo especializado en la investigación y desarrollo de sistemas software avanzados https://www.linkedin.com/company/grupoes3/.
 
