@@ -13,7 +13,7 @@ tags:
     - Firestore
     - Android Studio
     - e-Heath
-weight: 6       # You can add weight to some posts to override the default sorting (date descending)
+weight: 50       # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project was developed during the Management of Information Services and Technologies (GSTI) course during my fourth year of my degree. The main objective of the project was to develop an Android mobile application to cover the telecare needs of an integrated care process (PAI) modelled by the Andalusian Health Service (SAS). Specifically, this application focuses on the dermatological telecare process for patients with skin cancer. 
 

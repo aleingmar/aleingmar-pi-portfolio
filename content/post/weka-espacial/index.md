@@ -9,7 +9,7 @@ categories:
     - Machine Learning
 tags:
     - Weka
-weight: 6 # You can add weight to some posts to override the default sorting (date descending)
+weight: 50 # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project was developed as part of the Intelligent Systems (IS) course during my third year of studies. The work consisted of applying different classification and data pre-processing algorithms to solve a hypothetical problem about space travel in the distant future. The main objective was to predict, based on certain attributes of the passengers, whether they would be transported to an alternative dimension after a space accident.
 

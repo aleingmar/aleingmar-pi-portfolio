@@ -11,7 +11,7 @@ tags:
     - Java
     - Wireshark
     - OpenSSL
-weight: 6       ## You can add weight to some posts to override the default sorting (date descending)
+weight: 50       ## You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado durante la asignatura de Seguridad, Confidencialidad y Gestión de la Identidad (SCGI) durante mi tercer año de carrera. Este proyecto se centró en el diseño y desarrollo de una arquitectura cliente-servidor segura utilizando el protocolo Transport Layer Security (TLS), con el objetivo de asegurar la confidencialidad, integridad y autenticidad de las comunicaciones.

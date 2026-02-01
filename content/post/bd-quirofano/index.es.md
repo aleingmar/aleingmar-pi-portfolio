@@ -10,7 +10,7 @@ tags:
     - SQL
     - MariaDB
     - HeidiSQL
-weight: 6       # You can add weight to some posts to override the default sorting (date descending)
+weight: 50       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado durante la asignatura de Bases de Datos (BD) durante mi segundo año de carrera. El objetivo principal era diseñar, modelar y desarrollar una base de datos SQL para gestionar y almacenar la información de las instalaciones y equipamientos electromédicos de un quirófano. La base de datos permitiría no solo gestionar los equipos y su mantenimiento, sino también asegurar el cumplimiento de regulaciones sanitarias, controlar el valor del equipamiento, supervisar las revisiones periódicas...

@@ -10,7 +10,7 @@ tags:
     - WSL
     - Java
     - Wireshark
-weight: 6 # You can add weight to some posts to override the default sorting (date descending)
+weight: 50 # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 This project was developed during the Security, Confidentiality and Identity Management (SCGI) course during my third year. This project focused on the design and development of a secure client-server architecture using the Transport Layer Security (TLS) protocol, with the aim of ensuring the confidentiality, integrity and authenticity of communications.

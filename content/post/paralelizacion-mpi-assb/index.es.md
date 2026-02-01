@@ -11,7 +11,7 @@ tags:
     - MPI
     - WSL
     - Bash
-weight: 6       # You can add weight to some posts to override the default sorting (date descending)
+weight: 50       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado para la asignatura Arquitectura de Sistemas y Software de Base (ASSB), durante mi cuarto año de carrera. El objetivo principal era familiarizarse con la programación paralela en computadores de memoria distribuida utilizando la **librería MPI** en **C** (Message-Passing Interface). Una técnica muy utilizada para la computación distribuida en múltiples máquinas, comúnmente utilizado en clústeres de alto rendimiento. En el caso de este proyecto todo se ejecutó en mi propio computador, entendiendo mi computador como una especie de clúster y sus diferentes núcleos como máquinas que forman este.

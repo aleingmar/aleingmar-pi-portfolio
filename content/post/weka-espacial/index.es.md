@@ -9,7 +9,7 @@ categories:
     - Aprendizaje Automático
 tags:
     - Weka
-weight: 6       ## You can add weight to some posts to override the default sorting (date descending)
+weight: 50       ## You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado como parte de la asignatura de Sistemas Inteligentes (SI) durante mi tercer año de carrera. El trabajo consistió en aplicar diferentes algoritmos de clasificación y preprocesamiento de datos para resolver un problema hipotético sobre un viaje espacial en un futuro distante. El objetivo principal era predecir, basado en ciertos atributos de los pasajeros, si estos serían transportados a una dimensión alternativa tras un accidente espacial.

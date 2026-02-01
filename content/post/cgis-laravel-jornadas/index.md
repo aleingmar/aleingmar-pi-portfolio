@@ -13,7 +13,7 @@ tags:
     - Git, Github
     - Docker
     - MVC
-weight: 6       # You can add weight to some posts to override the default sorting (date descending)
+weight: 50       # You can add weight to some posts to override the default sorting (date descending)
 ---
 This project was developed for the Coding and Health Information Management (CGIS) course during my third year of studies. The main objective of the project is to design, model and develop a web application for managing the working hours of healthcare staff in a hospital. 
 

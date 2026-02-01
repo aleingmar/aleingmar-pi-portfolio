@@ -13,7 +13,7 @@ tags:
     - EC2
     - Apache
     - AWS
-weight: 6       # You can add weight to some posts to override the default sorting (date descending)
+weight: 50       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar un servicio web funcional en un entorno en la nube utilizando los servicios de **AWS**, manteniéndonos dentro de los límites del plan gratuito.

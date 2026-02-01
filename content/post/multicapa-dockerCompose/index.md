@@ -10,7 +10,7 @@ categories:
 
 tags:
     - DockerCompose
-weight: 6 # You can add weight to some posts to override the default sorting (descending date).
+weight: 5 # You can add weight to some posts to override the default sorting (descending date).
 ---
 
 This project was developed for the Containers subject as part of the official university master's degree in Development and Operations (DevOps).
