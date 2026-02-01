@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Caddy on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/caddy/</link><description>Recent content in Caddy on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/caddy/index.xml" rel="self" type="application/rss+xml"/><item><title>My own RPI5 server</title><link>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/my-server/rasberry.png" alt="Featured image of post My own RPI5 server" /&gt;&lt;p&gt;This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram.&lt;/p&gt;
+&lt;p&gt;For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.&lt;/p&gt;
+&lt;p&gt;The server is associated to a main domain managed by &lt;strong&gt;DuckDNS&lt;/strong&gt;, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.&lt;/p&gt;
+&lt;p&gt;To organise access via subdomains and ensure connection to my services via &lt;strong&gt;HTTPS&lt;/strong&gt;, I use &lt;strong&gt;Caddy&lt;/strong&gt; as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.&lt;/p&gt;
+&lt;p&gt;In addition, I have implemented an advanced control panel called &lt;strong&gt;Homarr&lt;/strong&gt;, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server.&lt;/p&gt;
+&lt;p&gt;All the services hosted on the server including the ones mentioned above are hosted using &lt;strong&gt;Docker containers&lt;/strong&gt; and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Vaultwarden&lt;/strong&gt;: A password manager.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portainer&lt;/strong&gt;: A container manager with a web interface.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pi-hole&lt;/strong&gt;: An ad-blocking DNS service.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WireGuard&lt;/strong&gt;: A VPN service.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/ZHQXSUq01k0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Deployment and creation of a web portfolio with Hugo.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Deployment and creation of a web portfolio with Hugo." /&gt;&lt;p&gt;This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.&lt;/p&gt;
+&lt;h2 id="web-development"&gt;Web Development
+&lt;/h2&gt;&lt;p&gt;For the construction of my portfolio I chose &lt;strong&gt;Hugo&lt;/strong&gt;, a static website generation platform that allows you to create modern frontend pages using &lt;strong&gt;Markdown&lt;/strong&gt; files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo&amp;rsquo;s ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.&lt;/p&gt;
+&lt;p&gt;The theme I selected for my portfolio is &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt;, because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.&lt;/p&gt;
+&lt;h2 id="devops-and-deployment"&gt;DevOps and Deployment
+&lt;/h2&gt;&lt;p&gt;In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.&lt;/p&gt;
+&lt;p&gt;The web server that handles the requests is &lt;strong&gt;Caddy&lt;/strong&gt;, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.&lt;/p&gt;
+&lt;p&gt;For development, I usually work locally using &lt;strong&gt;Visual Studio Code&lt;/strong&gt;, although sometimes I use &lt;strong&gt;GitHub Codespaces&lt;/strong&gt; when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is fully automated through a bash script and a Docker Compose file, which simplifies the process of lifting the web application with each update.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Web portfolio change deployment process with bash scripting:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

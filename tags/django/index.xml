@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Django on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/django/</link><description>Recent content in Django on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 06 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/django/index.xml" rel="self" type="application/rss+xml"/><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;While I was doing my Final Degree Project and my internship, I had the opportunity to be part of the ES3 (Engineering and Science for Software Systems) research group at the University of Seville. This group specialises in the research and development of advanced software systems &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My work focused on developing part of the screenRPA platform, a Robotic Process Automation (RPA) platform. My main objective was to improve the ability to extract value and knowledge from RPA processes. To do this, I worked in three different areas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web platform improvement and results visualisation&lt;/strong&gt;: I worked on the development of the web platform to visualise and extract results along the entire RPA process pipeline, thus facilitating the interaction and analysis of each of the phases by the analysts. All this following the software design pattern &lt;strong&gt;Controller View Model&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application of advanced decision mining techniques&lt;/strong&gt;: I developed and applied a new technique based on Machine Learning, specifically in the decision discovery phase. During this phase we seek to understand why a user performs one action instead of another. Decision mining is a speciality within the field of process mining. The application of this technique allowed the discovery of non-deterministic patterns and rules in user decisions, providing a greater understanding of automated processes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatic generation of business reports&lt;/strong&gt;: I implemented a system on the platform for the automatic creation of business reports understandable by analysts and clients. These reports broke down all the knowledge extracted by the platform after execution, facilitating strategic decision making.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project allowed me to apply advanced knowledge in automation, Machine Learning and process mining, contributing to the evolution of an innovative platform within the field of business automation.&lt;/p&gt;
+&lt;p&gt;Final thesis report related to this project:
+&lt;a class="link" href="../../post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Part of the screenRPA platform developed in my work:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item></channel></rss>

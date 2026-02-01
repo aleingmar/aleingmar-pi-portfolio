@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Html, Css, Js on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/html-css-js/</link><description>Recent content in Html, Css, Js on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/html-css-js/index.xml" rel="self" type="application/rss+xml"/><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;While I was doing my Final Degree Project and my internship, I had the opportunity to be part of the ES3 (Engineering and Science for Software Systems) research group at the University of Seville. This group specialises in the research and development of advanced software systems &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My work focused on developing part of the screenRPA platform, a Robotic Process Automation (RPA) platform. My main objective was to improve the ability to extract value and knowledge from RPA processes. To do this, I worked in three different areas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web platform improvement and results visualisation&lt;/strong&gt;: I worked on the development of the web platform to visualise and extract results along the entire RPA process pipeline, thus facilitating the interaction and analysis of each of the phases by the analysts. All this following the software design pattern &lt;strong&gt;Controller View Model&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application of advanced decision mining techniques&lt;/strong&gt;: I developed and applied a new technique based on Machine Learning, specifically in the decision discovery phase. During this phase we seek to understand why a user performs one action instead of another. Decision mining is a speciality within the field of process mining. The application of this technique allowed the discovery of non-deterministic patterns and rules in user decisions, providing a greater understanding of automated processes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatic generation of business reports&lt;/strong&gt;: I implemented a system on the platform for the automatic creation of business reports understandable by analysts and clients. These reports broke down all the knowledge extracted by the platform after execution, facilitating strategic decision making.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project allowed me to apply advanced knowledge in automation, Machine Learning and process mining, contributing to the evolution of an innovative platform within the field of business automation.&lt;/p&gt;
+&lt;p&gt;Final thesis report related to this project:
+&lt;a class="link" href="../../post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Part of the screenRPA platform developed in my work:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Deployment and creation of a web portfolio with Hugo.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Deployment and creation of a web portfolio with Hugo." /&gt;&lt;p&gt;This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.&lt;/p&gt;
+&lt;h2 id="web-development"&gt;Web Development
+&lt;/h2&gt;&lt;p&gt;For the construction of my portfolio I chose &lt;strong&gt;Hugo&lt;/strong&gt;, a static website generation platform that allows you to create modern frontend pages using &lt;strong&gt;Markdown&lt;/strong&gt; files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo&amp;rsquo;s ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.&lt;/p&gt;
+&lt;p&gt;The theme I selected for my portfolio is &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt;, because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.&lt;/p&gt;
+&lt;h2 id="devops-and-deployment"&gt;DevOps and Deployment
+&lt;/h2&gt;&lt;p&gt;In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.&lt;/p&gt;
+&lt;p&gt;The web server that handles the requests is &lt;strong&gt;Caddy&lt;/strong&gt;, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.&lt;/p&gt;
+&lt;p&gt;For development, I usually work locally using &lt;strong&gt;Visual Studio Code&lt;/strong&gt;, although sometimes I use &lt;strong&gt;GitHub Codespaces&lt;/strong&gt; when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is fully automated through a bash script and a Docker Compose file, which simplifies the process of lifting the web application with each update.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Web portfolio change deployment process with bash scripting:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Web application for the management of working days</title><link>https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/logo-laravel.png" alt="Featured image of post Web application for the management of working days" /&gt;&lt;p&gt;This project was developed for the Coding and Health Information Management (CGIS) course during my third year of studies. The main objective of the project is to design, model and develop a web application for managing the working hours of healthcare staff in a hospital.&lt;/p&gt;
+&lt;p&gt;In general terms, for the normal roles of healthcare professionals, the application allows them to consult their access to the hospital and create incidents if they see any anomaly with the register. For the administration and responsibility roles, the application allows them to monitor and keep track of workers&amp;rsquo; compliance with their working hours and enables them to process any incidents that professionals raise when they see a problem with their access records.&lt;/p&gt;
+&lt;p&gt;In addition to this, the application allows functionalities common to all roles such as the creation of user accounts, the management of user profiles&amp;hellip;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/5IerfTbQQ2Q"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;h1 id="documentation"&gt;Documentation
+&lt;/h1&gt;&lt;h1 id="table-of-contents"&gt;Table of contents
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class="link" href="#Problem_domain" &gt;Problem_domain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Objectives" &gt;Objectives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#System_Users:" &gt;System_Users&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Information_requirements:" &gt;Information_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Functional_requirements:" &gt;Functional_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Business_rules:" &gt;Business_rules:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Non_functional_requirements:" &gt;Non_functional_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Conceptual_UML_Model:" &gt;Conceptual_UML_model&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="problem-domain"&gt;Problem domain:
+&lt;/h2&gt;&lt;p&gt;Currently the system governing the working hours of healthcare professionals is very complex. Events such as on-call duty, shift changes or rotations between centres are a daily occurrence in the sector. This makes the organisation of this system very difficult to manage and many of these events often go unrecorded.&lt;/p&gt;
+&lt;h2 id="objectives"&gt;Objectives:
+&lt;/h2&gt;&lt;p&gt;The objective of our system will be to provide professionals in the sector with a tool that will allow both management and healthcare professionals a form of management that effectively and efficiently solves the aforementioned problems. Facilitating the processes to a great extent and allowing the professionals themselves to play a leading role in these processes. The main objectives of our system will be:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-1. Management of access to the hospital centre:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to carry out a control/monitoring of the accesses to the hospital centre by the healthcare staff. This will allow us to accurately record the number of hours worked by the professionals, avoid staff saturation, notify incidents in accesses, detect possible fraud&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-2.Registration and management of incidences on the accesses of health personnel:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to carry out a control of the accesses to the hospital centre by the health personnel by means of the use of incidences. Allowing to register the date of presentation of the incident, the date of the response, the status, the reason for presentation and response&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-3. Registration and management of health personnel information:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to record and manage the information of healthcare personnel. Allowing the registration of personal information about professionals, about their speciality, position&amp;hellip;.&lt;/p&gt;
+&lt;h2 id="users-of-the-system"&gt;Users of the system:
+&lt;/h2&gt;&lt;p&gt;The types of users who will be able to access the system and make specific use of it will be:&lt;/p&gt;
+&lt;p&gt;Health professionals (doctors and nurses).&lt;/p&gt;
+&lt;p&gt;Management&lt;/p&gt;
+&lt;p&gt;Heads of duty.&lt;/p&gt;
+&lt;p&gt;Administrator&lt;/p&gt;
+&lt;h2 id="information-requirements"&gt;Information requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;IR-001. User information:&lt;/strong&gt; The system shall store personal data on all users. Primary and secondary email address, password and name.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-002. Information on healthcare personnel:&lt;/strong&gt; The system shall store data on healthcare personnel. Type of profession (doctor and nurse), medical speciality and position within the hospital system (management, duty manager, regular healthcare).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-003. Información sobre las especialidades médicas:&lt;/strong&gt; El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-003. Information on medical specialties:&lt;/strong&gt; The system shall store data on the medical specialties of health personnel. Name of speciality (cardiology, radiology and paediatrics).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-004. Information on access to the health care centre:&lt;/strong&gt; The system shall record data on access to the health care centre by health care personnel. Date/time of entry, date/time of exit and number of hours worked in each day.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-006. Information on incidents:&lt;/strong&gt; The system shall record data on incidents (regarding problems with access) reported by health personnel. Date/time of the incident, reason for the incident, access to which it refers, status of the incident (accepted, rejected, pending-response), reason for the response and the healthcare staff member making the response.&lt;/p&gt;
+&lt;h2 id="functional-requirements"&gt;Functional requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;FR-001. User registration: (all roles)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We want the system to allow health professionals to register as users with a password and access the system.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ACCESSES&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-002. Create access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to create access to health professionals that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-003. View my accesses: (all roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult my access history to the medical centre.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-004. Consult my accesses: (on-call manager, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult the accesses of the medical staff that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-005. Consult in detail an access: (all roles)&lt;/strong&gt; ** I want to be able to consult in detail an access of the restrooms that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail an access of my list of accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-006. Modify access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify the accesses of the health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-007. Delete access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to delete access to the health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-008. Filter access by dates: (all roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to filter my access history to the medical centre by date.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;INCIDENTS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-009. Create incident log: (healthcare professional, duty manager)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to notify of any incident on the records of my accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0010. Consult incidents: (management, administrator)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of the incidents of the medical staff.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0011. Query my incidents: (healthcare professional, head of duty, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of my incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0012. Consult in detail incidents: (all roles)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail the incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0013. Modify incidents: (healthcare professional, duty manager)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify my incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0014. Delete incidents: (health professional)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to delete my incidences on the records of my accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-015. Solve incidents: (management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to approve or deny incidents by letting you know the reason for the resolution.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;HEALTH PROFESSIONALs&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0016. Create health professional: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to create a new health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0017. Consult health professional: (head of duty, management, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0018. Consult in detail health professional: (management, administrator )&lt;/strong&gt; ** I want to be able to see in detail the details of the health professional.&lt;/p&gt;
+&lt;p&gt;I want to be able to see in detail the details of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0019. Consult in detail health professional: (head of duty, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail a health professional in the list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0020. Modify health professional: (management, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify the details of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0021. Delete health professional: (address, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to delete the data of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0022&lt;/strong&gt;. Filter health professional by name: (head of duty, address, administrator)&lt;/p&gt;
+&lt;p&gt;I want to be able to filter by name the list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0023. Filter health professional by name: (address, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to filter the list of health professional by profession.&lt;/p&gt;
+&lt;h2 id="business-rules"&gt;Business rules:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;BR-001&lt;/strong&gt;. Not specified&lt;/p&gt;
+&lt;h2 id="non-functional-requirements"&gt;Non-functional requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;NFR-001. Security&lt;/strong&gt;: The system must be protected against unauthorised access.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-002. Performance&lt;/strong&gt;: The system must be able to handle the required number of users without any degradation in performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-003. Scalability&lt;/strong&gt;: The system must be able to scale up or down as required.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-004. Availability&lt;/strong&gt;: The system must be available when needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-005. Maintenance&lt;/strong&gt;: The system must be easy to maintain and upgrade.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-006. Portability&lt;/strong&gt;: The system must be able to run on different platforms with minimal changes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-007. Reliability&lt;/strong&gt;: The system must be reliable and meet user requirements.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-008. Usability&lt;/strong&gt;: The system must be easy to use and understand.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-009. Compatibility&lt;/strong&gt;: The system must be compatible with other systems.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-010. Compliance&lt;/strong&gt;: The system must be compliant with all applicable laws and regulations.&lt;/p&gt;
+&lt;p&gt;The system must have an availability of 99.96%.&lt;/p&gt;
+&lt;h2 id="uml-conceptual-model"&gt;UML Conceptual Model
+&lt;/h2&gt;&lt;p&gt;&lt;img src="../../p/cgis-laravel-jornadas/diagramaConceptual.png"
+width="987"
+height="744"
+srcset="../../p/cgis-laravel-jornadas/diagramaConceptual_hu_d158fd7e9fa155a7.png 480w, ../../p/cgis-laravel-jornadas/diagramaConceptual_hu_dcf4e16597d80600.png 1024w"
+loading="lazy"
+alt="DIAGRAM"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+&gt;&lt;/p&gt;</description></item></channel></rss>

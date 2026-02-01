@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AZURE on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/tags/azure/</link><description>Recent content in AZURE on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/tags/azure/index.xml" rel="self" type="application/rss+xml"/><item><title>Creación y despliegue automatizado de imagen en entorno multicloud.</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/imagen-multicloud-packer/</link><pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/imagen-multicloud-packer/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/imagen-multicloud-packer/imagen-multicloud-packer2.png" alt="Featured image of post Creación y despliegue automatizado de imagen en entorno multicloud." /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo del proyecto es &lt;strong&gt;crear y desplegar de forma automática una imagen de un sistema web completo en un entorno multicloud de Azure y AWS&lt;/strong&gt;. Este sistema web se compone de una pequeña aplicación escrita con Nodejs y un servidor web Nginx. Para conseguirlo, utilizo las tecnologías de Terraform, Ansible y Packer principalmente.&lt;/p&gt;
+&lt;h3 id="tecnologías-utilizadas"&gt;Tecnologías utilizadas:
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Terraform:&lt;/strong&gt; Con Terraform centralizo todo la ejecución del proceso y despliego la infraestructura necesaria para levantar una instancia en la nube creada a partir de la imagen del sistema y accesible a través de internet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Packer:&lt;/strong&gt; Con Packer construyo la imagen del sistema completo. Packer utiliza como proveedor para la creación de la imagen la cloud. Levanta una instancia y toda la infraesturctura necesaria para la creación de la imagen y cuando termina las destruye.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ansible:&lt;/strong&gt; con ansible se lleva a cabo el aprovisionamiento de la instancia que levanta packer y a partir del cual se crea la imagen. En el caso de Azure este aprovisionamiento lo hago con Ansible, en el caso de AWS hago lo mismo pero directamente con scripting de Bash.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para controlar el despliegue multicloud, se ha implementado un parámetro que se debe pasar al &lt;code&gt;terraform apply &amp;quot;deployment_target=&amp;quot;&lt;/code&gt;, indicando si se quiere desplegar en las dos nubes simultaneamente o en una única nube. Si es este caso, hay que indicar en cual se desea desplegar.&lt;/p&gt;
+&lt;h3 id="proceso-de-creación-y-despliegue"&gt;Proceso de creación y despliegue:
+&lt;/h3&gt;&lt;p&gt;La secuencia de pasos del proceso sería la siguiente:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Inicializar ejecutando manualmente en la shell un &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Tras ello, terraform ejecuta el comando &lt;code&gt;packer build&lt;/code&gt; que se encarga de levantar toda la infraesturctura necesaria y la máquina que utilizá para la creación de la imagen. En el caso de Azure, en esta máquina se instala un Ansible y este se autoaprovisiona ejecutando un playbook y una serie de task definidos en él. En el caso de AWS, se ejecutan los mismos pasos pero en vez de con un Ansible directamente de forma manual con un scripting en Bash. El aprovisionamiento se basa entre otras cosas en la instalación y gestión de los servicios: Nodejs, Nginx, pm2 y App.js en la instancia que crea la imagen.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nodejs:&lt;/strong&gt; Proporciona un entorno con todo lo necesario para que la aplicación ejecute y funcione correctamente.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx:&lt;/strong&gt; servidor web que se encargará de redirijir todo el tráfico a la aplicación y de reenviar sus respuestas. Muy importante su configuración para que cuando se despliegue la iamgen el servidor esté activo y correctamente configurado para que sirva a la app. Pasa el tráfico del puerto 80 al 3000 (donde escucha la app.js)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PM2:&lt;/strong&gt; gestor de procesos de Nodejs que sirve para asegurar que la app.js esté activa cuando se despliegue la imagen sin tener que hacer nada más. (especialmente delicada este paso).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;App.js&lt;/strong&gt;: aplicación central y funcional de la imagen, es importante trasferir el código fuente de la app para que sea accesible por la instancia que crea la imagen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;Tras esto, Packer crea la imagen y destruye toda la infraestructura que ha necesitado levantar en el proveedor correspondiente de cloud.&lt;/li&gt;
+&lt;li&gt;Terraform tras esperar que la creación de la imagen finalice correctamente, levanta toda la infraestructura necesaria (par de claves, grupo de seguridad, disco&amp;hellip;) para levantar una instancia a partir de esta imagen.&lt;/li&gt;
+&lt;li&gt;Una vez terminado el despliegue, está instancia es accesible a través de internet a raiz de la ip pública.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En definitiva, solo ejecutando un: &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; despliegas todo un entorno web funcional y accesible desde internet en la nube pública de Azure y AWS. Y además creas una imagen reutilizable para poder desplegar más instancias idénticas a estas en un futuro de una forma mucho más rápida y seguro ante posibles errores humanos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="contenido-del-repositorio-y-ficheros-del-proyecto"&gt;Contenido del repositorio y ficheros del proyecto:
+&lt;/h3&gt;&lt;p&gt;El repositorio de GiHub se compone de dos directorios principales con dos versiones distintas: &lt;code&gt;/version-2&lt;/code&gt; y &lt;code&gt;/version-3.1&lt;/code&gt;
+El directorio totalmente funcional y que contiene la ultima version del proyecto es el segundo (&lt;code&gt;/version-3.1&lt;/code&gt;). Este es el directorio donde hay que ubicarse para desplegar el &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; (&lt;code&gt;cd version-3.1/te*&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Explicando brevemente el contenido del directorio:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/&lt;/code&gt;: directorio donde se encuentra todo el contenido necesario para la ejecución de Packer y para que pueda construir la imagen.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/main.pkr.hcl&lt;/code&gt;: fichero principal de Packer donde se definen todos los recursos necesarios para contruir la imagen asi como defino todas las variables que van a utilizar.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/variables.pkrvars.hcl&lt;/code&gt;: fichero donde les asigno valores a todos las variables definidas en el &lt;code&gt;main.pkr.hcl&lt;/code&gt; menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores como variables de entorno de mi sistema operativo del host que utilizo para lanzar el terraform. Estos valores los paso como parámetros en el comando de &lt;code&gt;terraform apply&lt;/code&gt; y &lt;code&gt;packer build&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/providers/&lt;/code&gt;: directorio donde podemos encontrar los ficheros auxiliares que sirven para crear la imagen como pueden ser, el fichero de configuración de apache (&lt;code&gt;nginx_default.conf&lt;/code&gt;), el playbook que define el aprovisionamiento con ansible (&lt;code&gt;provision.yml&lt;/code&gt;) y el código de la aplicación de nodejs (&lt;code&gt;app.js&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/&lt;/code&gt;: directorio donde se encuentra todo el contenido necesario para la ejecución de terraform y para que pueda desplegar toda la infraesturtura necesaria para el proyecto.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/terraform/main.tf&lt;/code&gt;: fichero principal de terraform, donde se define todo el flujo de proceso que debe seguir el despliegue y toda la infraestrutura a levantar.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/variables.tf&lt;/code&gt;: fichero donde se definen todas las variables utilizadas por terraform.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/terraform.tfvars&lt;/code&gt;: fichero donde se les da valor a todas las variables menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores en variables de entorno de mi sistema operativo del host desde donde lanzo el terraform. Estos valores los paso como parámetros en el comando de &lt;code&gt;terraform apply&lt;/code&gt; y &lt;code&gt;packer build&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../../p/imagen-multicloud-packer/ficheros.png"
+width="400"
+height="469"
+srcset="../../../p/imagen-multicloud-packer/ficheros_hu_7539b2c6371a97d9.png 480w, ../../../p/imagen-multicloud-packer/ficheros_hu_ac6cf45573bc6661.png 1024w"
+loading="lazy"
+alt="Contenido del directorio"
+class="gallery-image"
+data-flex-grow="85"
+data-flex-basis="204px"
+&gt;&lt;/p&gt;
+&lt;h3 id="contenido-del-packer-main"&gt;Contenido del Packer main:
+&lt;/h3&gt;&lt;p&gt;El contenido de este fichero se puede diferenciar en varias partes en las cuales se definen los siguientes componentes necesarios para la creación de la imagen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PLUGINS&lt;/strong&gt;: Define los plugins necesarios para la plantilla.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Definición de variables&lt;/strong&gt;: (no se les asigna valor aquí, solo alomejor el de por defecto)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BUILDER&lt;/strong&gt;: Define cómo se construye la AMI en AWS &amp;ndash;&amp;gt; &lt;code&gt;source{}&lt;/code&gt;&amp;ndash;&amp;gt; define el sistema base sobre el que quiero crear la imagen (ISO ubuntu) y el proveeedor para el que creamos la imagen (tecnologia con la que desplegará la imagen) &amp;ndash;&amp;gt; AMAZON. AZURE&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PROVISIONERS&lt;/strong&gt;: Configura el sistema operativo y la aplicación, como se va instalar y configurar el software &amp;ndash;&amp;gt; &lt;code&gt;build{}&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h3&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/BhRB0716G5w"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

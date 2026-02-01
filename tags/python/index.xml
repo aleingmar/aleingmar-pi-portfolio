@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/python/</link><description>Recent content in Python on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 06 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;While I was doing my Final Degree Project and my internship, I had the opportunity to be part of the ES3 (Engineering and Science for Software Systems) research group at the University of Seville. This group specialises in the research and development of advanced software systems &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My work focused on developing part of the screenRPA platform, a Robotic Process Automation (RPA) platform. My main objective was to improve the ability to extract value and knowledge from RPA processes. To do this, I worked in three different areas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web platform improvement and results visualisation&lt;/strong&gt;: I worked on the development of the web platform to visualise and extract results along the entire RPA process pipeline, thus facilitating the interaction and analysis of each of the phases by the analysts. All this following the software design pattern &lt;strong&gt;Controller View Model&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application of advanced decision mining techniques&lt;/strong&gt;: I developed and applied a new technique based on Machine Learning, specifically in the decision discovery phase. During this phase we seek to understand why a user performs one action instead of another. Decision mining is a speciality within the field of process mining. The application of this technique allowed the discovery of non-deterministic patterns and rules in user decisions, providing a greater understanding of automated processes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatic generation of business reports&lt;/strong&gt;: I implemented a system on the platform for the automatic creation of business reports understandable by analysts and clients. These reports broke down all the knowledge extracted by the platform after execution, facilitating strategic decision making.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project allowed me to apply advanced knowledge in automation, Machine Learning and process mining, contributing to the evolution of an innovative platform within the field of business automation.&lt;/p&gt;
+&lt;p&gt;Final thesis report related to this project:
+&lt;a class="link" href="../../post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Part of the screenRPA platform developed in my work:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Datathon Andalucía Dedalus</title><link>https://aleingmar-pi-portfolio.pages.dev/p/datathon/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/datathon/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/datathon/dedalus-logo.png" alt="Featured image of post Datathon Andalucía Dedalus" /&gt;&lt;p&gt;This project was developed during my third year of career for the Datathon organized by Dedalus and AWS in Andalusia, in collaboration with two fellow students. The main objective of this datathon was to work with a dataset provided on patients admitted to Intensive Care Units (ICU), to extract clinical value through cohort analysis and the creation of predictive models. The aim of this competition was to generate relevant information to improve hospital efficiency and optimize decision making in clinical contexts.&lt;/p&gt;
+&lt;h2 id="cohort-analysis"&gt;Cohort analysis
+&lt;/h2&gt;&lt;p&gt;Cohort analysis was one of the fundamental pillars of the project, as it allowed us to identify key patterns among hospitalized patients.&lt;/p&gt;
+&lt;p&gt;We performed a &lt;strong&gt;specific analysis on patients with cardiovascular problems&lt;/strong&gt;. This analysis included several important aspects:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The percentage of cases according to gender, which helped us to identify possible differences in the prevalence of cardiovascular problems between men and women.&lt;/li&gt;
+&lt;li&gt;The distribution of cases in relation to age, which allowed us to obtain a clear picture of the age groups most affected.&lt;/li&gt;
+&lt;li&gt;The number of cases according to body mass index (BMI), which provided a perspective on how BMI influences the incidence of these pathologies.&lt;/li&gt;
+&lt;li&gt;The percentage of mortality according to BMI, revealing possible correlations between body weight and fatal outcomes in patients with cardiovascular problems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We performed a &lt;strong&gt;more general cohort analysis&lt;/strong&gt; for all patients admitted to the ICU. This study included:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The number of ICU admissions and discharges in different time slots, which provided information on the times of day when more admissions occurred.&lt;/li&gt;
+&lt;li&gt;The mortality rate of patients according to diagnosis, shedding light on which were the most critical pathologies in terms of survival.&lt;/li&gt;
+&lt;li&gt;The length of stay in ICU according to each diagnosis, which facilitated the identification of treatments and pathologies that required longer hospitalization time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="hospital-comparison"&gt;Hospital Comparison
+&lt;/h2&gt;&lt;p&gt;Another highlight of the project was the comparative analysis between different hospitals. In this analysis, we evaluated the performance of hospitals in terms of their capacity to treat critical pathologies, using mortality as a key indicator. This analysis allowed us to compare the efficiency of hospitals in the treatment of certain diagnoses and pathologies, in addition to exploring the average length of stay in the ICU for each hospital. With this information, we were able to identify possible areas for improvement in hospital management and clinical care in different health centers.&lt;/p&gt;
+&lt;h2 id="predictive-models"&gt;Predictive Models
+&lt;/h2&gt;&lt;p&gt;As part of the project, we also developed predictive models in order to anticipate behaviors and improve planning in ICUs. One of the main models was &lt;strong&gt;ICU congestion monitoring, which had the ability to predict when critical occupancy levels would be reached and thus anticipate potential bottlenecks in hospital care&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In addition, we designed &lt;strong&gt;models that could predict the length of stay of patients in the ICU&lt;/strong&gt;, classifying them into short, medium or long stays. These predictive models not only allowed us to optimize hospital resource allocation, but also contributed to better discharge planning and reduced waiting times.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../p/datathon/datathon-foto-grupo-sevilla.jpg"
+width="615"
+height="380"
+srcset="../../p/datathon/datathon-foto-grupo-sevilla_hu_bc622d1e1b635cac.jpg 480w, ../../p/datathon/datathon-foto-grupo-sevilla_hu_1bec43cc8cdd2ed2.jpg 1024w"
+loading="lazy"
+alt="Group photo"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="388px"
+&gt;&lt;img src="../../p/datathon/dedalus.jpg"
+width="720"
+height="675"
+srcset="../../p/datathon/dedalus_hu_13600aa53aec4351.jpg 480w, ../../p/datathon/dedalus_hu_bee6ca3975e73dd4.jpg 1024w"
+loading="lazy"
+alt="Photo during the presentation"
+class="gallery-image"
+data-flex-grow="106"
+data-flex-basis="256px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Presentation: &lt;a class="link" href="../../post/datathon/ATENAS_Datathon_Dedalus.pdf" &gt;&lt;strong&gt;View presentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

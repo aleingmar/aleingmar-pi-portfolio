@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kanban on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/tags/kanban/</link><description>Recent content in Kanban on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Thu, 06 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/tags/kanban/index.xml" rel="self" type="application/rss+xml"/><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;Durante la realización de mi Trabajo de Fin de Grado y las prácticas en empresa de la carrera, tuve la oportunidad de formar parte del grupo de investigación ES3 (Engineering and Science for Software Systems) de la Universidad de Sevilla. Grupo especializado en la investigación y desarrollo de sistemas software avanzados &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Mi trabajo se centró en desarrollar parte de la plataforma screenRPA, una plataforma de Automatización Robótica de Procesos (RPA). Mi objetivo principal fue mejorar la capacidad de extracción de valor y conocimiento a partir de los procesos RPA. Para ello, trabajé en tres áreas diferentes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Mejora de la plataforma web y visualización de resultados&lt;/strong&gt;: Trabajé en el desarrollo de la plataforma web para visualizar y extraer resultados a lo largo de todo el pipeline del proceso RPA, facilitando así la interacción y el análisis de cada una de las fases por parte de los analistas. Todo ello siguiendo el patrón de diseño software &lt;strong&gt;Modelo Vista Controlador&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Aplicación de técnicas avanzadas de minería de decisiones&lt;/strong&gt;: Desarrollé y apliqué una nueva técnica basadas en Machine Learning, específicamente en la fase de descubrimiento de decisiones. Durante esta fase se busca entender porqué un usuario realiza una acción en vez de otra. La minería de decisiones es una especialidad dentro del campo de la minería de procesos. La aplicación de esta técnica permitió descubrir patrones y reglas no deterministas en las decisiones de los usuarios, proporcionando un mayor entendimiento de los procesos automatizados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Generación automática de informes empresariales&lt;/strong&gt;: Implementé un sistema en la plataforma para la creación automática de reportes empresariales comprensibles por analistas y clientes. Estos informes desglosaban todo el conocimiento extraído por la plataforma tras su ejecución, facilitando la toma de decisiones estratégicas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este proyecto me permitió aplicar conocimientos avanzados en automatización, Machine Learning y minería de procesos, contribuyendo a la evolución de una plataforma innovadora dentro del ámbito de la automatización empresarial.&lt;/p&gt;
+&lt;p&gt;Memoria del trabajo fin de grado relacionado con este proyexto:
+&lt;a class="link" href="../../../post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;Visualizar pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Parte de la plataforma screenRPA desarrollada en mi trabajo:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/</link><description>Recent content on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 10 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Automatic deployment of multilayer MEAN service on AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/</link><pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/stack.png" alt="Featured image of post Automatic deployment of multilayer MEAN service on AWS" /&gt;&lt;p&gt;This project was developed for the DevOps Tools course, as part of the oficial university&amp;rsquo;s master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The aim of the project was to automatically deploy a fully functional multi-tier MEAN system in the AWS cloud. This system consists of a load balancer, several instances for the web application and a dedicated instance for the MongoDB database. I use Terraform, Packer and Ansible for infrastructure automation and provisioning.&lt;/p&gt;
+&lt;p&gt;On a personal level, I consider it important to highlight that the documentation report of this project is particularly complete, as it includes all the details of the development process. Among them, I had to deal with three main problems during this process. Without going into too much detail, these were:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Deployment on Azure, version incompatibility and choice of AWS.&lt;/li&gt;
+&lt;li&gt;Execution of an interactive command blocking the automatic provisioning process.&lt;/li&gt;
+&lt;li&gt;Static resource inconsistency and balancer logoff.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In my opinion, these problems are very interesting to analyse, as they are common situations in this type of work. Although they may seem minor, they have been fundamental in the development of the project.&lt;/p&gt;
+&lt;p&gt;It is also worth mentioning that for this project I have used similar technologies to those of the project &lt;strong&gt;‘Creation and automated deployment of image in multicloud environment’&lt;/strong&gt;, which is also available in my portfolio. For this reason, in this publication I have decided to highlight three aspects that differentiate both works:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The use of the MEAN stack.&lt;/li&gt;
+&lt;li&gt;The modularisation of Terraform.&lt;/li&gt;
+&lt;li&gt;The deployment process and architecture, although the latter is presented in a summarised form, as it is explained extensively and in detail in the report.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="technology-stack"&gt;Technology Stack
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Terraform&lt;/strong&gt;: with terraform I centralise the whole deployment process, raise and manage the infrastructure elements that make up the system. Some of these elements are for example the networks that connect the different instances, the instances themselves, the load balancer&amp;hellip; In short, the infrastructure that supports the service.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Packer&lt;/strong&gt;: with packer I create the image that serves as a base for the instances that I build with Terraform. In this project, Packer generates a custom image for the first layer of the system, provisioning it with the necessary services such as Node.js, Nginx, Angular&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ansible&lt;/strong&gt;: with Ansible I do the provisioning of the instance that is raised and used by Packer for the creation of the image. In this project, Ansible automatically provisions the instance with Angular, Express, MongoDB, Nginx, Node&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MEAN Stack&lt;/strong&gt;: The system being built is a service made up of the MEAN technology stack, widely used in the industry for its versatility and performance:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MongoDB&lt;/strong&gt;: Non-relational document-oriented database, ideal for handling large volumes of structured and unstructured data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Express&lt;/strong&gt;: Backend framework for Node.js that facilitates the development of robust and scalable web applications.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Angular&lt;/strong&gt;: Frontend framework that allows the development of modern and reactive interfaces, improving the user experience.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt;: Execution environment for Js on the server side.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="modularisation-of-the-terraform-template"&gt;Modularisation of the Terraform template
+&lt;/h3&gt;&lt;h4 id="importance-of-modularisation"&gt;Importance of modularisation
+&lt;/h4&gt;&lt;p&gt;Modularisation in Terraform is vital in projects that use Terraform. It basically consists of dividing the &lt;strong&gt;main.tf&lt;/strong&gt; into different ‘modules’ according to certain categories. Not only does this improve code readability and maintainability, but it also allows responsibilities to be divided and configurations to be reused between projects. Although managing variables between modules can be complex, this practice is essential in large, dynamic infrastructures.&lt;/p&gt;
+&lt;h4 id="project-modules"&gt;Project modules
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Security module&lt;/strong&gt;: This module manages the security groups that define the traffic rules to and from the instances, enabling traffic from protocols such as SSH, HTTP&amp;hellip;. It also configures the SSH keys needed to access the instances remotely.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Network module&lt;/strong&gt;: Defines the networks and private subnets necessary for system connectivity and also configures routing tables and gateways to guarantee access between infrastructure layers.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Instance module&lt;/strong&gt;: Deploys the first and second layer instances, assigning public and private IP addresses and also provisions these instances for proper operation in the system.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Load balancer module&lt;/strong&gt;: Configures and defines everything related to the load balancer that distributes the traffic between the instances of the first layer. In addition to the load balancer itself, for this to work it needs more elements such as destination groups, distribution strategies such as round-robin, definition of session persistence&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Image module&lt;/strong&gt;: This module integrates Terraform with Packer for the creation of base images. Terraform executes &lt;strong&gt;packer build&lt;/strong&gt;, retrieves the generated image and uses it to instantiate resources of the first layer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="./p/stack-mean-terraform/modulos.png"
+width="475"
+height="614"
+srcset="./p/stack-mean-terraform/modulos_hu_38e6509afd8e9619.png 480w, ./p/stack-mean-terraform/modulos_hu_89c902ab49a371c4.png 1024w"
+loading="lazy"
+alt="Directory structure"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="185px"
+&gt;&lt;/p&gt;
+&lt;h3 id="deployment-process-and-architecture"&gt;Deployment process and architecture
+&lt;/h3&gt;&lt;p&gt;The deployment starts with the integration of Terraform and Packer. Terraform invokes Packer, which is responsible for raising a temporary instance in AWS to generate a base image. During this process, this instance is provisioned with Ansible, which installs and configures services such as Angular, Express and MongoDB, as well as copying essential files from the local environment. Once provisioning is complete, Packer creates the base image and destroys the temporary instance, leaving an image ready for reuse.&lt;/p&gt;
+&lt;p&gt;With the image generated, Terraform proceeds to deploy the complete infrastructure. First, the networks and subnets are configured, ensuring internal connectivity between the layers of the system. Next, the first layer instances are deployed using the base image. These instances host the frontend and backend of the application, with Node.js and Nginx serving as the operational core.&lt;/p&gt;
+&lt;p&gt;At the same time, Terraform builds the second tier instance, dedicated to data persistence with MongoDB. This instance is connected via a private network to the first layer instances, guaranteeing secure and stable communication. In addition to this, terraform also raises a load balancer, configured to distribute the traffic between the first layer instances, which ensures high availability and scalability.&lt;/p&gt;
+&lt;p&gt;The last step is the final provisioning. Terraform uses Bash scripting to finish configuring the deployed instances. For example, in the first layer instances, Angular configurations are adjusted to include the IP addresses of the backend, which allows static files to be generated and served by Nginx with the necessary routes to connect the client to the backend.&lt;/p&gt;
+&lt;p&gt;This entire process ensures a fully automated deployment, resulting in a functional, production-ready system, with components integrated and configured for optimal performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Multi-layer_MEAN_Deployment" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Multi-layer_MEAN_Deployment&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="video-of-the-experimentation-and-project-report"&gt;Video of the experimentation and project report:
+&lt;/h3&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="./post/stack-MEAN-Terraform/Act2_StackMEAN_Terraform_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zRGhkBebEbA"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Creation and automated deployment of image in multicloud environment.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/imagen-multicloud-packer/</link><pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/imagen-multicloud-packer/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/imagen-multicloud-packer/imagen-multicloud-packer2.png" alt="Featured image of post Creation and automated deployment of image in multicloud environment." /&gt;&lt;p&gt;This project was developed for the DevOps Tools course, as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The aim of the project is to &lt;strong&gt;create and automatically deploy an image of a complete web system in a multicloud environment of Azure and AWS&lt;/strong&gt;. This web system is composed of a small application written with Nodejs and a Nginx web server. To achieve this, I use Terraform, Ansible and Packer technologies mainly.&lt;/p&gt;
+&lt;h3 id="technologies-used"&gt;Technologies used:
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Terraform:&lt;/strong&gt; With Terraform I centralize all the execution of the process and deploy the necessary infrastructure to raise an instance in the cloud created from the image of the system and accessible through the internet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Packer:&lt;/strong&gt; With Packer I build the complete system image. Packer uses the cloud as a provider for the creation of the image. It builds an instance and all the necessary infrastructure for the creation of the image and destroys it when it is finished.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ansible:&lt;/strong&gt; with ansible the provisioning of the instance that packer raises and from which the image is created is carried out. In the case of Azure I do this provisioning with Ansible, in the case of AWS I do the same but directly with Bash scripting.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To control multicloud deployment, a parameter has been implemented that must be passed to the &lt;code&gt;terraform apply ‘deployment_target=’&lt;/code&gt;, indicating whether you want to deploy in both clouds simultaneously or in a single cloud. If this is the case, you must indicate in which one you want to deploy.&lt;/p&gt;
+&lt;h3 id="creation-and-deployment-process"&gt;Creation and deployment process:
+&lt;/h3&gt;&lt;p&gt;The sequence of steps in the process would be as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialise by manually executing a &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; in the shell.&lt;/li&gt;
+&lt;li&gt;After that, terraform executes the &lt;code&gt;packer build&lt;/code&gt; command, which takes care of setting up all the necessary infrastructure and the machine used for the creation of the image. In the case of Azure, an Ansible is installed on this machine and it auto-provisions itself by running a playbook and a series of tasks defined in it. In the case of AWS, the same steps are executed, but instead of an Ansible directly by manual scripting in Bash. The provisioning is based among other things on the installation and management of the services: Nodejs, Nginx, pm2 and App.js on the instance that creates the image.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nodejs:&lt;/strong&gt; Provides an environment with everything necessary for the application to run and function correctly.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx:&lt;/strong&gt; Web server that will be in charge of redirecting all the traffic to the application and forwarding its responses. It is very important to configure it so that when the image is deployed the server is active and correctly configured to serve the app. Passes traffic from port 80 to port 3000 (where the app.js listens).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PM2:&lt;/strong&gt; Nodejs process manager which is used to ensure that the app.js is active when the image is deployed without having to do anything else (this step is particularly tricky).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;app.js&lt;/strong&gt;: core, functional application of the image, it is important to transfer the source code of the app so that it is accessible by the instance that creates the image.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;After this, Packer creates the image and destroys all the infrastructure it has needed to build on the corresponding cloud provider.&lt;/li&gt;
+&lt;li&gt;Terraform, after waiting for the image creation to finish successfully, builds all the necessary infrastructure (key pair, security group, disk&amp;hellip;) to build an instance from this image.&lt;/li&gt;
+&lt;li&gt;Once the deployment is finished, this instance is accessible through the internet via the public ip.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In short, just by executing a &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; you deploy a functional web environment accessible from the internet in the public cloud of Azure and AWS. And you also create a reusable image so you can deploy more instances identical to these in the future in a much faster and safer way against possible human errors.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="repository-contents-and-project-files"&gt;Repository contents and project files:
+&lt;/h3&gt;&lt;p&gt;The GiHub repository consists of two main directories with two different versions: &lt;code&gt;/version-2&lt;/code&gt; and &lt;code&gt;/version-3.1&lt;/code&gt;.
+The fully functional directory containing the latest version of the project is the second one (&lt;code&gt;/version-3.1&lt;/code&gt;). This is the directory where you have to be located to deploy the &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; (&lt;code&gt;cd version-3.1/te*&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Briefly explaining the contents of the directory:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/&lt;/code&gt;: directory where all the content necessary for Packer to run and build the image is located.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/main.pkr.hcl&lt;/code&gt;: Packer&amp;rsquo;s main file where all the resources needed to build the image are defined as well as all the variables to be used.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/variables.pkrvars.hcl&lt;/code&gt;: file where I assign values to all the variables defined in the &lt;code&gt;main.pkr.hcl&lt;/code&gt; except for the credentials of the two clouds that for security reasons, I define and assign values as environment variables of my host operating system that I use to launch the terraform. I pass these values as parameters in the &lt;code&gt;terraform apply&lt;/code&gt; and &lt;code&gt;packer build&lt;/code&gt; command.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/providers/&lt;/code&gt;: directory where we can find the auxiliary files used to create the image, such as the apache configuration file (&lt;code&gt;nginx_default.conf&lt;/code&gt;), the playbook that defines the provisioning with ansible (&lt;code&gt;provision.yml&lt;/code&gt;) and the nodejs application code (&lt;code&gt;app.js&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/&lt;/code&gt;: directory where all the content necessary for terraform to run and deploy all the necessary infrastructure for the project is located.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/terraform/main.tf&lt;/code&gt;: main file of terraform, where all the process flow that the deployment must follow and all the infrastructure to be deployed is defined.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/variables.tf&lt;/code&gt;: file where all the variables used by terraform are defined.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/terraform.tfvars&lt;/code&gt;: file where all the variables are given values except for the credentials of the two clouds that, for security reasons, I define and assign values in environment variables of my host operating system from where I launch terraform. I pass these values as parameters in the &lt;code&gt;terraform apply&lt;/code&gt; and &lt;code&gt;packer build&lt;/code&gt; command.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="./p/imagen-multicloud-packer/ficheros.png"
+width="400"
+height="469"
+srcset="./p/imagen-multicloud-packer/ficheros_hu_7539b2c6371a97d9.png 480w, ./p/imagen-multicloud-packer/ficheros_hu_ac6cf45573bc6661.png 1024w"
+loading="lazy"
+alt="Directory content"
+class="gallery-image"
+data-flex-grow="85"
+data-flex-basis="204px"
+&gt;&lt;/p&gt;
+&lt;h3 id="contents-of-packer-main"&gt;Contents of Packer main:
+&lt;/h3&gt;&lt;p&gt;The content of this file can be differentiated in several parts in which the following components necessary for the creation of the image are defined:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PLUGINS&lt;/strong&gt;: Defines the plugins needed for the template.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Definition of variables&lt;/strong&gt;: (no value is assigned here, only maybe the default value).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BUILDER&lt;/strong&gt;: Define how the AMI is built in AWS &amp;ndash;&amp;gt; &lt;code&gt;source{}&lt;/code&gt;&amp;ndash;&amp;gt; define the base system on which I want to create the image (ubuntu ISO) and the provider for which we create the image (technology with which the image will be deployed) &amp;ndash;&amp;gt; AMAZON. AZURE&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PROVISIONERS&lt;/strong&gt;: Configure the operating system and the application, how the software will be installed and configured &amp;ndash;&amp;gt; &lt;code&gt;build{}&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="experimentation-video-and-report-of-the-project"&gt;Experimentation video and report of the project:
+&lt;/h3&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="./post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf" &gt;&lt;strong&gt;View the pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/BhRB0716G5w"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Automated deployment of Wordpress environment with Ansible</title><link>https://aleingmar-pi-portfolio.pages.dev/p/wp-ansible/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/wp-ansible/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wp-ansible/wordpress-ansible.png" alt="Featured image of post Automated deployment of Wordpress environment with Ansible" /&gt;&lt;p&gt;This project was developed for the Deployment Automation Tools course as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The main objective of the project was to &lt;strong&gt;automate the local deployment of a complete WordPress environment&lt;/strong&gt; using &lt;strong&gt;Ansible and Vagrant&lt;/strong&gt;. An optimised secure architecture was implemented using &lt;strong&gt;Nginx as a reverse proxy&lt;/strong&gt; that blocks traffic destined for certain sensitive Wordpress administration paths.&lt;/p&gt;
+&lt;p&gt;Vagrant creates and raises the virtual machine, on which Ansible is installed. Ansible then automatically self-provisions and configures all the necessary services, including Apache, MySQL, WordPress and Nginx, leaving the system completely ready for use.&lt;/p&gt;
+&lt;h2 id="general-structure-of-the-anisble-provisioning-project"&gt;General structure of the Anisble provisioning project
+&lt;/h2&gt;&lt;p&gt;The following is the organisation of the Ansible files and roles, to make it easier to understand the general operation of the project:&lt;/p&gt;
+&lt;h3 id="main-playbook-provisionplaybookyml"&gt;Main playbook: provision/playbook.yml.
+&lt;/h3&gt;&lt;p&gt;This file acts as the starting point for Ansible. From here, the roles needed to configure all the components of the environment are included.
+In this case, the code is divided into four roles: apache, mysql, wordpress and nginx, which are executed in this order.
+The installation of PHP and its modules has been decided to be included directly in this playbook, instead of creating a separate role, as it is only a few lines of code.
+The order of provisioning is as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;PHP modules&lt;/li&gt;
+&lt;li&gt;Apache&lt;/li&gt;
+&lt;li&gt;MySQL&lt;/li&gt;
+&lt;li&gt;WordPress&lt;/li&gt;
+&lt;li&gt;Nginx&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="variable-management-with-ansible"&gt;Variable management with Ansible
+&lt;/h3&gt;&lt;p&gt;Instead of using Hiera as with &lt;strong&gt;Puppet&lt;/strong&gt;, Ansible uses &lt;strong&gt;YAML files&lt;/strong&gt; inside the &lt;code&gt;group_vars/all.yml&lt;/code&gt; directory, allowing variables to be separated from the main code.
+This ensures a more secure approach, avoiding exposing sensitive credentials when uploading the project to a repository. Although this project is academic and does not include encrypted variables, Ansible Vault allows you to encrypt variables if necessary.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variables are declared in: &lt;code&gt;group_vars/all.yml&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Jinja2 (.j2) templates are used to inject dynamic values into the configuration files.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="roles-in-ansible"&gt;Roles in Ansible
+&lt;/h3&gt;&lt;p&gt;To better organise the manifests and auxiliary files that Ansible needs for infrastructure configuration automation, I split the content into &lt;strong&gt;four main roles in Ansible&lt;/strong&gt;, each responsible for a part of the system. This allows for &lt;strong&gt;modularity, code reuse and better organisation&lt;/strong&gt; of the playbook.&lt;/p&gt;
+&lt;h4 id="apache-role"&gt;Apache Role
+&lt;/h4&gt;&lt;p&gt;With this role, Ansible installs and configures the Apache web server, which acts as a backend to serve WordPress. Apache is only accessible from the virtual machine itself, as Nginx will act as a reverse proxy.&lt;/p&gt;
+&lt;p&gt;The main tasks it performs are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install Apache and make sure the service is active.&lt;/li&gt;
+&lt;li&gt;Remove the default Apache page.&lt;/li&gt;
+&lt;li&gt;Configure Apache to listen on &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt;.
+&lt;ul&gt;
+&lt;li&gt;Setting the listening port to &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt; means that &lt;strong&gt;Apache will only accept connections from local processes on the same machine&lt;/strong&gt; where it is running. &lt;strong&gt;The address 127.0.0.1 is the loopback (localhost) address&lt;/strong&gt;, which prevents access from other machines on the network. This is useful when Apache is behind a reverse proxy, such as Nginx, which handles external connections and forwards requests to Apache on port 8080.’&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Copy the custom configuration from a Jinja2 template (&lt;code&gt;wp-apache-config.conf.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Enable the new site and restart Apache automatically.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this configuration, Apache is kept isolated from shortcuts, ensuring that it can only be queried through Nginx.&lt;/p&gt;
+&lt;h4 id="mysql-role"&gt;MySQL Role
+&lt;/h4&gt;&lt;p&gt;In this role Ansible provisions the virtual machine with a MySQL database to ensure proper storage and access to WordPress data.&lt;/p&gt;
+&lt;p&gt;The main tasks it performs are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install the MySQL server.&lt;/li&gt;
+&lt;li&gt;Create the necessary database for WordPress.&lt;/li&gt;
+&lt;li&gt;Configure the user and assign the appropriate permissions.&lt;/li&gt;
+&lt;li&gt;Execute an initialisation script (&lt;code&gt;init-wordpress.sql.j2&lt;/code&gt;) to prepare the database with the initial structure and data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This role ensures that the database is ready and properly configured before WordPress attempts to connect later by running its role.&lt;/p&gt;
+&lt;h4 id="wordpress-role"&gt;WordPress Role
+&lt;/h4&gt;&lt;p&gt;This role automates the installation and configuration of WordPress, ensuring a functional and ready-to-use deployment.&lt;/p&gt;
+&lt;p&gt;Key tasks it performs include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Downloading and extracting WordPress into /var/www/html/wordpress.&lt;/li&gt;
+&lt;li&gt;Create and configure the wp-config.php file using a template (&lt;code&gt;wp-config.php.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Ensure correct permissions for WordPress (&lt;code&gt;chown -R www-data:www-data&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Install wp-cli and use it to configure WordPress automatically.&lt;/li&gt;
+&lt;li&gt;Initialise the database with minimal content using &lt;code&gt;init-wordpress-content.sql.j2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Configure Apache to serve WordPress content.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this role, WordPress is installed, automatically configured and ready for use, without any manual intervention.&lt;/p&gt;
+&lt;h4 id="nginx-role"&gt;Nginx Role
+&lt;/h4&gt;&lt;p&gt;This role implements &lt;strong&gt;Nginx as a reverse proxy&lt;/strong&gt;, forming the first layer of defence of the system. Its main function is to handle incoming requests and block unwanted access.&lt;/p&gt;
+&lt;p&gt;The main actions performed are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install Nginx in the virtual machine.&lt;/li&gt;
+&lt;li&gt;Configure Nginx as a reverse proxy, redirecting requests to Apache on port 8080.&lt;/li&gt;
+&lt;li&gt;Block access to sensitive paths such as &lt;code&gt;/wp-admin&lt;/code&gt; and &lt;code&gt;/wp-login.php&lt;/code&gt; to increase security.&lt;/li&gt;
+&lt;li&gt;Optimise delivery of static files (CSS, JS, images) directly from Nginx, improving performance.&lt;/li&gt;
+&lt;li&gt;Disable the default Nginx page and enable a WordPress-specific configuration.&lt;/li&gt;
+&lt;li&gt;Restart Nginx automatically after applying the configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why is Nginx important in this project?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Protects Apache by acting as a single external access point, preventing direct attacks.&lt;/li&gt;
+&lt;li&gt;Improves security by blocking access to critical management paths.
+With this configuration, Nginx filters traffic and only allows secure requests to WordPress, strengthening the system infrastructure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="./p/wp-ansible/roles.png"
+width="382"
+height="700"
+srcset="./p/wp-ansible/roles_hu_79ce48b7c8b83a2a.png 480w, ./p/wp-ansible/roles_hu_d1f585e8f9a39b25.png 1024w"
+loading="lazy"
+alt="Directory structure"
+class="gallery-image"
+data-flex-grow="54"
+data-flex-basis="130px"
+&gt;&lt;/p&gt;
+&lt;h2 id="system-architecture"&gt;System architecture
+&lt;/h2&gt;&lt;h3 id="request-processing-and-data-flow"&gt;&lt;strong&gt;Request processing and data flow&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;When a user accesses WordPress, the request follows the following flow:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;The user accesses WordPress from a browser&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx receives the request on port 80&lt;/strong&gt; and decides whether to block the request or forward it to Apache.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;If the request is valid&lt;/strong&gt;, Nginx forwards it to &lt;strong&gt;Apache on &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache processes the request&lt;/strong&gt;, executing the WordPress PHP scripts.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;If the page requires database data,&lt;/strong&gt; Apache queries MySQL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache returns the generated response to Nginx&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx sends the response to the user&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This ensures that &lt;strong&gt;Apache is only accessible from the machine itself&lt;/strong&gt;, while Nginx acts as the first line of defence.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Communication between Nginx and Apache&lt;/strong&gt;.
+To better understand how the two servers connect, it is important to know how their &lt;strong&gt;ports and IPs&lt;/strong&gt; work:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nginx listens on &lt;code&gt;0.0.0.0.0:80&lt;/code&gt;&lt;/strong&gt;, which means it accepts connections to port 80 and to any IP that identifies the machine running it.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache listens on &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;, which means that this process can only communicate with other processes from the same machine that send traffic to that ip and port 8080.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;127.0.0.1 is the loopback address&lt;/strong&gt;, used for internal communication within the same machine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;External traffic never reaches Apache directly&lt;/strong&gt;, as Nginx acts as an intermediary.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Key benefit:&lt;/strong&gt; If someone tries to access Apache directly from another machine, the connection will be rejected because &lt;strong&gt;Apache is not exposed to the network&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="conclusion"&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;All in all, simply by going to the console in the directory where the &lt;strong&gt;Vagrantfile&lt;/strong&gt; is located and running a simple &lt;code&gt;vagrant up&lt;/code&gt;, a functional, customised and secure WordPress environment is automatically deployed, accessible from a web client at &lt;code&gt;http://192.168.55.10&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/wordpress_ansible" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/wordpress_ansible&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-report"&gt;Experimentation video and project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="./post/wordpress-ansible/Act3_Wordpress_Ansible_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/lksomzUvzA0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Automated Wordpress deployment using Vagrant and Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/p/wordpress-puppet/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/wordpress-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wordpress-puppet/wordpress-puppet.png" alt="Featured image of post Automated Wordpress deployment using Vagrant and Puppet" /&gt;&lt;p&gt;This project was developed for the Deployment Automation course, as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The main objective of this project is to automatically deploy a test web environment with a custom WordPress service, using Vagrant as the Infrastructure as Code (IaC) tool and Puppet for automated provisioning.
+By simply running the &lt;code&gt;vagrant up&lt;/code&gt; command in the terminal in the directory where the Vagrantfile is located, the entire environment is deployed without any additional configuration.
+Before you can deploy a WordPress web service, you need to perform several provisioning and configuration tasks, including the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install, configure and set up an Apache web server to redirect and serve all content.&lt;/li&gt;
+&lt;li&gt;Install all the specific PHP packages and modules required by WordPress.&lt;/li&gt;
+&lt;li&gt;Install, configure and set up a MySQL database that will be used by WordPress for the persistence of its data.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To verify correct operation, simply access &lt;code&gt;localhost:8080&lt;/code&gt; from the browser.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/WordPress_deployment-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/WordPress_deployment-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The project includes two different versions of the environment, organised in separate directories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-two-nodes&lt;/code&gt;.
+In this version, three Puppet nodes are deployed: one Puppet Master and two Puppet Clients.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each client (node) hosts a WordPress environment, provisioned with the directives sent from the Puppet Master. Every min the puppet clients automatically request the new puppet configuration if any via a cron job.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-one-node&lt;/code&gt;
+In this version, only one virtual machine (VM) with a self-provisioning Puppet client is raised, without the need for a Puppet Master.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="self-provisioning-version-puppet-one-node"&gt;Self-provisioning version: puppet-one-node
+&lt;/h2&gt;&lt;p&gt;In this version of the environment, only one mv is raised, a self-provisioning puppet agent/client without the need for a Puppet master node. The whole deployment process is done fully automatically.&lt;/p&gt;
+&lt;h3 id="puppet-one-node-vagrantfile"&gt;puppet-one-node: Vagrantfile
+&lt;/h3&gt;&lt;p&gt;The Vagrantfile defines the basic virtual machine (VM) configuration for creating an Infrastructure-as-Code (IaC) environment. It specifies the Ubuntu base box to be used, the networking options (including port forwarding and assigning a private IP), and allocates 1024 MB of RAM to the VM. In addition, Puppet is installed in agent mode, eliminating the need for a master Puppet server, and is configured to use the main manifest &lt;code&gt;default.pp&lt;/code&gt;, modules from the &lt;code&gt;modules&lt;/code&gt; directory and the Hiera configuration file &lt;code&gt;hiera.yaml&lt;/code&gt; to centrally manage data.&lt;/p&gt;
+&lt;h2 id="client-server-architecture-version-puppet-two-nodes"&gt;Client-server architecture version: puppet-two-nodes
+&lt;/h2&gt;&lt;p&gt;In this version of the environment 3 mvs are raised, one puppet master and two puppet clients. The mvs are automatically raised and their corresponding puppet versions are installed (to the master node the master is installed and so on).
+Once the client node is up (which is up after the master), as soon as it starts it sends its certificate to the master (which knows it because it is in its puppet.config file).
+In a &lt;strong&gt;MANUAL&lt;/strong&gt; way, you have to perform the different administration tasks:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;SERVER side&lt;/strong&gt;:
+Manually, the only thing the sysadmin in charge of this environment has to do is to do an:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca sign --all&lt;/code&gt; to sign all the unsigned certificates that have arrived (in this case one for each client node) and send them signed to the corresponding clients.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;On a voluntary basis, but recommended for security purposes, especially in real production environments, you should run &lt;strong&gt;before&lt;/strong&gt; signing them a:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca list --all&lt;/code&gt; to list all the certificates and verify that you don&amp;rsquo;t sign a certificate that you shouldn&amp;rsquo;t.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;CLIENT side&lt;/strong&gt;:
+Once this is done on the server, the corresponding client should receive its signed certificate, with which it will be able to communicate with the master node and
+ask for puppet configuration/provisioning by executing this command: &lt;code&gt;sudo /opt/puppetlabs/bin/puppet agent --test&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="general-structure-of-the-puppet-provisioning-project"&gt;General structure of the puppet provisioning project
+&lt;/h3&gt;&lt;p&gt;The organisation of the files and modules is detailed below, which makes it easier to understand the general functioning of the project:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Main file&lt;/strong&gt;: &lt;code&gt;manifests/default.pp&lt;/code&gt;.
+This file acts as the starting point for Puppet. The modules needed to configure all the components of the environment are imported from here. In this case, the code is split into three modules: &lt;strong&gt;apache, mysql and wordpress&lt;/strong&gt;, which are executed and imported in this order. The PHP installation I have decided to code it directly in this module, without adding another module just for this as it is only 3 or 4 lines of code. The installation of these components is done in this order: &lt;strong&gt;apache, php, mysql and wordpress&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Variables management with Hiera**: &lt;code&gt;hiera.yaml, data/common.yaml&lt;/code&gt;.
+To manage variables, Hiera is used, which allows the keys to be separated from the source code. This ensures a more secure approach, as it avoids exposing sensitive credentials when uploading the project to a cloud repository. Although this project is academic and does not include encrypted variables, Hiera also offers the possibility to encrypt keys.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Variables are declared along with their values in &lt;code&gt;data/common.yaml&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;code&gt;hiera.yaml&lt;/code&gt; file configures how Hiera works.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To integrate Hiera with Vagrant, the line &lt;code&gt;puppet.hiera_config_path = ‘hiera.yaml’&lt;/code&gt; is added to the Vagrantfile.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Modules used&lt;/strong&gt;:
+The project is divided into three main modules, which guarantees modularity and organisation in the code:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Apache module&lt;/strong&gt;: This module provisions and configures the Apache web server in the VM.
+This module provisions and configures the Apache web server in the VM, leaving it ready and active so that the wordpress module can manage and serve content from it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;mysql module&lt;/strong&gt;
+In this module a MySQL server is installed and configured in the VM, ensuring the correct functioning of the database manager. In addition, the necessary database for WordPress is created using the &lt;code&gt;init-wordpress.sql.erb&lt;/code&gt; file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;wordpress module&lt;/strong&gt;
+This module installs and configures WordPress, making it fully functional. The main actions performed are:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Installation of the wordpress packages and dependencies and activation of the service.&lt;/li&gt;
+&lt;li&gt;Configuration of the &lt;code&gt;wp-config.conf.erb&lt;/code&gt; file, which configures the service, among other things, connects WordPress with the database and defines previously generated access keys.&lt;/li&gt;
+&lt;li&gt;Installation and use of the &lt;code&gt;wp-cli&lt;/code&gt; tool to automate the configuration of the website.&lt;/li&gt;
+&lt;li&gt;Initialisation of the database using the &lt;code&gt;init-wordpress-content.sql.erb&lt;/code&gt; file with the minimum content necessary to launch a web page.&lt;/li&gt;
+&lt;li&gt;Configuration of Apache to serve the page content, using the &lt;code&gt;wp-apache-config.conf.erb&lt;/code&gt; file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The service is accessible from the host at &lt;code&gt;localhost:8080&lt;/code&gt; thanks to port 8080 redirection from the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.&lt;/p&gt;
+&lt;p&gt;Deployment of the puppet-one-node version enviroment:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/xQdjuHr-2-U"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Deployment of multi-container service</title><link>https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/</link><pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/dockerCompose.png" alt="Featured image of post Deployment of multi-container service" /&gt;&lt;p&gt;This project was developed for the Containers subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).
+The main objective of this project is to deploy a multi-tier application built on top of several containers orchestrated and deployed using Docker compose technology.
+The deployment is based on and is a continuation of the project &amp;ldquo;Dockerisation of multi-tier application&amp;rdquo; already uploaded to this portfolio.
+&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockercompose" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockercompose&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="project-report"&gt;Project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="./post/multicapa-dockerCompose/Act2_DockerCompose_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Dockerization of a Multi-layer application</title><link>https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/</link><pubDate>Sat, 19 Apr 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/dockerizacion.png" alt="Featured image of post Dockerization of a Multi-layer application" /&gt;&lt;p&gt;This project was developed for the Containers subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).
+The main objective of this project is to dockerise a simple multilayer application, designed with a pedagogical perspective to illustrate the layered architecture and its deployment using containers. This application has been designed with three different layers: web presentation, business logic and data persistence.
+Although a MEAN (Mongo - Express - Angular - Node) stack was initially considered, the presentation layer based on Angular and Nginx has not been fully implemented. Therefore, the final structure of the project is configured as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;First layer, presentation layer: Nginx + Website&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Second layer, business logic layer: App.js application developed using Express on Node.js.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Persistence layer: Implemented using MongoDB.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The functionality of the application is deliberately simple, with the aim of focusing on structure and deployment. It is a kind of ‘Hello World’, where the client initially connects to the presentation layer (Nginx), which delivers an index.html file.
+This file contains a call that triggers a second HTTP request to the same Nginx server, but which is processed differently depending on the PATH of the request.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./p/multilayer-dockerisation/image-1.png"
+width="350"
+height="111"
+srcset="./p/multilayer-dockerisation/image-1_hu_c97b4990d7f9d4f5.png 480w, ./p/multilayer-dockerisation/image-1_hu_bd8b1e215da2610d.png 1024w"
+loading="lazy"
+alt="Index.html"
+class="gallery-image"
+data-flex-grow="315"
+data-flex-basis="756px"
+&gt;
+&lt;img src="./p/multilayer-dockerisation/image-2.png"
+width="460"
+height="332"
+srcset="./p/multilayer-dockerisation/image-2_hu_57e6612e699a0f29.png 480w, ./p/multilayer-dockerisation/image-2_hu_c647fd2f42f5c107.png 1024w"
+loading="lazy"
+alt="Nginx.conf"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+&gt;&lt;/p&gt;
+&lt;p&gt;This request is redirected to the backend layer, where the Express application is deployed.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./p/multilayer-dockerisation/image-3.png"
+width="515"
+height="93"
+srcset="./p/multilayer-dockerisation/image-3_hu_40bd72a20f925c4b.png 480w, ./p/multilayer-dockerisation/image-3_hu_1938546d60b1eea0.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="553"
+data-flex-basis="1329px"
+&gt;&lt;/p&gt;
+&lt;p&gt;From there, the application tries to establish a connection to the MongoDB database.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./p/multilayer-dockerisation/image-4.png"
+width="764"
+height="77"
+srcset="./p/multilayer-dockerisation/image-4_hu_eb9089e930e8b6bd.png 480w, ./p/multilayer-dockerisation/image-4_hu_ab5213d8bf1b585d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="992"
+data-flex-basis="2381px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Depending on the result of that connection, the backend responds to the client with a message in JSON format, indicating if the connection was successful (‘Hello world, connection successfully established’) or if an error occurred.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./p/multilayer-dockerisation/image.png"
+width="1064"
+height="730"
+srcset="./p/multilayer-dockerisation/image_hu_d16c63b6a70c3a88.png 480w, ./p/multilayer-dockerisation/image_hu_92d8feaeffa86bea.png 1024w"
+loading="lazy"
+alt="Architecture"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockerisation" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockerisation&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-memory"&gt;Experimentation video and project memory:
+&lt;/h2&gt;&lt;p&gt;Documentation of the project: &lt;a class="link" href="./post/multicapa-dockerizacion/Act1_Dockerizacion_AlejandroIngles.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/vvb0ahpH7mE"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Automated Apache deployment using Vagrant and Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/p/apache-web-puppet/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/apache-web-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/apache-web-puppet/apache-puppet.png" alt="Featured image of post Automated Apache deployment using Vagrant and Puppet" /&gt;&lt;p&gt;This project was developed for the Deployment Automation course, as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The aim of the project is to deploy and configure in an automated way a web environment on a virtual machine hosting an Apache server, which serves a basic web page. The virtual machine is created using IaC (Infrastructure as Code) with Vagrant, and Puppet is used for its provisioning, which manages the installation of Apache and the automatic loading of a simple HTML file, thus creating a functional web service.&lt;/p&gt;
+&lt;p&gt;In short, simply running a &lt;code&gt;vagrant up&lt;/code&gt; starts the whole deployment and provisioning process and automatically (without doing anything else) a virtual machine is raised in which puppet is installed, an Apache web server is configured and installed to activate and listen to port 80 (http) of the VM and to return a simple web page that is inserted inside it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/deployment_apache-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/deployment_apache-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The GiHub repository consists of two directories with two different versions: /easy_mode and /hard_mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The first folder (/easy_mode) contains the deployment project with a simplified structure. This version does not follow the architecture and code organisation of complex deployment projects, and the Apache configuration is more basic.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The second folder (/hard_mode) uses a more Puppet-friendly code pattern, for example using modules and other Puppet-typical elements. In addition, the Apache configuration is more advanced and detailed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both versions manage to deploy correctly.&lt;/p&gt;
+&lt;p&gt;Explaining for example the simple version (/easy_mode) a directory where a ‘Vagrantfile’ file is located and a ‘manifests’ folder inside which the ‘apache.pp’ file is located.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The Vagrantfile defines the virtual machine infrastructure that needs to be deployed to support the web service. This is taken care of by Vagrant and underneath it, it uses VirtualBox as virtualisation provider.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the Vagrantfile, before telling Vagrant to provision the infrastructure using Puppet, a script is run to install Puppet inside the virtual machines. Puppet in this case works in stand-alone mode (without following the client-server model).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The file ‘apache.pp’ defines the desired configuration for this infrastructure and serves as a declarative guide for Puppet to develop its work. Since Puppet uses a declarative language, you don&amp;rsquo;t tell it how you want things to be done, only what you want to achieve, and Puppet does the rest.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The service is accessible from the host on &lt;code&gt;localhost:8080&lt;/code&gt; by redirecting port 8080 on the host to port 80 on the virtual machine, where Apache listens for incoming HTTP requests.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/8K7JzFuzGvg"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>My own RPI5 server</title><link>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/my-server/rasberry.png" alt="Featured image of post My own RPI5 server" /&gt;&lt;p&gt;This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram.&lt;/p&gt;
+&lt;p&gt;For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.&lt;/p&gt;
+&lt;p&gt;The server is associated to a main domain managed by &lt;strong&gt;DuckDNS&lt;/strong&gt;, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.&lt;/p&gt;
+&lt;p&gt;To organise access via subdomains and ensure connection to my services via &lt;strong&gt;HTTPS&lt;/strong&gt;, I use &lt;strong&gt;Caddy&lt;/strong&gt; as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.&lt;/p&gt;
+&lt;p&gt;In addition, I have implemented an advanced control panel called &lt;strong&gt;Homarr&lt;/strong&gt;, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server.&lt;/p&gt;
+&lt;p&gt;All the services hosted on the server including the ones mentioned above are hosted using &lt;strong&gt;Docker containers&lt;/strong&gt; and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Vaultwarden&lt;/strong&gt;: A password manager.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portainer&lt;/strong&gt;: A container manager with a web interface.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pi-hole&lt;/strong&gt;: An ad-blocking DNS service.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WireGuard&lt;/strong&gt;: A VPN service.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/ZHQXSUq01k0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;While I was doing my Final Degree Project and my internship, I had the opportunity to be part of the ES3 (Engineering and Science for Software Systems) research group at the University of Seville. This group specialises in the research and development of advanced software systems &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My work focused on developing part of the screenRPA platform, a Robotic Process Automation (RPA) platform. My main objective was to improve the ability to extract value and knowledge from RPA processes. To do this, I worked in three different areas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web platform improvement and results visualisation&lt;/strong&gt;: I worked on the development of the web platform to visualise and extract results along the entire RPA process pipeline, thus facilitating the interaction and analysis of each of the phases by the analysts. All this following the software design pattern &lt;strong&gt;Controller View Model&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application of advanced decision mining techniques&lt;/strong&gt;: I developed and applied a new technique based on Machine Learning, specifically in the decision discovery phase. During this phase we seek to understand why a user performs one action instead of another. Decision mining is a speciality within the field of process mining. The application of this technique allowed the discovery of non-deterministic patterns and rules in user decisions, providing a greater understanding of automated processes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatic generation of business reports&lt;/strong&gt;: I implemented a system on the platform for the automatic creation of business reports understandable by analysts and clients. These reports broke down all the knowledge extracted by the platform after execution, facilitating strategic decision making.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project allowed me to apply advanced knowledge in automation, Machine Learning and process mining, contributing to the evolution of an innovative platform within the field of business automation.&lt;/p&gt;
+&lt;p&gt;Final thesis report related to this project:
+&lt;a class="link" href="./post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Part of the screenRPA platform developed in my work:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Deployment and creation of a web portfolio with Hugo.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Deployment and creation of a web portfolio with Hugo." /&gt;&lt;p&gt;This project aims to create a web portfolio to show all the projects I have developed during my academic and personal career, deploy it on my own RPI5 server and make it securely accessible from the internet.&lt;/p&gt;
+&lt;h2 id="web-development"&gt;Web Development
+&lt;/h2&gt;&lt;p&gt;For the construction of my portfolio I chose &lt;strong&gt;Hugo&lt;/strong&gt;, a static website generation platform that allows you to create modern frontend pages using &lt;strong&gt;Markdown&lt;/strong&gt; files. The decision to use Hugo was based on the fact that I had already written part of my portfolio in Obsidian, a tool (also written in Markdown) that I regularly use to take notes and organise my notes. Hugo&amp;rsquo;s ability to take advantage of Markdown format files allowed me to migrate this content easily and focus more on the quality of the content than on the technical development.&lt;/p&gt;
+&lt;p&gt;The theme I selected for my portfolio is &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt;, because of its clean and modern format, which fits perfectly with the structure and design I was looking for. This template, with its focus on performance and simplicity, allowed me to optimise the development of my portfolio without having to invest too much time in interface design. Even so, I have programmed new functionalities that differ from the open source base project for my personal use.&lt;/p&gt;
+&lt;h2 id="devops-and-deployment"&gt;DevOps and Deployment
+&lt;/h2&gt;&lt;p&gt;In terms of deployment and operational management, my portfolio is hosted on my Raspberry Pi 5 server with 8 GB of RAM, which provides an efficient and energy-efficient solution. To ensure an orderly and isolated environment, I use Docker, where the portfolio runs inside a container. This allows me to package the application independently from the rest of the system, facilitating management and avoiding conflicts with other services running on the same server.&lt;/p&gt;
+&lt;p&gt;The web server that handles the requests is &lt;strong&gt;Caddy&lt;/strong&gt;, a lightweight solution that allows me to secure the connection with HTTPS automatically and redirect the traffic to the different services I have deployed. In addition to my own portfolio, I also host the portfolio of a colleague in another container. To monitor the web portfolio I use Google Analytics 4 (GA4) which allows me to see statistics about the accesses to the website.&lt;/p&gt;
+&lt;p&gt;For development, I usually work locally using &lt;strong&gt;Visual Studio Code&lt;/strong&gt;, although sometimes I use &lt;strong&gt;GitHub Codespaces&lt;/strong&gt; when I prefer to work in a remote environment. The deployment process is simple: I connect to the server via SSH, pull the latest changes from GitHub and restart the Docker container running Hugo. This workflow is fully automated through a bash script and a Docker Compose file, which simplifies the process of lifting the web application with each update.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Web portfolio change deployment process with bash scripting:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>PowerShell Scripting</title><link>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</link><pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/powershell-scripting/powershell-logo.png" alt="Featured image of post PowerShell Scripting" /&gt;&lt;p&gt;This project was developed for the Cloud Systems Administration subject as part of the official university master&amp;rsquo;s degree in Development and Operations (DevOps).&lt;/p&gt;
+&lt;p&gt;The main objective of the project was to develop scripts in Powershell to automate common tasks in Windows environments, streamlining processes that would normally require manual intervention.&lt;/p&gt;
+&lt;h2 id="powershell-conceptual-snapshots"&gt;PowerShell conceptual snapshots
+&lt;/h2&gt;&lt;p&gt;PowerShell is Microsoft&amp;rsquo;s command interpreter and scripting language, designed specifically for Windows system administration. It is based on an object-oriented language, which means that the output of commands is not simply text, but structured objects with properties and methods that can be easily manipulated.&lt;/p&gt;
+&lt;p&gt;For example, in Bash, inter-process communication in pipes (|) is in plain text, which forces the use of additional tools such as grep, awk or sed to process the output. In PowerShell, on the other hand, pipelines exchange objects, allowing you to work directly with their attributes without the need to pause and restart the pipeline.&lt;/p&gt;
+&lt;h3 id="example-comparison-of-powershell-vs-bash"&gt;Example Comparison of PowerShell vs. Bash
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;PowerShell (working with objects):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name, CPU&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here, &lt;code&gt;Get-Process&lt;/code&gt; returns a list of processes as objects, and we filter out those whose CPU usage (&lt;code&gt;$_ .CPU&lt;/code&gt;) is greater than 10. Then, we select only the Name and CPU properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bash (working with text):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux | awk '$3 &amp;gt; 10 {print $11, $3}'&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ps aux&lt;/code&gt; returns the list of processes as plain text, so it is necessary to use awk to extract and compare the third column (CPU usage).&lt;/p&gt;
+&lt;h2 id="tasks-automated-by-means-of-scripts"&gt;Tasks automated by means of scripts:
+&lt;/h2&gt;&lt;p&gt;Specifically the four tasks to be automated are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Listing files by size&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that displays a list of files in the current directory that are larger than 1024 bytes.&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Rename JPG files by date&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Write a script that renames all files with a JPG extension in the current directory, adding a date prefix in year, month, day format. For example, a file named &amp;ldquo;image1.jpg&amp;rdquo; would be renamed to &amp;ldquo;20240413-image1.jpg&amp;rdquo;, if the script is run on 13 April 2024.&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;Hard disk space monitoring&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a PowerShell script that displays hard disks with a percentage of free space below a given parameter. The script should print the drive letter and the values in GB of free space and size without decimals. The expression Get-WmiObject Win32_LogicalDisk retrieves the information of the system disks.&lt;/p&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;&lt;strong&gt;Creating an interactive menu&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Program a script that displays a menu with the following options, so that the option associated with the number entered by the user is executed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;List the services started.&lt;/li&gt;
+&lt;li&gt;Display the system date.&lt;/li&gt;
+&lt;li&gt;Execute the Notepad.&lt;/li&gt;
+&lt;li&gt;Run the Calculator.&lt;/li&gt;
+&lt;li&gt;Exit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;GitHub repository:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Powershell-Scripting" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Powershell-Scripting&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="experimentation-video-and-project-report"&gt;Experimentation video and project report:
+&lt;/h2&gt;&lt;p&gt;Project documentation: &lt;a class="link" href="./post/powershell-scripting/PowershellScripting.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/trwkbmmlKwY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Web application for the management of working days</title><link>https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/logo-laravel.png" alt="Featured image of post Web application for the management of working days" /&gt;&lt;p&gt;This project was developed for the Coding and Health Information Management (CGIS) course during my third year of studies. The main objective of the project is to design, model and develop a web application for managing the working hours of healthcare staff in a hospital.&lt;/p&gt;
+&lt;p&gt;In general terms, for the normal roles of healthcare professionals, the application allows them to consult their access to the hospital and create incidents if they see any anomaly with the register. For the administration and responsibility roles, the application allows them to monitor and keep track of workers&amp;rsquo; compliance with their working hours and enables them to process any incidents that professionals raise when they see a problem with their access records.&lt;/p&gt;
+&lt;p&gt;In addition to this, the application allows functionalities common to all roles such as the creation of user accounts, the management of user profiles&amp;hellip;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/5IerfTbQQ2Q"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;h1 id="documentation"&gt;Documentation
+&lt;/h1&gt;&lt;h1 id="table-of-contents"&gt;Table of contents
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class="link" href="#Problem_domain" &gt;Problem_domain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Objectives" &gt;Objectives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#System_Users:" &gt;System_Users&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Information_requirements:" &gt;Information_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Functional_requirements:" &gt;Functional_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Business_rules:" &gt;Business_rules:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Non_functional_requirements:" &gt;Non_functional_requirements:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Conceptual_UML_Model:" &gt;Conceptual_UML_model&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="problem-domain"&gt;Problem domain:
+&lt;/h2&gt;&lt;p&gt;Currently the system governing the working hours of healthcare professionals is very complex. Events such as on-call duty, shift changes or rotations between centres are a daily occurrence in the sector. This makes the organisation of this system very difficult to manage and many of these events often go unrecorded.&lt;/p&gt;
+&lt;h2 id="objectives"&gt;Objectives:
+&lt;/h2&gt;&lt;p&gt;The objective of our system will be to provide professionals in the sector with a tool that will allow both management and healthcare professionals a form of management that effectively and efficiently solves the aforementioned problems. Facilitating the processes to a great extent and allowing the professionals themselves to play a leading role in these processes. The main objectives of our system will be:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-1. Management of access to the hospital centre:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to carry out a control/monitoring of the accesses to the hospital centre by the healthcare staff. This will allow us to accurately record the number of hours worked by the professionals, avoid staff saturation, notify incidents in accesses, detect possible fraud&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-2.Registration and management of incidences on the accesses of health personnel:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to carry out a control of the accesses to the hospital centre by the health personnel by means of the use of incidences. Allowing to register the date of presentation of the incident, the date of the response, the status, the reason for presentation and response&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-3. Registration and management of health personnel information:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the objectives of our system will be to record and manage the information of healthcare personnel. Allowing the registration of personal information about professionals, about their speciality, position&amp;hellip;.&lt;/p&gt;
+&lt;h2 id="users-of-the-system"&gt;Users of the system:
+&lt;/h2&gt;&lt;p&gt;The types of users who will be able to access the system and make specific use of it will be:&lt;/p&gt;
+&lt;p&gt;Health professionals (doctors and nurses).&lt;/p&gt;
+&lt;p&gt;Management&lt;/p&gt;
+&lt;p&gt;Heads of duty.&lt;/p&gt;
+&lt;p&gt;Administrator&lt;/p&gt;
+&lt;h2 id="information-requirements"&gt;Information requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;IR-001. User information:&lt;/strong&gt; The system shall store personal data on all users. Primary and secondary email address, password and name.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-002. Information on healthcare personnel:&lt;/strong&gt; The system shall store data on healthcare personnel. Type of profession (doctor and nurse), medical speciality and position within the hospital system (management, duty manager, regular healthcare).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-003. Información sobre las especialidades médicas:&lt;/strong&gt; El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-003. Information on medical specialties:&lt;/strong&gt; The system shall store data on the medical specialties of health personnel. Name of speciality (cardiology, radiology and paediatrics).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-004. Information on access to the health care centre:&lt;/strong&gt; The system shall record data on access to the health care centre by health care personnel. Date/time of entry, date/time of exit and number of hours worked in each day.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IR-006. Information on incidents:&lt;/strong&gt; The system shall record data on incidents (regarding problems with access) reported by health personnel. Date/time of the incident, reason for the incident, access to which it refers, status of the incident (accepted, rejected, pending-response), reason for the response and the healthcare staff member making the response.&lt;/p&gt;
+&lt;h2 id="functional-requirements"&gt;Functional requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;FR-001. User registration: (all roles)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We want the system to allow health professionals to register as users with a password and access the system.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ACCESSES&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-002. Create access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to create access to health professionals that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-003. View my accesses: (all roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult my access history to the medical centre.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-004. Consult my accesses: (on-call manager, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult the accesses of the medical staff that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-005. Consult in detail an access: (all roles)&lt;/strong&gt; ** I want to be able to consult in detail an access of the restrooms that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail an access of my list of accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-006. Modify access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify the accesses of the health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-007. Delete access: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to delete access to the health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-008. Filter access by dates: (all roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to filter my access history to the medical centre by date.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;INCIDENTS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-009. Create incident log: (healthcare professional, duty manager)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to notify of any incident on the records of my accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0010. Consult incidents: (management, administrator)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of the incidents of the medical staff.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0011. Query my incidents: (healthcare professional, head of duty, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of my incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0012. Consult in detail incidents: (all roles)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail the incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0013. Modify incidents: (healthcare professional, duty manager)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify my incidents.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0014. Delete incidents: (health professional)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;I want to be able to delete my incidences on the records of my accesses.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-015. Solve incidents: (management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to approve or deny incidents by letting you know the reason for the resolution.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;HEALTH PROFESSIONALs&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0016. Create health professional: (address, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to create a new health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0017. Consult health professional: (head of duty, management, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult a list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0018. Consult in detail health professional: (management, administrator )&lt;/strong&gt; ** I want to be able to see in detail the details of the health professional.&lt;/p&gt;
+&lt;p&gt;I want to be able to see in detail the details of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0019. Consult in detail health professional: (head of duty, management, administrator)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to consult in detail a health professional in the list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0020. Modify health professional: (management, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to modify the details of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0021. Delete health professional: (address, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to delete the data of a health professional.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0022&lt;/strong&gt;. Filter health professional by name: (head of duty, address, administrator)&lt;/p&gt;
+&lt;p&gt;I want to be able to filter by name the list of health professional that are compatible with my responsibility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FR-0023. Filter health professional by name: (address, administrator )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to be able to filter the list of health professional by profession.&lt;/p&gt;
+&lt;h2 id="business-rules"&gt;Business rules:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;BR-001&lt;/strong&gt;. Not specified&lt;/p&gt;
+&lt;h2 id="non-functional-requirements"&gt;Non-functional requirements:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;NFR-001. Security&lt;/strong&gt;: The system must be protected against unauthorised access.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-002. Performance&lt;/strong&gt;: The system must be able to handle the required number of users without any degradation in performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-003. Scalability&lt;/strong&gt;: The system must be able to scale up or down as required.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-004. Availability&lt;/strong&gt;: The system must be available when needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-005. Maintenance&lt;/strong&gt;: The system must be easy to maintain and upgrade.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-006. Portability&lt;/strong&gt;: The system must be able to run on different platforms with minimal changes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-007. Reliability&lt;/strong&gt;: The system must be reliable and meet user requirements.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-008. Usability&lt;/strong&gt;: The system must be easy to use and understand.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-009. Compatibility&lt;/strong&gt;: The system must be compatible with other systems.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NFR-010. Compliance&lt;/strong&gt;: The system must be compliant with all applicable laws and regulations.&lt;/p&gt;
+&lt;p&gt;The system must have an availability of 99.96%.&lt;/p&gt;
+&lt;h2 id="uml-conceptual-model"&gt;UML Conceptual Model
+&lt;/h2&gt;&lt;p&gt;&lt;img src="./p/cgis-laravel-jornadas/diagramaConceptual.png"
+width="987"
+height="744"
+srcset="./p/cgis-laravel-jornadas/diagramaConceptual_hu_d158fd7e9fa155a7.png 480w, ./p/cgis-laravel-jornadas/diagramaConceptual_hu_dcf4e16597d80600.png 1024w"
+loading="lazy"
+alt="DIAGRAM"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+&gt;&lt;/p&gt;</description></item><item><title>AVI Health</title><link>https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/</link><pubDate>Thu, 15 Feb 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/android-gsti/avi-health.png" alt="Featured image of post AVI Health" /&gt;&lt;p&gt;This project was developed during the Management of Information Services and Technologies (GSTI) course during my fourth year of my degree. The main objective of the project was to develop an Android mobile application to cover the telecare needs of an integrated care process (PAI) modelled by the Andalusian Health Service (SAS). Specifically, this application focuses on the dermatological telecare process for patients with skin cancer.&lt;/p&gt;
+&lt;p&gt;The purpose of the application is to facilitate the interaction between the patient and the dermatologist, speeding up communication and clinical decision-making, as part of an e-Health system. This application provides an environment that allows the patient to share images of their evolution with the dermatologist, who can respond and follow up almost immediately, reducing the usual waiting times. These images are stored in the Goggle Cloud, which ensures the scalability of the system and protection against loss.&lt;/p&gt;
+&lt;p&gt;In addition, the application includes other key functionalities such as the creation of appointments and teleconsultations through the app, access to the location of nearby medical centres on Google Maps, management of both doctor and patient profiles&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Project report:
+&lt;a class="link" href="./post/android-gsti/Documentaci%c3%b3nAppMovil.pdf" &gt;&lt;strong&gt;View pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zTRWcF5hFIY"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Web service deployment with EC2 AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Web service deployment with EC2 AWS" /&gt;&lt;p&gt;This project was developed for a Systems Architectures and Distributed Systems (ASSB) assignment during my fourth year of undergraduate studies. The main objective was to deploy a functional web service in a cloud environment using &lt;strong&gt;AWS&lt;/strong&gt; services, staying within the limits of the free plan.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The deployed web service consists of a load balancer that distributes requests between two EC2 instances, each with its own Apache server and web page.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The main tasks performed included:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Controlling and creating cost alerts&lt;/strong&gt;: Setting up alerts in AWS to ensure that all operations conformed to the free plan, avoiding unwanted additional charges.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deployment of EC2 instances&lt;/strong&gt;: Raise two instances of &lt;strong&gt;EC2&lt;/strong&gt; and connect to them via &lt;strong&gt;SSH&lt;/strong&gt;. On each of the instances, install the &lt;strong&gt;Apache&lt;/strong&gt; web server.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Configuring Apache web servers&lt;/strong&gt;: Configuring the Apache services on both instances to serve a static web page created by myself.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deployment of a load balancer&lt;/strong&gt;: Deployment of a load balancer on AWS to evenly distribute incoming requests between the two Apache servers, optimising the load and ensuring higher availability.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="./post/aws-ec2-assb/assb-aes-ec2.pdf" &gt;&lt;strong&gt;View memory in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Parallel computing in distributed systems with MPI.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/mpi-assb/</link><pubDate>Wed, 01 Nov 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/mpi-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/mpi-assb/mpi-logo.png" alt="Featured image of post Parallel computing in distributed systems with MPI." /&gt;&lt;p&gt;This project was developed for the course Architecture of Systems and Software Basis (ASSB), during my fourth year of studies. The main objective was to become familiar with parallel programming on distributed memory computers using the &lt;strong&gt;MPI&lt;/strong&gt; library in &lt;strong&gt;C&lt;/strong&gt; (Message-Passing Interface). A widely used technique for distributed computing on multiple machines, commonly used in high performance clusters. In the case of this project everything was executed in my own computer, understanding my computer as a kind of cluster and its different cores as machines that form it.&lt;/p&gt;
+&lt;p&gt;The main tasks of this project are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Development of the ‘Hello World’ program with MPI&lt;/strong&gt;: As a first step, I programmed a basic program so that &lt;strong&gt;each process would print a message with its rank and the name of the processor it was running on&lt;/strong&gt;. In addition, I experimented with the possibility of launching more processes than the number of physical cores available, observing how MPI handles this scenario even though it loses performance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Scalar product of vectors in parallel&lt;/strong&gt;: I implemented a program with MPI that &lt;strong&gt;computes the scalar product of two large vectors&lt;/strong&gt;, distributing the work among several processes. Each process calculated a part of the scalar product, and then the results were brought together in the process of rank 0, which displayed the total result. A runtime measurement was also added, allowing analysis of how performance varied as the number of processes changed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Solving integrals using the trapezoid method&lt;/strong&gt;: I then &lt;strong&gt;implemented a program to calculate integrals using the trapezoid method&lt;/strong&gt;, parallelising the program so that each process calculated the sum of the trapezoids in a specific sub-interval. As before, the process at rank 0 was responsible for summing the results of all the processes and displaying the final value of the integral.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Performance and scalability analysis&lt;/strong&gt;: To evaluate the performance of the parallel program, I measured execution times and speedup when using different numbers of processes, from 1 to more than twice the number of available physical cores. The results were visualised in graphs showing how speedup improved as the number of processes increased, but also how efficiency decreased at certain points due to overhead in inter-process communication.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Project documentation: &lt;a class="link" href="./post/paralelizacion-mpi-assb/ASSB-mpi.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Parallel computing on multicore processors with OpenMP.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/openmp-assb/</link><pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/openmp-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/openmp-assb/openmp-logo.png" alt="Featured image of post Parallel computing on multicore processors with OpenMP." /&gt;&lt;p&gt;This project was developed during the Systems and Software Architecture and Basis (ASSB) course during my fourth year of studies. The main objective was to implement an algorithm for calculating the Pi number using the MonteCarlo method by programming in C both sequentially and using parallel programming techniques to take full advantage of the resources of multicore processors using the OpenMP library, which allows code to be executed in multiple threads efficiently.&lt;/p&gt;
+&lt;p&gt;The main tasks performed were the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Development of the sequential and parallel version of the algorithm&lt;/strong&gt;: I implemented a program that simulates the throwing of random ‘darts’ inside a square inscribed in a circle. The ratio between the hits inside the circle and the total throws is used to calculate the value of Pi. In the parallel version, I used OpenMP to divide the work among several threads, taking full advantage of the resources of multi-core processors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Time measurements and performance analysis&lt;/strong&gt;: After developing the two versions of the program, I performed time measurements to evaluate the performance of the parallel version compared to the sequential version. I used different thread configurations, from a single thread to more than twice the physical cores of the processor, in order to analyse the speedup and scalability of the algorithm. The speedup was calculated as the ratio between the single-threaded execution time and the multi-threaded execution time.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Optimisation and management of shared resources&lt;/strong&gt;: During development, it was necessary to solve common problems in parallel programming, such as race conditions. In this case, I used OpenMP directives to define private variables on a per-thread basis, preventing multiple threads from simultaneously accessing the same global variables and affecting the final result.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Generating performance graphs&lt;/strong&gt;: After collecting runtime and speedup data, I generated graphs to visualise the performance of the program as the number of threads increased. These graphs demonstrated how the application scaled with increased thread count, highlighting the advantages and limitations of parallelisation in a shared-memory environment.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Project documentation: &lt;a class="link" href="./post/paralelizacion-openmp-assb/ASSB-openmp.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Datathon Andalucía Dedalus</title><link>https://aleingmar-pi-portfolio.pages.dev/p/datathon/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/datathon/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/datathon/dedalus-logo.png" alt="Featured image of post Datathon Andalucía Dedalus" /&gt;&lt;p&gt;This project was developed during my third year of career for the Datathon organized by Dedalus and AWS in Andalusia, in collaboration with two fellow students. The main objective of this datathon was to work with a dataset provided on patients admitted to Intensive Care Units (ICU), to extract clinical value through cohort analysis and the creation of predictive models. The aim of this competition was to generate relevant information to improve hospital efficiency and optimize decision making in clinical contexts.&lt;/p&gt;
+&lt;h2 id="cohort-analysis"&gt;Cohort analysis
+&lt;/h2&gt;&lt;p&gt;Cohort analysis was one of the fundamental pillars of the project, as it allowed us to identify key patterns among hospitalized patients.&lt;/p&gt;
+&lt;p&gt;We performed a &lt;strong&gt;specific analysis on patients with cardiovascular problems&lt;/strong&gt;. This analysis included several important aspects:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The percentage of cases according to gender, which helped us to identify possible differences in the prevalence of cardiovascular problems between men and women.&lt;/li&gt;
+&lt;li&gt;The distribution of cases in relation to age, which allowed us to obtain a clear picture of the age groups most affected.&lt;/li&gt;
+&lt;li&gt;The number of cases according to body mass index (BMI), which provided a perspective on how BMI influences the incidence of these pathologies.&lt;/li&gt;
+&lt;li&gt;The percentage of mortality according to BMI, revealing possible correlations between body weight and fatal outcomes in patients with cardiovascular problems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We performed a &lt;strong&gt;more general cohort analysis&lt;/strong&gt; for all patients admitted to the ICU. This study included:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The number of ICU admissions and discharges in different time slots, which provided information on the times of day when more admissions occurred.&lt;/li&gt;
+&lt;li&gt;The mortality rate of patients according to diagnosis, shedding light on which were the most critical pathologies in terms of survival.&lt;/li&gt;
+&lt;li&gt;The length of stay in ICU according to each diagnosis, which facilitated the identification of treatments and pathologies that required longer hospitalization time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="hospital-comparison"&gt;Hospital Comparison
+&lt;/h2&gt;&lt;p&gt;Another highlight of the project was the comparative analysis between different hospitals. In this analysis, we evaluated the performance of hospitals in terms of their capacity to treat critical pathologies, using mortality as a key indicator. This analysis allowed us to compare the efficiency of hospitals in the treatment of certain diagnoses and pathologies, in addition to exploring the average length of stay in the ICU for each hospital. With this information, we were able to identify possible areas for improvement in hospital management and clinical care in different health centers.&lt;/p&gt;
+&lt;h2 id="predictive-models"&gt;Predictive Models
+&lt;/h2&gt;&lt;p&gt;As part of the project, we also developed predictive models in order to anticipate behaviors and improve planning in ICUs. One of the main models was &lt;strong&gt;ICU congestion monitoring, which had the ability to predict when critical occupancy levels would be reached and thus anticipate potential bottlenecks in hospital care&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In addition, we designed &lt;strong&gt;models that could predict the length of stay of patients in the ICU&lt;/strong&gt;, classifying them into short, medium or long stays. These predictive models not only allowed us to optimize hospital resource allocation, but also contributed to better discharge planning and reduced waiting times.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./p/datathon/datathon-foto-grupo-sevilla.jpg"
+width="615"
+height="380"
+srcset="./p/datathon/datathon-foto-grupo-sevilla_hu_bc622d1e1b635cac.jpg 480w, ./p/datathon/datathon-foto-grupo-sevilla_hu_1bec43cc8cdd2ed2.jpg 1024w"
+loading="lazy"
+alt="Group photo"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="388px"
+&gt;&lt;img src="./p/datathon/dedalus.jpg"
+width="720"
+height="675"
+srcset="./p/datathon/dedalus_hu_13600aa53aec4351.jpg 480w, ./p/datathon/dedalus_hu_bee6ca3975e73dd4.jpg 1024w"
+loading="lazy"
+alt="Photo during the presentation"
+class="gallery-image"
+data-flex-grow="106"
+data-flex-basis="256px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Presentation: &lt;a class="link" href="./post/datathon/ATENAS_Datathon_Dedalus.pdf" &gt;&lt;strong&gt;View presentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Client-Server Architecture in Java using TLS</title><link>https://aleingmar-pi-portfolio.pages.dev/p/security-gasca/</link><pubDate>Wed, 01 Dec 2021 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/security-gasca/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/security-gasca/java3.png" alt="Featured image of post Client-Server Architecture in Java using TLS" /&gt;&lt;p&gt;This project was developed during the Security, Confidentiality and Identity Management (SCGI) course during my third year. This project focused on the design and development of a secure client-server architecture using the Transport Layer Security (TLS) protocol, with the aim of ensuring the confidentiality, integrity and authenticity of communications.&lt;/p&gt;
+&lt;h2 id="context-and-objective"&gt;Context and Objective
+&lt;/h2&gt;&lt;p&gt;The project arose from the need to secure communications in an application that allows the transmission of sensitive data, such as user credentials (login/password), between clients and a central server. This type of application is especially relevant in environments where data privacy is crucial, such as the health sector, banking and any system where users must authenticate their identity to access services.&lt;/p&gt;
+&lt;h2 id="configuring-keystores-and-truststores"&gt;Configuring KeyStores and TrustStores
+&lt;/h2&gt;&lt;p&gt;To implement TLS security, it was necessary to configure both the KeyStore and the TrustStore. These elements allow mutual authentication between the client and the server. The KeyStore contains the private keys and associated certificates that identify the entity (client or server), while the TrustStore manages the certificates of the trusted entities, allowing validation that the communication partners are legitimate.&lt;/p&gt;
+&lt;p&gt;In the development of this project, Keytool, a tool included in the &lt;strong&gt;Java&lt;/strong&gt; JDK, was used to create and manage the certificates. The process required the configuration of environment variables such as JAVA_HOME and PATH, to facilitate the use of this tool from the command line.&lt;/p&gt;
+&lt;h2 id="implementation-of-tls-sockets"&gt;Implementation of TLS Sockets
+&lt;/h2&gt;&lt;p&gt;The communication between the client and the server was done through SSL (Secure Sockets Layer) sockets, over which the TLS protocol was integrated. At both ends, client and server, secure sockets were configured to allow the transmission of encrypted data. The server was designed to listen for incoming connections on a specific port (in this case, port 3343), authenticating clients by verifying their credentials.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;TLS Server&lt;/strong&gt;: The server was responsible for receiving client connections and authenticating each user by verifying their credentials (username and password). It also provided responses based on the result of this verification, informing the client whether the authentication was successful or unsuccessful.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;TLS client&lt;/strong&gt;: The client established a secure connection to the server and sent the user&amp;rsquo;s credentials for verification. The server&amp;rsquo;s response was displayed in a simple user interface, indicating whether the authentication process was successful or if there was an error.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="communication-and-security-testing"&gt;Communication and security testing
+&lt;/h2&gt;&lt;p&gt;Both secured and unsecured communication tests were conducted in order to highlight the importance of using TLS in applications that handle sensitive information. For the unsecured tests, an unencrypted socket was implemented to observe how an attacker, using tools such as &lt;strong&gt;Wireshark&lt;/strong&gt;, could capture and display in clear text the transmitted user credentials.&lt;/p&gt;
+&lt;p&gt;In contrast, by enabling TLS, it was observed that all transmitted data was encrypted, making it impossible for an attacker to read the captured data on the network. This demonstrated the effectiveness of TLS in protecting the confidentiality and integrity of information.&lt;/p&gt;
+&lt;h2 id="performance-and-concurrency"&gt;Performance and Concurrency
+&lt;/h2&gt;&lt;p&gt;A key aspect of this project was the validation of system performance, specifically the ability to handle multiple concurrent connections. The server was configured to handle up to 300 concurrent connections, which was achieved by using Java threads to handle parallel requests. Although connections were made sequentially in the initial tests (one every second), the system proved to be robust in processing requests efficiently without compromising security or stability.&lt;/p&gt;
+&lt;p&gt;Project documentation: &lt;a class="link" href="./post/seguridad-gasca/conexion_TLS.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Data project with Weka</title><link>https://aleingmar-pi-portfolio.pages.dev/p/weka-espacial/</link><pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/weka-espacial/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/weka-espacial/weka.png" alt="Featured image of post Data project with Weka" /&gt;&lt;p&gt;This project was developed as part of the Intelligent Systems (IS) course during my third year of studies. The work consisted of applying different classification and data pre-processing algorithms to solve a hypothetical problem about space travel in the distant future. The main objective was to predict, based on certain attributes of the passengers, whether they would be transported to an alternative dimension after a space accident.&lt;/p&gt;
+&lt;h2 id="context-and-objective"&gt;Context and Objective
+&lt;/h2&gt;&lt;p&gt;The problem posed the situation where a spacecraft, with thousands of passengers on board, collides with a space-time anomaly, and half of the passengers are transported to another dimension. The challenge of the project was to develop a predictive model to identify which passengers would have been transported to that alternate dimension, based on attributes such as age, planet of origin, whether they were in cryo-sleep, and other factors.&lt;/p&gt;
+&lt;h2 id="data-preprocessing"&gt;Data Preprocessing
+&lt;/h2&gt;&lt;p&gt;The dataset provided contained information on approximately 8700 passengers, and consisted of 14 attributes, both numerical and nominal. Initially, certain variables considered irrelevant, such as passenger destination and amounts spent on luxury services, were removed. Next, missing value imputations were performed and categorical variables were binarised using One Hot Encoding.&lt;/p&gt;
+&lt;p&gt;To improve the efficiency of distance-based ranking algorithms such as KNN, normalisation of numerical variables, in particular passenger age, was performed to ensure a fair comparison between the different attributes.&lt;/p&gt;
+&lt;h2 id="algorithms-implemented"&gt;Algorithms Implemented
+&lt;/h2&gt;&lt;p&gt;Several classification algorithms were tested, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ZeroR&lt;/strong&gt;: Used as a baseline, classifying all passengers based on the value of the most frequent class.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;J48&lt;/strong&gt;: A decision tree type algorithm that showed good results after a pruning process to avoid overfitting.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KNN&lt;/strong&gt; (k-Nearest Neighbors): This classifier was based on the similarity between individuals to predict whether a passenger would be transported. Different values of K were tested, with 9 being the best performing value.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Naive Bayes&lt;/strong&gt;: An algorithm that, despite its simplicity, provided good results by assuming independence between attributes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="results"&gt;Results
+&lt;/h2&gt;&lt;p&gt;The best performance was obtained using the KNN algorithm with a value of K=9, achieving an accuracy of 74.3%. In comparison, the other algorithms showed slightly lower performances. The experiments performed with &lt;strong&gt;cross-validation&lt;/strong&gt; helped to more reliably evaluate the models, ensuring that there was no over-fitting.&lt;/p&gt;
+&lt;p&gt;Project documentation: &lt;a class="link" href="./post/weka-espacial/viaje-espacial-weka.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Relational database for the management of operating room equipment.</title><link>https://aleingmar-pi-portfolio.pages.dev/p/bd-quirofano/</link><pubDate>Thu, 01 Apr 2021 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/bd-quirofano/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/bd-quirofano/bd.png" alt="Featured image of post Relational database for the management of operating room equipment." /&gt;&lt;p&gt;This project was developed during the Database (DB) course during my second year of my degree. The main objective was to design, model and develop a SQL database to manage and store the information of the electromedical facilities and equipment of an operating theatre. The database would allow not only to manage the equipment and its maintenance, but also to ensure compliance with health regulations, to control the value of the equipment, to supervise periodic revisions&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Some of the tasks performed include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Design and modelling of the database&lt;/strong&gt;: Based on an exhaustive analysis of the requirements, a relational model was developed representing the different elements of the operating theatre, the electro-medical equipment, the air conditioning and electrical installations, and the profiles of the users managing this information (biomedical engineers, maintenance engineers and general services managers).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Equipment lifecycle management&lt;/strong&gt;: The database stores key information about the equipment, such as its acquisition date, useful life, supplier, purchase value and technical parameters that must be kept within certain ranges to ensure its correct functioning. This allows maintenance schedules to be controlled and replacements to be planned in a timely manner.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Automation of overhauls&lt;/strong&gt;: Through &lt;strong&gt;triggers&lt;/strong&gt; and &lt;strong&gt;stored procedures&lt;/strong&gt;, the database is able to generate alerts when overhaul dates are approaching or when a piece of equipment is close to exceeding its useful life. This ensures that the OR is maintained to the required standards without unplanned interruptions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Advanced queries and reporting&lt;/strong&gt;: Implementation of a series of &lt;strong&gt;views&lt;/strong&gt; and &lt;strong&gt;queries&lt;/strong&gt; to provide easy access to relevant information, such as overhaul status, total equipment cost and engineers&amp;rsquo; maintenance history. This allows users to obtain customised reports that can be used for strategic decision making within the hospital.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Project documentation: &lt;a class="link" href="./post/bd-quirofano/bd-quirofano.pdf" &gt;&lt;strong&gt;View documentation in pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Archives</title><link>https://aleingmar-pi-portfolio.pages.dev/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/archives/</guid><description/></item><item><title>Search</title><link>https://aleingmar-pi-portfolio.pages.dev/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/search/</guid><description/></item></channel></rss>

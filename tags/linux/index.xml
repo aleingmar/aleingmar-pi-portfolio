@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/tags/linux/</link><description>Recent content in Linux on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 01 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>My own RPI5 server</title><link>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/my-server/rasberry.png" alt="Featured image of post My own RPI5 server" /&gt;&lt;p&gt;This project consists of hosting and managing autonomously certain services on my own server, a RasberryPi 5 with 8gb of Ram.&lt;/p&gt;
+&lt;p&gt;For the administration and configuration of both the server and its hosted services, I access remotely via SSH protocol.&lt;/p&gt;
+&lt;p&gt;The server is associated to a main domain managed by &lt;strong&gt;DuckDNS&lt;/strong&gt;, which allows me to access the services remotely through the browser. To prevent the dynamic IP of my home network from changing and losing access to the server, I have a service that automatically updates this IP every 5 minutes, ensuring that it is always correctly synchronised.&lt;/p&gt;
+&lt;p&gt;To organise access via subdomains and ensure connection to my services via &lt;strong&gt;HTTPS&lt;/strong&gt;, I use &lt;strong&gt;Caddy&lt;/strong&gt; as a web server, which acts as an intermediary and handles the TLS/SSL certificates, guaranteeing secure and uncomplicated access.&lt;/p&gt;
+&lt;p&gt;In addition, I have implemented an advanced control panel called &lt;strong&gt;Homarr&lt;/strong&gt;, which provides me with a centralised interface from which I can easily log in and access the different services deployed on the server.&lt;/p&gt;
+&lt;p&gt;All the services hosted on the server including the ones mentioned above are hosted using &lt;strong&gt;Docker containers&lt;/strong&gt; and are organized in specific subdomains.
+At the time of writing, the unmentioned services hosted on the server are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Vaultwarden&lt;/strong&gt;: A password manager.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portainer&lt;/strong&gt;: A container manager with a web interface.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pi-hole&lt;/strong&gt;: An ad-blocking DNS service.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WireGuard&lt;/strong&gt;: A VPN service.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WireGuard is integrated with Pi-hole. This setup allows me not only to redirect my traffic through my server to secure my connection, but also to enjoy ad-free browsing, no matter where I am.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/ZHQXSUq01k0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>

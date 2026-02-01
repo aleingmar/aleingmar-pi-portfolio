@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Desarrollo Web on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/categories/desarrollo-web/</link><description>Recent content in Desarrollo Web on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/categories/desarrollo-web/index.xml" rel="self" type="application/rss+xml"/><item><title>ScreenRPA</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/screenrpa-rpa-us/</link><pubDate>Thu, 06 Jun 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/screenrpa-rpa-us/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/screenrpa-rpa-us/es3.png" alt="Featured image of post ScreenRPA" /&gt;&lt;p&gt;Durante la realización de mi Trabajo de Fin de Grado y las prácticas en empresa de la carrera, tuve la oportunidad de formar parte del grupo de investigación ES3 (Engineering and Science for Software Systems) de la Universidad de Sevilla. Grupo especializado en la investigación y desarrollo de sistemas software avanzados &lt;a class="link" href="https://www.linkedin.com/company/grupoes3/" target="_blank" rel="noopener"
+&gt;https://www.linkedin.com/company/grupoes3/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Mi trabajo se centró en desarrollar parte de la plataforma screenRPA, una plataforma de Automatización Robótica de Procesos (RPA). Mi objetivo principal fue mejorar la capacidad de extracción de valor y conocimiento a partir de los procesos RPA. Para ello, trabajé en tres áreas diferentes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Mejora de la plataforma web y visualización de resultados&lt;/strong&gt;: Trabajé en el desarrollo de la plataforma web para visualizar y extraer resultados a lo largo de todo el pipeline del proceso RPA, facilitando así la interacción y el análisis de cada una de las fases por parte de los analistas. Todo ello siguiendo el patrón de diseño software &lt;strong&gt;Modelo Vista Controlador&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Aplicación de técnicas avanzadas de minería de decisiones&lt;/strong&gt;: Desarrollé y apliqué una nueva técnica basadas en Machine Learning, específicamente en la fase de descubrimiento de decisiones. Durante esta fase se busca entender porqué un usuario realiza una acción en vez de otra. La minería de decisiones es una especialidad dentro del campo de la minería de procesos. La aplicación de esta técnica permitió descubrir patrones y reglas no deterministas en las decisiones de los usuarios, proporcionando un mayor entendimiento de los procesos automatizados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Generación automática de informes empresariales&lt;/strong&gt;: Implementé un sistema en la plataforma para la creación automática de reportes empresariales comprensibles por analistas y clientes. Estos informes desglosaban todo el conocimiento extraído por la plataforma tras su ejecución, facilitando la toma de decisiones estratégicas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este proyecto me permitió aplicar conocimientos avanzados en automatización, Machine Learning y minería de procesos, contribuyendo a la evolución de una plataforma innovadora dentro del ámbito de la automatización empresarial.&lt;/p&gt;
+&lt;p&gt;Memoria del trabajo fin de grado relacionado con este proyexto:
+&lt;a class="link" href="../../../post/screenrpa-es3/memoria-tfg.pdf" &gt;&lt;strong&gt;Visualizar pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Parte de la plataforma screenRPA desarrollada en mi trabajo:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/wyJ44HuMGMQ"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Despliegue y creación de portfolio web con Hugo.</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Despliegue y creación de portfolio web con Hugo." /&gt;&lt;p&gt;Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.&lt;/p&gt;
+&lt;h2 id="desarrollo-web"&gt;Desarrollo Web
+&lt;/h2&gt;&lt;p&gt;Para la construcción de mi portfolio elegí &lt;strong&gt;Hugo&lt;/strong&gt;, una plataforma de generación de sitios web estáticos que permite crear páginas modernas de frontend utilizando archivos &lt;strong&gt;Markdown&lt;/strong&gt;. La decisión de usar Hugo se basó en que ya había redactado una parte de mi portfolio en Obsidian, una herramienta (donde también se escribe en Markdown) que utilizo habitualmente para tomar notas y organizar mis apuntes. La capacidad de Hugo para aprovechar archivos en formato Markdown me permitió migrar este contenido fácilmente y enfocarme más en la calidad del contenido que en el desarrollo técnico.&lt;/p&gt;
+&lt;p&gt;El tema que seleccioné para mi portfolio es &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt;, debido a su formato limpio y moderno, que se ajusta perfectamente a la estructura y diseño que buscaba. Esta plantilla, con su enfoque en el rendimiento y la simplicidad, me permitió optimizar el desarrollo de mi portfolio sin necesidad de invertir demasiado tiempo en el diseño de la interfaz. Aun así, he programado nuevas funcionalidades que difieren del proyecto base open source para mi uso personal.&lt;/p&gt;
+&lt;h2 id="devops-y-despliegue"&gt;DevOps y Despliegue
+&lt;/h2&gt;&lt;p&gt;En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en mi servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno ordenado y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.&lt;/p&gt;
+&lt;p&gt;El servidor web que gestiona las peticiones es &lt;strong&gt;Caddy&lt;/strong&gt;, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera. Para monitorizar el portfolio web utilizo Google Analytics 4 (GA4) lo que me permite ver estadísticas sobre los accesos al sitio web.&lt;/p&gt;
+&lt;p&gt;Para el desarrollo, suelo trabajar en local utilizando &lt;strong&gt;Visual Studio Code&lt;/strong&gt;, aunque en ocasiones utilizo &lt;strong&gt;GitHub Codespaces&lt;/strong&gt; cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está totalmente automatizado mediante un script de bash y un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proceso de despliegue de cambios en el portfolio web con script de bash:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Aplicación web para la gestión de jornadas laborales</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/cgis-laravel-jornadas/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/cgis-laravel-jornadas/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/cgis-laravel-jornadas/logo-laravel.png" alt="Featured image of post Aplicación web para la gestión de jornadas laborales" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Codificación y gestión de información sanitaria (CGIS) durante mi tercer año de carrera. El objetivo principal del proyecto es diseñar, modelar y desarrollar una aplicación web para gestión las jornadas laborales del personal sanitario de una entidad hospitalaria.&lt;/p&gt;
+&lt;p&gt;De forma general, por parte de los roles normales de profesionales sanitarios, la aplicación permite que puedan consultar sus accesos al centro hospitalario y crear incidencias si ven que hay alguna anomalía con el registro. Por parte de los roles de adminsitración y responsabilidad, la aplicación permite monitorizar y llevar un control de que los trabajadores cumplen con sus jornadas laborales y posibilita tramitar aquellas incidencias que los profesionales imponen al ver un problema con el registro de sus accesos.&lt;/p&gt;
+&lt;p&gt;Además de esto, la aplicación permite funcionalidades comunes a todos los roles como son la creación de cuentas de usuarios, la gestión de perfil de usuario&amp;hellip;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/5IerfTbQQ2Q"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;h1 id="documentación"&gt;Documentación
+&lt;/h1&gt;&lt;h1 id="índice"&gt;Índice
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class="link" href="#Dominio_del_problema" &gt;Dominio_del_problema&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Objetivos" &gt;Objetivos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Usuarios_del_sistema:" &gt;Usuarios_del_sistema:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Requisitos_de_informaci%c3%b3n:" &gt;Requisitos_de_información:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Requisitos_funcionales:" &gt;Requisitos_funcionales:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Reglas_de_negocio:" &gt;Reglas_de_negocio:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Requisitos_no_funcionales:" &gt;Requisitos_no_funcionales:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="#Modelo_conceptual_UML:" &gt;Modelo_conceptual_UML&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="dominio-del-problema"&gt;Dominio del problema:
+&lt;/h2&gt;&lt;p&gt;En la actualidad el sistema por el que se rigen las jornadas laborales de los profesionales sanitarios es muy complejo. Eventos como las guardias, los cambios de turnos o las rotaciones entre centros son el pan de cada día en el sector. Esto hace que la organización de este sistema sea muy difícil de gestionar y que en muchas ocasiones no se lleguen a registrar muchos de estos sucesos.&lt;/p&gt;
+&lt;h2 id="objetivos"&gt;Objetivos:
+&lt;/h2&gt;&lt;p&gt;El objetivo de nuestro sistema será capacitar a los profesionales del sector de una herramienta que les permita tanto a la dirección como a los profesionales sanitarios una forma de gestión que solvente eficaz y eficientemente la problemática anterior . Facilitando en gran medida los procesos y permitiendo que los propios profesionales tengan un papel protagonista en estos. Los principales objetivos de nuestro sistema serán:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-1. Gestión de los accesos al centro hospitalario:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Nuestro sistema tendrá como uno de sus objetivos llevar a cabo un control/seguimiento de los accesos al centro hospitalario por parte del personal sanitario. Permitiendo registrar con exactitud el número de horas ejercidas por los profesionales, evitar la saturación del personal, notificar incidencias en los accesos, detectar posibles fraudes…&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-2.Registro y gestión de incidencias sobre los accesos del personal sanitario:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Nuestro sistema tendrá como uno de sus objetivos llevar a cabo un control de los accesos al centro hospitalario por parte del personal sanitario mediante el uso de incidencias. Permitiendo registrar la fecha de presentación de la incidencia, la fecha de la respuesta, el estado, el motivo de presentación y respuesta&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OBJ-3. Registro y gestión de información del personal sanitario:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Nuestro sistema tendrá como uno de sus objetivos llevar a cabo el registro y la gestión de la información del personal sanitario. Permitiendo registrar información personal sobre los profesionales, sobre su especialidad, cargo…&lt;/p&gt;
+&lt;h2 id="usuarios-del-sistema"&gt;Usuarios del sistema:
+&lt;/h2&gt;&lt;p&gt;Los tipos de usuarios que podrán acceder al sistema y hacer un uso específico de este serán:&lt;/p&gt;
+&lt;p&gt;Profesionales Sanitarios (médicos y enfermeros) .&lt;/p&gt;
+&lt;p&gt;Dirección&lt;/p&gt;
+&lt;p&gt;Jefes de guardia.&lt;/p&gt;
+&lt;p&gt;Administrador&lt;/p&gt;
+&lt;h2 id="requisitos-de-información"&gt;Requisitos de información:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;RI-001. Información sobre los usuarios:&lt;/strong&gt; El sistema deberá almacenar datos personales sobre todos los usuarios. Dirección de correo electrónico principal y segundario, contraseña y nombre.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RI-002. Información sobre el personal sanitario:&lt;/strong&gt; El sistema deberá almacenar datos del personal sanitario. Tipo de profesión (médico y enfermero), especialidad médica y cargo dentro del sistema hospitalario (Dirección, jefe de guardias, sanitario normal).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RI-003. Información sobre las especialidades médicas:&lt;/strong&gt; El sistema deberá almacenar datos sobre las especialidades médicas del personal sanitario. Nombre de especialidad (cardiología, radiología y pediatría).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RI-004. Información sobre los accesos al centro sanitario:&lt;/strong&gt; El sistema deberá registrar datos sobre los accesos al centro sanitario por parte del personal sanitario .Fecha/hora de entrada, fecha/hora de salida y número de horas trabajadas en cada joornada.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RI-006. Información sobre incidencias :&lt;/strong&gt; El sistema deberá registrar datos sobre las incidencias (con respecto a problemas con los accesos) que notifiquen el personal sanitario. Fecha/hora en la que se realiza la incidencia, motivo de la incidencia, acceso a la que hace referencia , estado de la incidencia (aceptada, rechazada, pendienteRespuesta), motivo de la respuesta y sanitario que la realiza.&lt;/p&gt;
+&lt;h2 id="requisitos-funcionales"&gt;Requisitos funcionales:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;RF-001. Registro de usuarios: (todos los roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Queremos que el sistema nos permita a los profesionales sanitarios registrarnos como usuarios con una contraseña y acceder al sistema.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ACCESOS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-002. Crear acceso: (direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder crear accesos a los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-003. Cosultar mis accesos: (todos los roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar mi historial de accesos al centro médico.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-004. Consultar accesos: (jefe de guardia, direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar los acceso de los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-005. Consultar en detalle un acceso: (todos los roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar en detalle un acceso de mis listado de accesos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-006. Modificar acceso: (direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder modificar los accesos de los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-007. Borrar acceso: (direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder borrar accesos a los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-008. Filtrar accesos por fechas: (todos los roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder filtrar por fechas mi historial de accesos al centro médico.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;INCIDENCIAS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-009. Crear registro de incidencias: (profesional sanitario, jefe de guardias)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder notificar de cualquier incidencia sobre los registros de mis accesos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0010. Consultar incidencias: (direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar un listado de las incidencias de los sanitarios.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0011. Consultar mis incidencias: (profesional sanitario, jefe de guardias, direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar un listado de mis incidencias.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0012. Consultar en detalle incidencias: (todos los roles)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar en detalle las incidencia.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0013. Modificar incidencias: (profesional sanitario, jefe de guardias)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder modificar mis incidencias.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0014. Borrar incidencias: (profesional sanitario)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder borrar mis incidencia sobre los registros de mis accesos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-015. Solucionar incidencias: (direccion, administrador)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder aprobar o denegar a las incidencias haciendoles saber el motivo de la resolución.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SANITARIOS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0016. Crear sanitarios : (direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder crear un nuevo sanitario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0017. Cosultar sanitarios: (jefe de guardia, direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar un listado de los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0018. Consultar en detalle sanitarios : (direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder ver en detalle los datos de un sanitario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0019. Cosultar en detalle sanitarios: (jefe de guardia, direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder consultar en detalle un sanitario del listado de los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0020. Modificar sanitarios : (direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder modificar los datos de un sanitario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0021. Borrar sanitarios : (direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder borrar los datos de un sanitario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0022. Filtrar sanitarios por nombre: (jefe de guardia, direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder filtrar por nombre el listado de los sanitarios que sean compatibles con mi responsabilidad.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RF-0023. Filtrar sanitarios por nombre: (direccion, administrador )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Quiero poder filtrar por profesión el listado de los sanitarios .&lt;/p&gt;
+&lt;h2 id="reglas-de-negocio"&gt;Reglas de negocio:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;RN-001. :&lt;/strong&gt; No especificadas&lt;/p&gt;
+&lt;h2 id="requisitos-no-funcionales"&gt;Requisitos no funcionales:
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;RNF-001. Seguridad&lt;/strong&gt;: El sistema debe estar protegido contra el acceso no autorizado.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-002. Actuación&lt;/strong&gt;: El sistema debe poder manejar el número requerido de usuarios sin ninguna degradación en el rendimiento.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-003. Escalabilidad&lt;/strong&gt;: El sistema debe ser capaz de escalar hacia arriba o hacia abajo según sea necesario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-004. Disponibilidad&lt;/strong&gt;: El sistema debe estar disponible cuando sea necesario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-005. Mantenimiento&lt;/strong&gt;: El sistema debe ser fácil de mantener y actualizar.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-006. Portabilidad&lt;/strong&gt;: El sistema debe poder ejecutarse en diferentes plataformas con cambios mínimos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-007. Fiabilidad&lt;/strong&gt;: El sistema debe ser confiable y cumplir con los requisitos del usuario.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-008. Usabilidad&lt;/strong&gt;: El sistema debe ser fácil de usar y comprender.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-009. Compatibilidad&lt;/strong&gt;: El sistema debe ser compatible con otros sistemas.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNF-010. Compliancia&lt;/strong&gt;: El sistema debe cumplir con todas las leyes y reglamentos aplicables&lt;/p&gt;
+&lt;p&gt;El sistema debe de tener una disponibilidad del 99,96%.&lt;/p&gt;
+&lt;h2 id="modelo-conceptual-uml"&gt;Modelo conceptual UML
+&lt;/h2&gt;&lt;p&gt;&lt;img src="../../../p/cgis-laravel-jornadas/diagramaConceptual.png"
+width="987"
+height="744"
+srcset="../../../p/cgis-laravel-jornadas/diagramaConceptual_hu_d158fd7e9fa155a7.png 480w, ../../../p/cgis-laravel-jornadas/diagramaConceptual_hu_dcf4e16597d80600.png 1024w"
+loading="lazy"
+alt="DIAGRAMA"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+&gt;&lt;/p&gt;</description></item></channel></rss>

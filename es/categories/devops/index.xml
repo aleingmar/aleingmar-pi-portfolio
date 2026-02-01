@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DevOps on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/categories/devops/</link><description>Recent content in DevOps on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Sat, 10 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/categories/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>Despliegue automático de servicio MEAN multicapa en AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/stack-mean-terraform/</link><pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/stack-mean-terraform/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/stack-mean-terraform/stack.png" alt="Featured image of post Despliegue automático de servicio MEAN multicapa en AWS" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo del proyecto fue desplegar de forma automática un sistema MEAN multicapa completamente funcional en la nube de AWS. Este sistema se compone de un balanceador de carga, varias instancias para la aplicación web y una instancia dedicada para la base de datos MongoDB. Utilizo Terraform, Packer y Ansible para la automatización de infraestructura y aprovisionamiento.&lt;/p&gt;
+&lt;p&gt;A nivel personal, considero importante destacar que el informe de documentación de este proyecto está especialmente completo, ya que recoge todos los detalles del proceso de desarrollo. Entre ellos, he tenido que enfrentarme a tres problemas principales durante este proceso. Sin entrar en demasiados detalles, estos fueron:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Despliegue en Azure, incompatibilidad de versiones y elección de AWS.&lt;/li&gt;
+&lt;li&gt;Ejecución de un comando interactivo que bloquea el proceso automático de aprovisionamiento.&lt;/li&gt;
+&lt;li&gt;Inconsistencia de recursos estáticos y cierre de sesión del balanceador.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En mi opinión, estos problemas resultan muy interesantes de analizar, ya que son situaciones habituales en este tipo de trabajos. Aunque pueden parecer menores, han sido fundamentales en el desarrollo del proyecto.&lt;/p&gt;
+&lt;p&gt;También cabe mencionar que para este proyecto he utilizado tecnologías similares a las del proyecto &lt;strong&gt;&amp;ldquo;Creación y despliegue automatizado de imagen en entorno multicloud&amp;rdquo;&lt;/strong&gt;, que también está disponible en mi portfolio. Por esta razón, en esta publicación he decidido resaltar tres aspectos que diferencian ambos trabajos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El uso del stack MEAN.&lt;/li&gt;
+&lt;li&gt;La modularización de Terraform.&lt;/li&gt;
+&lt;li&gt;El proceso de despliegue y arquitectura, aunque este último se presenta de forma resumida, ya que se explica de manera extensa y detallada en el informe.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="stack-tecnológico"&gt;Stack Tecnológico
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Terraform&lt;/strong&gt;: con terraform centralizo todo el proceso de despliegue, levanto y gestiono los elementos de infraestructura que forman el sistema. Algunos de estos elementos son por ejemplos las redes que conectan las distintas instancias, las propias instancias, el balanceador de carga&amp;hellip; En definitiva la infra que sustenta el servicio.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Packer&lt;/strong&gt;: con packer creo la imagen que me sirve como base para las instancias que levanto con Terraform. En este proyecto, Packer genera una imagen personalizada para la primera capa del sistema, aprovisionándola con los servicios necesarios como Node.js, Nginx, Angular&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ansible&lt;/strong&gt;: con Ansible realizo el aprovisionamiento de la instancia que levanta y usa Packer para la creación de la imagen. En este proyecto, Ansible aprovisiona de forma automática la instancia con Angular, Express, MongoDB, Nginx, Node&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Stack MEAN&lt;/strong&gt;: El sistema que se levanta se trata de un servicio conformado por el stack tecnológico MEAN, ampliamente utilizado en la industria por su versatilidad y rendimiento:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MongoDB&lt;/strong&gt;: Base de datos no relacional orientada a documentos, ideal para manejar grandes volúmenes de datos estructurados y no estructurados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Express&lt;/strong&gt;: Framework backend para Node.js que facilita el desarrollo de aplicaciones web robustas y escalables.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Angular&lt;/strong&gt;: Framework frontend que permite desarrollar interfaces modernas y reactivas, mejorando la experiencia del usuario.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt;: Entorno de ejecución para Js en el lado del servidor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="modularización-de-la-plantilla-terraform"&gt;Modularización de la plantilla Terraform
+&lt;/h3&gt;&lt;h4 id="importancia-de-la-modularización"&gt;Importancia de la modularización
+&lt;/h4&gt;&lt;p&gt;La modularización en Terraform es vital en los proyectos que utilizan Terraform. Básicamente consiste en dividir el &lt;strong&gt;main.tf&lt;/strong&gt; en distintos &amp;ldquo;módulos&amp;rdquo; según ciertas categorías. No solo mejora la legibilidad y mantenimiento del código, sino que también permite dividir responsabilidades y reutilizar configuraciones entre proyectos. Aunque la gestión de variables entre módulos puede ser compleja, esta práctica resulta esencial en infraestructuras grandes y dinámicas.&lt;/p&gt;
+&lt;h4 id="módulos-del-proyecto"&gt;Módulos del proyecto
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo de seguridad&lt;/strong&gt;: Este módulo gestiona los grupos de seguridad que definen las reglas de tráfico hacia y desde las instancias, posibilitando tráfico de protocolos como SSH, HTTP&amp;hellip; También se configuran las claves SSH necesarias para acceder a las instancias de forma remota.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo de redes&lt;/strong&gt;: Define las redes y subredes privadas necesarias para la conectividad del sistema y además, configura tablas de enrutamiento y gateways para garantizar el acceso entre las capas de la infraestructura.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo de instancias&lt;/strong&gt;: Despliega las instancias de la primera y segunda capa, asignando direcciones IP públicas y privadas y además,provisiona estas instancias para su correcto funcionamiento en el sistema.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo de balanceador de carga&lt;/strong&gt;: Configura y define todo lo relacionado con el balanceador de carga que distribuye el tráfico entre las instancias de la primera capa. Además del propio balanceador de carga, para que este funcione necesita más elementos como son grupos de destino, estrategias de distribución como round-robin, definición de la persistencia de sesiones&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo de imagen&lt;/strong&gt;: Este módulo integra Terraform con Packer para la creación de imágenes base. Terraform ejecuta &lt;strong&gt;packer build&lt;/strong&gt;, recupera la imagen generada y la utiliza para instanciar recursos de la primera capa.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../../p/stack-mean-terraform/modulos.png"
+width="475"
+height="614"
+srcset="../../../p/stack-mean-terraform/modulos_hu_38e6509afd8e9619.png 480w, ../../../p/stack-mean-terraform/modulos_hu_89c902ab49a371c4.png 1024w"
+loading="lazy"
+alt="Estructura de directorios"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="185px"
+&gt;&lt;/p&gt;
+&lt;h3 id="proceso-de-despliegue-y-arquitectura"&gt;Proceso de despliegue y arquitectura
+&lt;/h3&gt;&lt;p&gt;El despliegue comienza con la integración de Terraform y Packer. Terraform invoca a Packer, que se encarga de levantar una instancia temporal en AWS para generar una imagen base. Durante este proceso, esta instancia es aprovisionada con Ansible, que instala y configura servicios como Angular, Express y MongoDB, además de copiar ficheros esenciales desde el entorno local. Una vez completado el aprovisionamiento, Packer crea la imagen base y destruye la instancia temporal, dejando preparada una imagen lista para su reutilización.&lt;/p&gt;
+&lt;p&gt;Con la imagen generada, Terraform procede a desplegar la infraestructura completa. En primer lugar, se configuran las redes y subredes, asegurando la conectividad interna entre las capas del sistema. A continuación, se despliegan las instancias de la primera capa utilizando la imagen base. Estas instancias alojan el frontend y backend de la aplicación, con Node.js y Nginx sirviendo como núcleo operativo.&lt;/p&gt;
+&lt;p&gt;Simultáneamente, Terraform levanta la instancia de la segunda capa, dedicada a la persistencia de datos con MongoDB. Esta instancia se conecta mediante una red privada a las instancias de la primera capa, garantizando una comunicación segura y estable. Además de esto, terraform también levanta un balanceador de carga, configurado para distribuir el tráfico entre las instancias de la primera capa, lo que asegura alta disponibilidad y escalabilidad.&lt;/p&gt;
+&lt;p&gt;El último paso es el aprovisionamiento final. Terraform utiliza scripting en Bash para terminar de configurar las instancias desplegadas. Por ejemplo, en las instancias de la primera capa, se ajustan las configuraciones de Angular para incluir las direcciones IP del backend, lo que permite que se generen los ficheros estáticos que son servidos por Nginx con las rutas necesarias para conectar el cliente con el backend.&lt;/p&gt;
+&lt;p&gt;Todo este proceso asegura un despliegue completamente automatizado, resultando en un sistema funcional y listo para producción, con componentes integrados y configurados para ofrecer un rendimiento óptimo.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/Multi-layer_MEAN_Deployment" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/Multi-layer_MEAN_Deployment&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h3&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/stack-MEAN-Terraform/Act2_StackMEAN_Terraform_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/zRGhkBebEbA"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Creación y despliegue automatizado de imagen en entorno multicloud.</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/imagen-multicloud-packer/</link><pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/imagen-multicloud-packer/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/imagen-multicloud-packer/imagen-multicloud-packer2.png" alt="Featured image of post Creación y despliegue automatizado de imagen en entorno multicloud." /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Herramientas DevOps, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo del proyecto es &lt;strong&gt;crear y desplegar de forma automática una imagen de un sistema web completo en un entorno multicloud de Azure y AWS&lt;/strong&gt;. Este sistema web se compone de una pequeña aplicación escrita con Nodejs y un servidor web Nginx. Para conseguirlo, utilizo las tecnologías de Terraform, Ansible y Packer principalmente.&lt;/p&gt;
+&lt;h3 id="tecnologías-utilizadas"&gt;Tecnologías utilizadas:
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Terraform:&lt;/strong&gt; Con Terraform centralizo todo la ejecución del proceso y despliego la infraestructura necesaria para levantar una instancia en la nube creada a partir de la imagen del sistema y accesible a través de internet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Packer:&lt;/strong&gt; Con Packer construyo la imagen del sistema completo. Packer utiliza como proveedor para la creación de la imagen la cloud. Levanta una instancia y toda la infraesturctura necesaria para la creación de la imagen y cuando termina las destruye.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ansible:&lt;/strong&gt; con ansible se lleva a cabo el aprovisionamiento de la instancia que levanta packer y a partir del cual se crea la imagen. En el caso de Azure este aprovisionamiento lo hago con Ansible, en el caso de AWS hago lo mismo pero directamente con scripting de Bash.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para controlar el despliegue multicloud, se ha implementado un parámetro que se debe pasar al &lt;code&gt;terraform apply &amp;quot;deployment_target=&amp;quot;&lt;/code&gt;, indicando si se quiere desplegar en las dos nubes simultaneamente o en una única nube. Si es este caso, hay que indicar en cual se desea desplegar.&lt;/p&gt;
+&lt;h3 id="proceso-de-creación-y-despliegue"&gt;Proceso de creación y despliegue:
+&lt;/h3&gt;&lt;p&gt;La secuencia de pasos del proceso sería la siguiente:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Inicializar ejecutando manualmente en la shell un &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Tras ello, terraform ejecuta el comando &lt;code&gt;packer build&lt;/code&gt; que se encarga de levantar toda la infraesturctura necesaria y la máquina que utilizá para la creación de la imagen. En el caso de Azure, en esta máquina se instala un Ansible y este se autoaprovisiona ejecutando un playbook y una serie de task definidos en él. En el caso de AWS, se ejecutan los mismos pasos pero en vez de con un Ansible directamente de forma manual con un scripting en Bash. El aprovisionamiento se basa entre otras cosas en la instalación y gestión de los servicios: Nodejs, Nginx, pm2 y App.js en la instancia que crea la imagen.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nodejs:&lt;/strong&gt; Proporciona un entorno con todo lo necesario para que la aplicación ejecute y funcione correctamente.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx:&lt;/strong&gt; servidor web que se encargará de redirijir todo el tráfico a la aplicación y de reenviar sus respuestas. Muy importante su configuración para que cuando se despliegue la iamgen el servidor esté activo y correctamente configurado para que sirva a la app. Pasa el tráfico del puerto 80 al 3000 (donde escucha la app.js)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PM2:&lt;/strong&gt; gestor de procesos de Nodejs que sirve para asegurar que la app.js esté activa cuando se despliegue la imagen sin tener que hacer nada más. (especialmente delicada este paso).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;App.js&lt;/strong&gt;: aplicación central y funcional de la imagen, es importante trasferir el código fuente de la app para que sea accesible por la instancia que crea la imagen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;Tras esto, Packer crea la imagen y destruye toda la infraestructura que ha necesitado levantar en el proveedor correspondiente de cloud.&lt;/li&gt;
+&lt;li&gt;Terraform tras esperar que la creación de la imagen finalice correctamente, levanta toda la infraestructura necesaria (par de claves, grupo de seguridad, disco&amp;hellip;) para levantar una instancia a partir de esta imagen.&lt;/li&gt;
+&lt;li&gt;Una vez terminado el despliegue, está instancia es accesible a través de internet a raiz de la ip pública.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En definitiva, solo ejecutando un: &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; despliegas todo un entorno web funcional y accesible desde internet en la nube pública de Azure y AWS. Y además creas una imagen reutilizable para poder desplegar más instancias idénticas a estas en un futuro de una forma mucho más rápida y seguro ante posibles errores humanos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="contenido-del-repositorio-y-ficheros-del-proyecto"&gt;Contenido del repositorio y ficheros del proyecto:
+&lt;/h3&gt;&lt;p&gt;El repositorio de GiHub se compone de dos directorios principales con dos versiones distintas: &lt;code&gt;/version-2&lt;/code&gt; y &lt;code&gt;/version-3.1&lt;/code&gt;
+El directorio totalmente funcional y que contiene la ultima version del proyecto es el segundo (&lt;code&gt;/version-3.1&lt;/code&gt;). Este es el directorio donde hay que ubicarse para desplegar el &lt;code&gt;terraform init &amp;amp;&amp;amp; terraform apply&lt;/code&gt; (&lt;code&gt;cd version-3.1/te*&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Explicando brevemente el contenido del directorio:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/&lt;/code&gt;: directorio donde se encuentra todo el contenido necesario para la ejecución de Packer y para que pueda construir la imagen.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/packer/main.pkr.hcl&lt;/code&gt;: fichero principal de Packer donde se definen todos los recursos necesarios para contruir la imagen asi como defino todas las variables que van a utilizar.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/variables.pkrvars.hcl&lt;/code&gt;: fichero donde les asigno valores a todos las variables definidas en el &lt;code&gt;main.pkr.hcl&lt;/code&gt; menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores como variables de entorno de mi sistema operativo del host que utilizo para lanzar el terraform. Estos valores los paso como parámetros en el comando de &lt;code&gt;terraform apply&lt;/code&gt; y &lt;code&gt;packer build&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/packer/providers/&lt;/code&gt;: directorio donde podemos encontrar los ficheros auxiliares que sirven para crear la imagen como pueden ser, el fichero de configuración de apache (&lt;code&gt;nginx_default.conf&lt;/code&gt;), el playbook que define el aprovisionamiento con ansible (&lt;code&gt;provision.yml&lt;/code&gt;) y el código de la aplicación de nodejs (&lt;code&gt;app.js&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/&lt;/code&gt;: directorio donde se encuentra todo el contenido necesario para la ejecución de terraform y para que pueda desplegar toda la infraesturtura necesaria para el proyecto.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/terraform/main.tf&lt;/code&gt;: fichero principal de terraform, donde se define todo el flujo de proceso que debe seguir el despliegue y toda la infraestrutura a levantar.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/variables.tf&lt;/code&gt;: fichero donde se definen todas las variables utilizadas por terraform.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/terraform/terraform.tfvars&lt;/code&gt;: fichero donde se les da valor a todas las variables menos a las credenciales de las dos nubes que por seguridad, las defino y asigno valores en variables de entorno de mi sistema operativo del host desde donde lanzo el terraform. Estos valores los paso como parámetros en el comando de &lt;code&gt;terraform apply&lt;/code&gt; y &lt;code&gt;packer build&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../../p/imagen-multicloud-packer/ficheros.png"
+width="400"
+height="469"
+srcset="../../../p/imagen-multicloud-packer/ficheros_hu_7539b2c6371a97d9.png 480w, ../../../p/imagen-multicloud-packer/ficheros_hu_ac6cf45573bc6661.png 1024w"
+loading="lazy"
+alt="Contenido del directorio"
+class="gallery-image"
+data-flex-grow="85"
+data-flex-basis="204px"
+&gt;&lt;/p&gt;
+&lt;h3 id="contenido-del-packer-main"&gt;Contenido del Packer main:
+&lt;/h3&gt;&lt;p&gt;El contenido de este fichero se puede diferenciar en varias partes en las cuales se definen los siguientes componentes necesarios para la creación de la imagen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PLUGINS&lt;/strong&gt;: Define los plugins necesarios para la plantilla.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Definición de variables&lt;/strong&gt;: (no se les asigna valor aquí, solo alomejor el de por defecto)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BUILDER&lt;/strong&gt;: Define cómo se construye la AMI en AWS &amp;ndash;&amp;gt; &lt;code&gt;source{}&lt;/code&gt;&amp;ndash;&amp;gt; define el sistema base sobre el que quiero crear la imagen (ISO ubuntu) y el proveeedor para el que creamos la imagen (tecnologia con la que desplegará la imagen) &amp;ndash;&amp;gt; AMAZON. AZURE&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PROVISIONERS&lt;/strong&gt;: Configura el sistema operativo y la aplicación, como se va instalar y configurar el software &amp;ndash;&amp;gt; &lt;code&gt;build{}&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/CreateImages_Nginx-Nodejs_Packer&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h3&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/imagen-multicloud-packer/Act1_Packer_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/BhRB0716G5w"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue automatizado de entorno Wordpress con Ansible</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/wp-ansible/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/wp-ansible/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wp-ansible/wordpress-ansible.png" alt="Featured image of post Despliegue automatizado de entorno Wordpress con Ansible" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Herramientas de Automatización de Despliegues como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo principal del proyecto fue &lt;strong&gt;automatizar el despliegue en local de un entorno WordPress completo&lt;/strong&gt; utilizando &lt;strong&gt;Ansible y Vagrant&lt;/strong&gt;. Se implementó una arquitectura securizada optimizada mediante el uso de un &lt;strong&gt;Nginx como proxy inverso&lt;/strong&gt; que bloquea el tráfico destinado a ciertas rutas sensibles de administración de Wordpress.&lt;/p&gt;
+&lt;p&gt;Vagrant crea y levanta la máquina virtual, en la cual se instala Ansible. Luego, Ansible se autoaprovisiona y configura automáticamente todos los servicios necesarios, incluyendo Apache, MySQL, WordPress y Nginx, dejando el sistema completamente listo para su uso.&lt;/p&gt;
+&lt;h2 id="estructura-general-del-proyecto-de-aprovisionamiento-con-anisble"&gt;Estructura general del proyecto de aprovisionamiento con Anisble
+&lt;/h2&gt;&lt;p&gt;A continuación, se detalla la organización de los archivos y roles de Ansible, para facilitar la comprensión del funcionamiento general del proyecto:&lt;/p&gt;
+&lt;h3 id="playbook-principal-provisionplaybookyml"&gt;Playbook principal: provision/playbook.yml
+&lt;/h3&gt;&lt;p&gt;Este archivo actúa como el punto de inicio en Ansible. Desde aquí se incluyen los roles necesarios para configurar todos los componentes del entorno.
+En este caso, el código está dividido en cuatro roles: apache, mysql, wordpress y nginx, que se ejecutan en este orden.
+La instalación de PHP y sus módulos se ha decidido incluir directamente en este playbook, en lugar de crear un rol separado, ya que son solo unas pocas líneas de código.
+El orden de aprovisionamiento es el siguiente:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Módulos de PHP&lt;/li&gt;
+&lt;li&gt;Apache&lt;/li&gt;
+&lt;li&gt;MySQL&lt;/li&gt;
+&lt;li&gt;WordPress&lt;/li&gt;
+&lt;li&gt;Nginx&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="gestión-de-variables-con-ansible"&gt;Gestión de variables con Ansible
+&lt;/h3&gt;&lt;p&gt;En lugar de usar Hiera como con &lt;strong&gt;Puppet&lt;/strong&gt;, en Ansible se utilizan &lt;strong&gt;archivos YAML&lt;/strong&gt; dentro del directorio &lt;code&gt;group_vars/all.yml&lt;/code&gt;, lo que permite separar las variables del código principal.
+Esto asegura un enfoque más seguro, evitando exponer credenciales sensibles al subir el proyecto a un repositorio. Aunque este proyecto es académico y no incluye variables encriptadas, Ansible Vault permite cifrar variables si fuera necesario.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Las variables se declaran en: &lt;code&gt;group_vars/all.yml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Se utilizan plantillas Jinja2 (.j2) para inyectar valores dinámicos en los archivos de configuración.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="roles-en-ansible"&gt;Roles en Ansible
+&lt;/h3&gt;&lt;p&gt;Para organizar mejor los manifiestos y ficheros auxiliares que necesita Ansible para la automatización de la configuración de la infraestructura, dividí el contenido en &lt;strong&gt;cuatro roles principales en Ansible&lt;/strong&gt;, cada uno encargado de una parte del sistema. Esto permite &lt;strong&gt;modularidad, reutilización de código y una mejor organización&lt;/strong&gt; del playbook.&lt;/p&gt;
+&lt;h4 id="rol-apache"&gt;Rol Apache
+&lt;/h4&gt;&lt;p&gt;Con este rol, Ansible instala y configura el servidor web Apache, que actúa como backend para servir WordPress. Apache solo es accesible desde la propia máquina virtual, ya que Nginx actuará como proxy inverso.&lt;/p&gt;
+&lt;p&gt;Las principales tareas que realiza son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar Apache y asegurarse de que el servicio esté activo.&lt;/li&gt;
+&lt;li&gt;Eliminar la página por defecto de Apache.&lt;/li&gt;
+&lt;li&gt;Configurar Apache para escuchar en &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt;.
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Configurar el puerto de escucha en &lt;strong&gt;127.0.0.1:8080&lt;/strong&gt; significa que &lt;strong&gt;Apache solo aceptará conexiones desde procesos locales en la misma máquina&lt;/strong&gt; donde se ejecuta. &lt;strong&gt;La dirección 127.0.0.1 es la dirección de loopback (localhost)&lt;/strong&gt;, lo que impide el acceso desde otras máquinas en la red. Esto es útil cuando Apache está detrás de un proxy inverso, como Nginx, que gestiona las conexiones externas y reenvía las solicitudes a Apache en el puerto 8080.&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Copiar la configuración personalizada desde una plantilla Jinja2 (&lt;code&gt;wp-apache-config.conf.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Habilitar el nuevo sitio y reiniciar Apache automáticamente.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Con esta configuración, Apache se mantiene aislado de accesos directos, asegurando que solo pueda ser consultado a través de Nginx.&lt;/p&gt;
+&lt;h4 id="rol-mysql"&gt;Rol MySQL
+&lt;/h4&gt;&lt;p&gt;En este rol Ansible aprovisiona la máquina virtual de una bd MySQL para garantizar el correcto almacenamiento y acceso a los datos de WordPress.&lt;/p&gt;
+&lt;p&gt;Las principales tareas que realiza son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar el servidor MySQL.&lt;/li&gt;
+&lt;li&gt;Crear la base de datos necesaria para WordPress.&lt;/li&gt;
+&lt;li&gt;Configurar el usuario y asignarle los permisos adecuados.&lt;/li&gt;
+&lt;li&gt;Ejecutar un script de inicialización (&lt;code&gt;init-wordpress.sql.j2&lt;/code&gt;) para preparar la base de datos con la estructura y datos iniciales.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este rol garantiza que la base de datos esté lista y correctamente configurada antes de que WordPress intente conectarse más adelante al ejecutar su rol.&lt;/p&gt;
+&lt;h4 id="rol-wordpress"&gt;Rol WordPress
+&lt;/h4&gt;&lt;p&gt;Este rol automatiza la instalación y configuración de WordPress, asegurando un despliegue funcional y listo para su uso.&lt;/p&gt;
+&lt;p&gt;Las tareas clave que realiza incluyen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Descargar y extraer WordPress en /var/www/html/wordpress.&lt;/li&gt;
+&lt;li&gt;Crear y configurar el archivo wp-config.php usando una plantilla (&lt;code&gt;wp-config.php.j2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Asegurar los permisos correctos para WordPress (&lt;code&gt;chown -R www-data:www-data&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Instalar wp-cli y usarlo para configurar WordPress automáticamente.&lt;/li&gt;
+&lt;li&gt;Inicializar la base de datos con un contenido mínimo utilizando &lt;code&gt;init-wordpress-content.sql.j2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Configurar Apache para servir el contenido de WordPress.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Con este rol, WordPress se instala, se configura automáticamente y se deja listo para su uso, sin necesidad de ninguna intervención manual.&lt;/p&gt;
+&lt;h4 id="rol-nginx"&gt;Rol Nginx
+&lt;/h4&gt;&lt;p&gt;Este rol implementa &lt;strong&gt;Nginx como proxy inverso&lt;/strong&gt;, formando la primera capa de defensa del sistema. Su función principal es gestionar las solicitudes entrantes y bloquear accesos no deseados.&lt;/p&gt;
+&lt;p&gt;Las principales acciones realizadas son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalar Nginx en la máquina virtual.&lt;/li&gt;
+&lt;li&gt;Configurar Nginx como proxy inverso, redirigiendo las solicitudes a Apache en el puerto 8080.&lt;/li&gt;
+&lt;li&gt;Bloquear el acceso a rutas sensibles como &lt;code&gt;/wp-admin&lt;/code&gt; y &lt;code&gt;/wp-login.php&lt;/code&gt; para aumentar la seguridad.&lt;/li&gt;
+&lt;li&gt;Optimizar la entrega de archivos estáticos (CSS, JS, imágenes) directamente desde Nginx, mejorando el rendimiento.&lt;/li&gt;
+&lt;li&gt;Deshabilitar la página por defecto de Nginx y habilitar una configuración específica para WordPress.&lt;/li&gt;
+&lt;li&gt;Reiniciar Nginx automáticamente después de aplicar la configuración.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;¿Por qué es importante Nginx en este proyecto?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Protege Apache al actuar como único punto de acceso externo, evitando ataques directos.&lt;/li&gt;
+&lt;li&gt;Mejora la seguridad bloqueando accesos a rutas críticas de administración.
+Con esta configuración, Nginx filtra el tráfico y solo permite solicitudes seguras a WordPress, fortaleciendo la infraestructura del sistema.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="../../../p/wp-ansible/roles.png"
+width="382"
+height="700"
+srcset="../../../p/wp-ansible/roles_hu_79ce48b7c8b83a2a.png 480w, ../../../p/wp-ansible/roles_hu_d1f585e8f9a39b25.png 1024w"
+loading="lazy"
+alt="Estructura de directorios"
+class="gallery-image"
+data-flex-grow="54"
+data-flex-basis="130px"
+&gt;&lt;/p&gt;
+&lt;h2 id="arquitectura-del-sistema"&gt;Arquitectura del sistema
+&lt;/h2&gt;&lt;h3 id="proceso-de-una-solicitud-y-flujo-de-datos"&gt;&lt;strong&gt;Proceso de una solicitud y flujo de datos&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Cuando un usuario accede a WordPress, la solicitud sigue el siguiente flujo:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;El usuario accede a WordPress desde un navegador.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx recibe la solicitud en el puerto 80&lt;/strong&gt; y decide si la bloquea o la reenvía a Apache.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Si la solicitud es válida&lt;/strong&gt;, Nginx la reenvía a &lt;strong&gt;Apache en &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache procesa la solicitud&lt;/strong&gt;, ejecutando los scripts PHP de WordPress.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Si la página requiere datos de la base de datos&lt;/strong&gt;, Apache consulta MySQL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache devuelve la respuesta generada a Nginx&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nginx envía la respuesta al usuario&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Esto asegura que &lt;strong&gt;Apache solo sea accesible desde la propia máquina&lt;/strong&gt;, mientras que Nginx actúa como la primera línea de defensa.&lt;/p&gt;
+&lt;h3 id="comunicación-entre-nginx-y-apache"&gt;&lt;strong&gt;Comunicación entre Nginx y Apache&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Para entender mejor cómo se conectan ambos servidores, es importante conocer cómo funcionan sus &lt;strong&gt;puertos e IPs&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nginx escucha en &lt;code&gt;0.0.0.0:80&lt;/code&gt;&lt;/strong&gt;, lo que significa que acepta conexiones al puerto 80 y hacia cualquier IP que identifique la máquina que lo ejecuta.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apache escucha en &lt;code&gt;127.0.0.1:8080&lt;/code&gt;&lt;/strong&gt;, lo que significa que con este proceso solo se pueden comunicar otros procesos desde la misma máquina y que manden tráfico a esa ip y al puerto 8080.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;127.0.0.1&lt;/code&gt; es la dirección de loopback&lt;/strong&gt;, usada para comunicación interna dentro de la misma máquina.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;El tráfico externo nunca llega directamente a Apache&lt;/strong&gt;, ya que Nginx actúa como intermediario.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Beneficio clave:&lt;/strong&gt; Si alguien intenta acceder a Apache directamente desde otra máquina, la conexión será rechazada porque &lt;strong&gt;Apache no está expuesto a la red&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="conclusión"&gt;Conclusión
+&lt;/h2&gt;&lt;p&gt;En definitiva, simplemente ubicándose en la consola en el directorio donde se encuentra el &lt;strong&gt;Vagrantfile&lt;/strong&gt; y ejecutando un simple &lt;code&gt;vagrant up&lt;/code&gt;, se despliega automáticamente un entorno WordPress funcional, personalizado y seguro, accesible desde un cliente web en &lt;code&gt;http://192.168.55.10&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/wordpress_ansible" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/wordpress_ansible&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h2&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/wordpress-ansible/Act3_Wordpress_Ansible_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/lksomzUvzA0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue automatizado de Wordpress usando Vagrant y Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/wordpress-puppet/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/wordpress-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/wordpress-puppet/wordpress-puppet.png" alt="Featured image of post Despliegue automatizado de Wordpress usando Vagrant y Puppet" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo principal de este proyecto es desplegar de forma automática un entorno web de prueba con un servicio WordPress personalizado, utilizando Vagrant como herramienta de Infraestructura como Código (IaC) y Puppet para su aprovisionamiento automatizado.
+Simplemente ejecutando en la terminal el comando &lt;code&gt;vagrant up&lt;/code&gt; en el directorio donde se encuentra el Vagrantfile, se despliega todo el entorno sin necesidad de realizar configuraciones adicionales.
+Antes de poder desplegar un servicio web de WordPress, es necesario llevar a cabo varias tareas de aprovisionamiento y configuración previas, entre ellas están:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Instalar, configurar y levantar un servidor web Apache para redirigir y servir todo el contenido.&lt;/li&gt;
+&lt;li&gt;Instalar todos los paquetes y módulos específicos de PHP requeridos por WordPress.&lt;/li&gt;
+&lt;li&gt;Instalar, configurar y levantar una base de datos MySQL que será utilizada por WordPress para la persistencia de sus datos.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Para verificar el correcto funcionamiento, basta con acceder a &lt;code&gt;localhost:8080&lt;/code&gt; desde el navegador.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/WordPress_deployment-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/WordPress_deployment-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;El proyecto incluye dos versiones diferentes de entorno, organizadas en directorios separados:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-two-nodes&lt;/code&gt;
+En esta versión se despliegan tres nodos Puppet: un Puppet Master y dos Puppet Client.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cada cliente (nodo) aloja un entorno de WordPress, aprovisionado con las directivas enviadas desde el Puppet Master. Cada min de forma automática los puppet clients solicitan la nueva configuracon de puppet si la hubiera mediante una tarea cron.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/puppet-one-node&lt;/code&gt;
+En esta versión se levanta únicamente una máquina virtual (MV) con un cliente Puppet que se autoaprovisiona, sin necesidad de un Puppet Master.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="versión-de-autoaprovisionamiento-puppet-one-node"&gt;Versión de autoaprovisionamiento: puppet-one-node
+&lt;/h2&gt;&lt;p&gt;En esta version del entorno se levanta solo una mv, un puppet agente/cliente que se autoaprovisiona sin necesidad de ningún nodo master. Todo el proceso de despliegue se hace totalmente de forma automática.&lt;/p&gt;
+&lt;h3 id="puppet-one-node-vagrantfile"&gt;puppet-one-node: Vagrantfile
+&lt;/h3&gt;&lt;p&gt;El Vagrantfile define la configuración básica de la máquina virtual (MV) para crear un entorno de infraestructura como código (IaC). Se especifica la caja base de Ubuntu que se utilizará, las opciones de red (incluyendo el redireccionamiento de puertos y la asignación de una IP privada), y se asigna 1024 MB de memoria RAM a la MV. Además, se instala Puppet en modo agente, eliminando la necesidad de un servidor Puppet maestro, y se configura para utilizar el manifiesto principal &lt;code&gt;default.pp&lt;/code&gt;, los módulos desde el directorio &lt;code&gt;modules&lt;/code&gt; y el archivo de configuración de Hiera &lt;code&gt;hiera.yaml&lt;/code&gt; para gestionar datos de forma centralizada.&lt;/p&gt;
+&lt;h2 id="versión-de-arquitectura-cliente-servidor-puppet-two-nodes"&gt;Versión de arquitectura cliente-servidor: puppet-two-nodes
+&lt;/h2&gt;&lt;p&gt;En esta version del entorno se levantan 3 mvs, un puppet master y dos puppet clients. De forma automática se levantan las mvs y se instalan sus correspondientes versiones de puppet (al nodo master se instala el master y asi).
+Una vez que se levanta el nodo cliente (que se levanta despues del master), nada mas que arranca envia su certificado al master (que lo conoce porque esta en su fichero puppet.config).
+De forma &lt;strong&gt;MANUAL&lt;/strong&gt; hay que realizar las distintas tareas de administración:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Lado del SERVER&lt;/strong&gt;:
+De forma manual, lo único que tiene que hacer el administrador de sistemas que se encargue de este entorno es hacer un:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca sign --all&lt;/code&gt; para firmar todos los certificados sin firmar que le han llegado (en este caso uno por cada nodo cliente) y mandarselos firmados a los clientes correspondientes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;De forma voluntaria pero recomendable a nivel de seguridad sobre todo en entornos más reales de producción, deberia de ejecutar &lt;strong&gt;antes&lt;/strong&gt; de firmarlos un:
+&lt;code&gt;sudo /opt/puppetlabs/bin/puppetserver ca list --all&lt;/code&gt; para listar todos los certificados y verificar que no firma un certificado que no deberia.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Lado del CLIENTE&lt;/strong&gt;:
+Una vez hecho esto en el server, al cliente correspondiente le debe de llegar su certificado ya firmado, con el que podrá comunicarse ante el nodo master y
+pedirle la configuraciones/aprovisionamiento de puppet ejecutando este comando: &lt;code&gt;sudo /opt/puppetlabs/bin/puppet agent --test&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="estructura-general-del-proyecto-de-aprovisionamiento-con-puppet"&gt;Estructura general del proyecto de aprovisionamiento con puppet
+&lt;/h2&gt;&lt;p&gt;A continuación, se detalla la organización de los archivos y módulos, lo que facilita la comprensión del funcionamiento general del proyecto:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Archivo principal&lt;/strong&gt;: &lt;code&gt;manifests/default.pp&lt;/code&gt;
+Este archivo actúa como el punto de inicio de Puppet. Desde aquí se importan los módulos necesarios para configurar todos los componentes del entorno. En este caso, el código está dividido en tres módulos: &lt;strong&gt;apache, mysql y wordpress&lt;/strong&gt;, que son ejecutados e importados en este orden. La instalación de PHP he decidido codificarla directamente en este módulo, sin añadir un módulo más simplemente para esto ya que son apenas 3 o 4 líneas de código. La instalación de estos componentes se hace en este orden: &lt;strong&gt;apache, php, mysql y wordpress&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Gestión de variables con Hiera&lt;/strong&gt;: &lt;code&gt;hiera.yaml, data/common.yaml&lt;/code&gt;
+Para gestionar las variables, se utiliza Hiera, lo que permite separar las claves del código fuente. Esto asegura un enfoque más seguro, ya que evita exponer credenciales sensibles al subir el proyecto a un repositorio en la nube. Aunque este proyecto es académico y no incluye variables encriptadas, Hiera también ofrece la posibilidad de encriptar claves.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las variables se declaran junto con sus valores en &lt;code&gt;data/common.yaml&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;El archivo &lt;code&gt;hiera.yaml&lt;/code&gt; configura el funcionamiento de Hiera.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Para integrar Hiera con Vagrant, se añade la línea &lt;code&gt;puppet.hiera_config_path = &amp;quot;hiera.yaml&amp;quot;&lt;/code&gt; en el Vagrantfile.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulos utilizados&lt;/strong&gt;:
+El proyecto está dividido en tres módulos principales, lo que garantiza modularidad y organización en el código:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo apache&lt;/strong&gt;
+Este módulo aprovisiona y configura el servidor web Apache en la MV, dejándolo preparado y activo para que el módulo wordpress pueda administrar y servir contenido desde él.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo mysql&lt;/strong&gt;
+En este módulo se instala y configura un servidor MySQL en la MV, asegurando el correcto funcionamiento del gestor de bases de datos. Además, se crea la base de datos necesaria para WordPress mediante el archivo &lt;code&gt;init-wordpress.sql.erb&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Módulo wordpress&lt;/strong&gt;
+Este módulo instala y configura WordPress, dejándolo completamente funcional. Las principales acciones realizadas son:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalación de los paquetes y dependencias de Wordpress y activación del servicio.&lt;/li&gt;
+&lt;li&gt;Configuración del archivo &lt;code&gt;wp-config.conf.erb&lt;/code&gt;, que configura el servicio, entre otras cosas, conecta WordPress con la base de datos y define claves de acceso generadas previamente.&lt;/li&gt;
+&lt;li&gt;Instalación y uso de la herramienta &lt;code&gt;wp-cli&lt;/code&gt; para automatizar la configuración del sitio web.&lt;/li&gt;
+&lt;li&gt;Inicialización de la base de datos mediante el archivo &lt;code&gt;init-wordpress-content.sql.erb&lt;/code&gt; con un contenido mínimo necesario para lanzar una página web.&lt;/li&gt;
+&lt;li&gt;Configuración de Apache para servir el contenido de la página, utilizando el archivo &lt;code&gt;wp-apache-config.conf.erb&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El servicio es accesible desde el host en &lt;code&gt;localhost:8080&lt;/code&gt; gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.&lt;/p&gt;
+&lt;p&gt;Despliegue del entorno en la versión puppet-one-node:
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/xQdjuHr-2-U"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;</description></item><item><title>Despliegue de servicio multicontenedor</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/multicapa-dockercompose/</link><pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/multicapa-dockercompose/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multi-layer-dockercompose/dockerCompose.png" alt="Featured image of post Despliegue de servicio multicontenedor" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Contenedores como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).
+El objetivo principal del presente proyecto es llevar a cabo el despliegue de una aplicación multicapa contruida encima de diversos contenedores orquestados y desplegados usando la tecnología de Docker compose.
+El despliegue se basa y es una continuación del proyecto &amp;ldquo;Dockerización de aplicación multicapa&amp;rdquo; ya subido a este portfolio.
+&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockercompose" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockercompose&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="memoria-del-proyecto"&gt;Memoria del proyecto:
+&lt;/h2&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/multicapa-dockerCompose/Act2_DockerCompose_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Dockerización de aplicación multicapa</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/multicapa-dockerizacion/</link><pubDate>Sat, 19 Apr 2025 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/multicapa-dockerizacion/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/multilayer-dockerisation/dockerizacion.png" alt="Featured image of post Dockerización de aplicación multicapa" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Contenedores como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).
+El objetivo principal del presente proyecto es llevar a cabo la dockerización de un aplicativo multicapa de carácter sencillo, diseñado con un enfoque pedagógico para ilustrar la arquitectura por capas y su despliegue mediante contenedores. Esta aplicación se ha concebido con tres capas diferenciadas: presentación web, lógica de negocio y persistencia de datos.
+A pesar de que inicialmente se planteó un stack de tipo MEAN (Mongo - Express – Angular - Node), la capa de presentación basada en Angular y Nginx no ha sido implementada en su totalidad. Por ello, la estructura final del proyecto queda configurada de la siguiente manera:&lt;/p&gt;
+&lt;p&gt;• Primera capa, capa de presentación: Nginx + Sitio web&lt;/p&gt;
+&lt;p&gt;• Segunda capa, capa de lógica de negocio: Aplicación app.js desarrollada utilizando Express sobre Node.js.&lt;/p&gt;
+&lt;p&gt;• Capa de persistencia: Implementada mediante MongoDB.&lt;/p&gt;
+&lt;p&gt;La funcionalidad del aplicativo es deliberadamente simple, con el objetivo de centrarse en la estructura y el despliegue. Se trata de una especie de &amp;ldquo;Hola Mundo&amp;rdquo;, en la que el cliente se conecta inicialmente a la capa de presentación (Nginx), que le entrega un fichero index.html.
+Este fichero contiene una llamada que provoca una segunda petición HTTP al mismo servidor Nginx, pero que es procesada de forma distinta en función del PATH de la solicitud.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../../p/multilayer-dockerisation/image-1.png"
+width="350"
+height="111"
+srcset="../../../p/multilayer-dockerisation/image-1_hu_c97b4990d7f9d4f5.png 480w, ../../../p/multilayer-dockerisation/image-1_hu_bd8b1e215da2610d.png 1024w"
+loading="lazy"
+alt="Index.html"
+class="gallery-image"
+data-flex-grow="315"
+data-flex-basis="756px"
+&gt;
+&lt;img src="../../../p/multilayer-dockerisation/image-2.png"
+width="460"
+height="332"
+srcset="../../../p/multilayer-dockerisation/image-2_hu_57e6612e699a0f29.png 480w, ../../../p/multilayer-dockerisation/image-2_hu_c647fd2f42f5c107.png 1024w"
+loading="lazy"
+alt="Nginx.conf"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Esta petición es redirigida hacia la capa de backend, donde se encuentra desplegada la aplicación Express.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../../p/multilayer-dockerisation/image-3.png"
+width="515"
+height="93"
+srcset="../../../p/multilayer-dockerisation/image-3_hu_40bd72a20f925c4b.png 480w, ../../../p/multilayer-dockerisation/image-3_hu_1938546d60b1eea0.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="553"
+data-flex-basis="1329px"
+&gt;&lt;/p&gt;
+&lt;p&gt;Desde allí, la aplicación trata de establecer conexión con la base de datos MongoDB.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../../p/multilayer-dockerisation/image-4.png"
+width="764"
+height="77"
+srcset="../../../p/multilayer-dockerisation/image-4_hu_eb9089e930e8b6bd.png 480w, ../../../p/multilayer-dockerisation/image-4_hu_ab5213d8bf1b585d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="992"
+data-flex-basis="2381px"
+&gt;&lt;/p&gt;
+&lt;p&gt;En función del resultado de dicha conexión, el backend responde al cliente con un mensaje en formato JSON, indicando si la conexión ha sido exitosa (&amp;ldquo;Hola mundo, conexión establecida correctamente&amp;rdquo;) o si ha ocurrido algún error.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../../../p/multilayer-dockerisation/image.png"
+width="1064"
+height="730"
+srcset="../../../p/multilayer-dockerisation/image_hu_d16c63b6a70c3a88.png 480w, ../../../p/multilayer-dockerisation/image_hu_92d8feaeffa86bea.png 1024w"
+loading="lazy"
+alt="Arquitectura"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt;
+&lt;a class="link" href="https://github.com/aleingmar/multi-layer-app-dockerisation" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/multi-layer-app-dockerisation&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="vídeo-de-la-experimentación-y-memoria-del-proyecto"&gt;Vídeo de la experimentación y memoria del proyecto:
+&lt;/h2&gt;&lt;p&gt;Documentación del proyecto: &lt;a class="link" href="../../../post/multicapa-dockerizacion/Act1_Dockerizacion_AlejandroIngles.pdf" &gt;&lt;strong&gt;Visualizar documentación en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/vvb0ahpH7mE"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue automatizado de Apache usando Vagrant y Puppet</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/apache-web-puppet/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/apache-web-puppet/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/apache-web-puppet/apache-puppet.png" alt="Featured image of post Despliegue automatizado de Apache usando Vagrant y Puppet" /&gt;&lt;p&gt;Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).&lt;/p&gt;
+&lt;p&gt;El objetivo del proyecto es desplegar y configurar de manera automatizada un entorno web en una máquina virtual que hospeda un servidor Apache, el cual sirve una página web básica. La máquina virtual se crea mediante IaC (Infrastructure as Code) con Vagrant, y para su aprovisionamiento se utiliza Puppet, que gestiona la instalación de Apache y la carga automática de un archivo HTML simple, creando así un servicio web funcional.&lt;/p&gt;
+&lt;p&gt;En definitiva, simplemente ejecutando un &lt;code&gt;vagrant up&lt;/code&gt; comienza todo el proceso de despliegue y aprovisionamiento y de forma automática (sin hacer nada más) se levanta una máquina virtual en la cual se instala puppet, se configura e instala un servidor web Apache para que se active y escuche el puerto 80 (http) de la Mv y para que devuelva una página web simple que se introduce en su interior.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repositorio de GitHub:&lt;/strong&gt; &lt;a class="link" href="https://github.com/aleingmar/deployment_apache-puppet-vagrant" target="_blank" rel="noopener"
+&gt;https://github.com/aleingmar/deployment_apache-puppet-vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;El repositorio de GiHub se compone de dos directorios con dos versiones distintas: /easy_mode y /hard_mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;En la primera carpeta (/easy_mode) se encuentra el proyecto de despliegue con una estructura simplificada. Esta versión no sigue una arquitectura ni una organización de código propias de proyectos de despliegue complejos, y la configuración de Apache es más básica.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En la segunda carpeta (/hard_mode) se utiliza un patrón de código más adecuado para Puppet, empleando, por ejemplo, módulos y otros elementos típicos de esta tecnología. Además, la configuración de Apache es más avanzada y detallada.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ambas versiones consiguen realizar el despliegue correctamente.&lt;/p&gt;
+&lt;p&gt;Explicando por ejemplo la versión sencilla (/easy_mode) un directorio donde se encuentra un fichero &amp;ldquo;Vagrantfile&amp;rdquo; y una carpeta &amp;ldquo;manifests&amp;rdquo; en cuyo interior se encuentra el fichero &amp;ldquo;apache.pp&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;En el Vagrantfile se define la infraestructura de máquinas virtuales que es necesaria desplegar para sustentar el servicio web. De esto se encarga Vagrant y por debajo, usa como proveedor de virtualización VirtualBox.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el Vagrantfile antes de indicarle a Vagrant que debe hacer el aprovisionamiento de la infraestructura usando Puppet, se ejecuta un script para instalar Puppet dentro de las máquinas virtuales. Puppet en este caso trabaja en modo stand-alone (sin seguir modelo cliiente-servidor).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el fichero &amp;ldquo;apache.pp&amp;rdquo; se define la configuración deseada para esta infraestructur y le sirve a Puppet de guía declarativa para desarrollar su trabajo. Como Puppet usa un lenguaje declarativo no se le indica como se quiere que se hagan las cosas, sino solo lo que se quiere conseguir y Puppet se encarga del resto.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El servicio es accesible desde el host en &lt;code&gt;localhost:8080&lt;/code&gt; gracias a la redirección del puerto 8080 del host al puerto 80 de la máquina virtual, donde Apache escucha las solicitudes HTTP entrantes.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/8K7JzFuzGvg"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Mi propio servidor RPI5</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/my-server/rasberry.png" alt="Featured image of post Mi propio servidor RPI5" /&gt;&lt;p&gt;Este proyecto consiste en conseguir alojar y gestionar de forma autónoma determinados servicios en mi propio servidor, una RasberryPi 5 de 8gb de Ram.&lt;/p&gt;
+&lt;p&gt;Para la administración y configuración tanto del servidor como de sus servicios alojados, accedo de forma remota a través del protocolo SSH.&lt;/p&gt;
+&lt;p&gt;El servidor está asociado a un dominio principal gestionado por &lt;strong&gt;DuckDNS&lt;/strong&gt;, lo que me permite acceder a los servicios de manera remota a través del navegador. Para evitar que la IP dinámica de mi red doméstica cambie y pierda el acceso al servidor cuento con un servicio que de forma autónoma actualiza automáticamente cada 5 minutos esta ip, asegurando que siempre esté correctamente sincronizada.&lt;/p&gt;
+&lt;p&gt;Para organizar los accesos mediante subdominios y asegurar la conexión a mis servicios mediante &lt;strong&gt;HTTPS&lt;/strong&gt;, utilizo &lt;strong&gt;Caddy&lt;/strong&gt; como servidor web, que actúa como intermediario y maneja los certificados TLS/SSL, garantizando un acceso seguro y sin complicaciones.&lt;/p&gt;
+&lt;p&gt;Además, he implementado un panel de control avanzado llamado &lt;strong&gt;Homarr&lt;/strong&gt;, que me proporciona una interfaz centralizada desde la cual puedo iniciar sesión y acceder fácilmente a los diferentes servicios desplegados en el servidor.&lt;/p&gt;
+&lt;p&gt;Todos los servicios alojados en el servidor incluyendo los mencionados anteriormente se alojan mediante &lt;strong&gt;contenedores Docker&lt;/strong&gt; y se organizan en subdominios específicos.
+En el momento que escribo esto, los servicios no mencionados que aloja el servidor son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Vaultwarden&lt;/strong&gt;: Un gestor de contraseñas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portainer&lt;/strong&gt;: Un gestor de contenedores con interfaz web.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pi-hole&lt;/strong&gt;: Un servicio de DNS bloqueador de anuncios.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WireGuard&lt;/strong&gt;: Un servicio VPN.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/ZHQXSUq01k0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue y creación de portfolio web con Hugo.</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/hugo-portfolio/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/hugo-portfolio/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/hugo-portfolio/hugo-portfolio.png" alt="Featured image of post Despliegue y creación de portfolio web con Hugo." /&gt;&lt;p&gt;Este proyecto tiene como objetivo crear un portfolio web para runir todos los proyectos que he desarrollado durante mi carrera académica y personal, desplegarlo en mi propio servidor RPI5 y hacerlo accesible de manera segura desde internet.&lt;/p&gt;
+&lt;h2 id="desarrollo-web"&gt;Desarrollo Web
+&lt;/h2&gt;&lt;p&gt;Para la construcción de mi portfolio elegí &lt;strong&gt;Hugo&lt;/strong&gt;, una plataforma de generación de sitios web estáticos que permite crear páginas modernas de frontend utilizando archivos &lt;strong&gt;Markdown&lt;/strong&gt;. La decisión de usar Hugo se basó en que ya había redactado una parte de mi portfolio en Obsidian, una herramienta (donde también se escribe en Markdown) que utilizo habitualmente para tomar notas y organizar mis apuntes. La capacidad de Hugo para aprovechar archivos en formato Markdown me permitió migrar este contenido fácilmente y enfocarme más en la calidad del contenido que en el desarrollo técnico.&lt;/p&gt;
+&lt;p&gt;El tema que seleccioné para mi portfolio es &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt;, debido a su formato limpio y moderno, que se ajusta perfectamente a la estructura y diseño que buscaba. Esta plantilla, con su enfoque en el rendimiento y la simplicidad, me permitió optimizar el desarrollo de mi portfolio sin necesidad de invertir demasiado tiempo en el diseño de la interfaz. Aun así, he programado nuevas funcionalidades que difieren del proyecto base open source para mi uso personal.&lt;/p&gt;
+&lt;h2 id="devops-y-despliegue"&gt;DevOps y Despliegue
+&lt;/h2&gt;&lt;p&gt;En cuanto al despliegue y la gestión operativa, mi portfolio está alojado en mi servidor Raspberry Pi 5 con 8 GB de RAM, lo que proporciona una solución eficiente y de bajo consumo energético. Para garantizar un entorno ordenado y aislado, utilizo Docker, donde el portfolio se ejecuta dentro de un contenedor. Esto me permite empaquetar la aplicación de forma independiente del resto del sistema, facilitando la gestión y evitando conflictos con otros servicios que corren en el mismo servidor.&lt;/p&gt;
+&lt;p&gt;El servidor web que gestiona las peticiones es &lt;strong&gt;Caddy&lt;/strong&gt;, una solución ligera que me permite asegurar la conexión con HTTPS de manera automática y redirigir el tráfico a los diferentes servicios que tengo desplegados. Además de mi propio portfolio, en otro contenedor también alojo el portfolio de un compañero de carrera. Para monitorizar el portfolio web utilizo Google Analytics 4 (GA4) lo que me permite ver estadísticas sobre los accesos al sitio web.&lt;/p&gt;
+&lt;p&gt;Para el desarrollo, suelo trabajar en local utilizando &lt;strong&gt;Visual Studio Code&lt;/strong&gt;, aunque en ocasiones utilizo &lt;strong&gt;GitHub Codespaces&lt;/strong&gt; cuando prefiero trabajar en un entorno remoto. El proceso de despliegue es sencillo: me conecto al servidor mediante SSH, realizo un pull de los últimos cambios desde GitHub y reinicio el contenedor Docker que ejecuta Hugo. Este flujo de trabajo está totalmente automatizado mediante un script de bash y un archivo Docker Compose, lo que simplifica el proceso de levantar la aplicación web con cada actualización.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proceso de despliegue de cambios en el portfolio web con script de bash:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/j6_zmGQ0YFM"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item><item><title>Despliegue de servicio web con EC2 AWS</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/aws-ec2-assb/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/aws-ec2-assb/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/aws-ec2-assb/aws-ec2.png" alt="Featured image of post Despliegue de servicio web con EC2 AWS" /&gt;&lt;p&gt;Este proyecto fue desarrollado para un trabajo de la asignatura Arquitecturas de Sistemas y Sistemas Distribuidos (ASSB) durante mi cuarto año de carrera. El objetivo principal era desplegar un servicio web funcional en un entorno en la nube utilizando los servicios de &lt;strong&gt;AWS&lt;/strong&gt;, manteniéndonos dentro de los límites del plan gratuito.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;El servicio web desplegado se conforma por un balancedor de carga que distribuye las solicitudes entre dos instancias de EC2, cada una con su propio servidor Apache y página web.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Las principales tareas realizadas incluyeron:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Control y creación de alertas de costes&lt;/strong&gt;: Configuración de alertas en AWS para asegurar que todas las operaciones se ajustaran al plan gratuito, evitando cargos adicionales no deseados.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Despliegue de instancias EC2&lt;/strong&gt;: Levantar dos instancias de &lt;strong&gt;EC2&lt;/strong&gt; y conectarnos a ellas mediante &lt;strong&gt;SSH&lt;/strong&gt;. En cada una de las instancias, instalar el servidor web &lt;strong&gt;Apache&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Configuración de servidores web Apache&lt;/strong&gt;: Configuración de los servicios de Apache en ambas instancias para que sirvieran una página web estática creada por mi mismo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Implementación de un balanceador de carga&lt;/strong&gt;: Despliegue de un balanceador de carga en AWS para distribuir de manera equitativa las peticiones entrantes entre los dos servidores Apache, optimizando la carga y asegurando una mayor disponibilidad.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="../../../post/aws-ec2-assb/assb-aes-ec2.pdf" &gt;&lt;strong&gt;Visualizar memoria en pdf&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Alejandro Inglés Martínez</title><link>https://aleingmar-pi-portfolio.pages.dev/es/tags/linux/</link><description>Recent content in Linux on Alejandro Inglés Martínez</description><generator>Hugo -- gohugo.io</generator><language>es</language><lastBuildDate>Thu, 01 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://aleingmar-pi-portfolio.pages.dev/es/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Mi propio servidor RPI5</title><link>https://aleingmar-pi-portfolio.pages.dev/es/p/my-server/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://aleingmar-pi-portfolio.pages.dev/es/p/my-server/</guid><description>&lt;img src="https://aleingmar-pi-portfolio.pages.dev/p/my-server/rasberry.png" alt="Featured image of post Mi propio servidor RPI5" /&gt;&lt;p&gt;Este proyecto consiste en conseguir alojar y gestionar de forma autónoma determinados servicios en mi propio servidor, una RasberryPi 5 de 8gb de Ram.&lt;/p&gt;
+&lt;p&gt;Para la administración y configuración tanto del servidor como de sus servicios alojados, accedo de forma remota a través del protocolo SSH.&lt;/p&gt;
+&lt;p&gt;El servidor está asociado a un dominio principal gestionado por &lt;strong&gt;DuckDNS&lt;/strong&gt;, lo que me permite acceder a los servicios de manera remota a través del navegador. Para evitar que la IP dinámica de mi red doméstica cambie y pierda el acceso al servidor cuento con un servicio que de forma autónoma actualiza automáticamente cada 5 minutos esta ip, asegurando que siempre esté correctamente sincronizada.&lt;/p&gt;
+&lt;p&gt;Para organizar los accesos mediante subdominios y asegurar la conexión a mis servicios mediante &lt;strong&gt;HTTPS&lt;/strong&gt;, utilizo &lt;strong&gt;Caddy&lt;/strong&gt; como servidor web, que actúa como intermediario y maneja los certificados TLS/SSL, garantizando un acceso seguro y sin complicaciones.&lt;/p&gt;
+&lt;p&gt;Además, he implementado un panel de control avanzado llamado &lt;strong&gt;Homarr&lt;/strong&gt;, que me proporciona una interfaz centralizada desde la cual puedo iniciar sesión y acceder fácilmente a los diferentes servicios desplegados en el servidor.&lt;/p&gt;
+&lt;p&gt;Todos los servicios alojados en el servidor incluyendo los mencionados anteriormente se alojan mediante &lt;strong&gt;contenedores Docker&lt;/strong&gt; y se organizan en subdominios específicos.
+En el momento que escribo esto, los servicios no mencionados que aloja el servidor son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Vaultwarden&lt;/strong&gt;: Un gestor de contraseñas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portainer&lt;/strong&gt;: Un gestor de contenedores con interfaz web.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pi-hole&lt;/strong&gt;: Un servicio de DNS bloqueador de anuncios.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WireGuard&lt;/strong&gt;: Un servicio VPN.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;WireGuard está integrado con Pi-hole. Esta configuración me permite no solo redirigir mi tráfico a través de mi servidor para asegurar mi conexión, sino también disfrutar de una navegación libre de anuncios, independientemente de dónde me encuentre.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/ZHQXSUq01k0"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;</description></item></channel></rss>
