@@ -12,7 +12,7 @@ tags:
     - Apache
     - VM's
     - VirtualBox
-weight: 50       # You can add weight to some posts to override the default sorting (date descending)
+weight: 7      # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 This project was developed for the Deployment Automation course, as part of the official university master's degree in Development and Operations (DevOps).

@@ -12,7 +12,7 @@ tags:
     - Apache
     - MV's
     - VirtualBox
-weight: 50       # You can add weight to some posts to override the default sorting (date descending)
+weight: 7      # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 Este proyecto fue desarrollado para la asignatura de Automatización de Despliegues, como parte del máster universitario oficial en Desarrollo y Operaciones (DevOps).

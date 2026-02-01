@@ -14,7 +14,7 @@ tags:
     - Docker
     - MVC
     - VSCode
-weight: 50       # You can add weight to some posts to override the default sorting (date descending)
+weight: 13       # You can add weight to some posts to override the default sorting (date descending)
 ---
 Este proyecto fue desarrollado para la asignatura de Codificación y gestión de información sanitaria (CGIS) durante mi tercer año de carrera. El objetivo principal del proyecto es diseñar, modelar y desarrollar una aplicación web para gestión las jornadas laborales del personal sanitario de una entidad hospitalaria. 
 
